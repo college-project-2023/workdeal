@@ -1,6 +1,4 @@
-
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { Signuptype } from './pages/sign-up-type'
 import './App.css';
 
 function App() {
@@ -8,7 +6,9 @@ function App() {
 
   return (
     <div className="App">
-      
+      <center>
+        <Signuptype/>
+      </center>
 
     </div>
   );

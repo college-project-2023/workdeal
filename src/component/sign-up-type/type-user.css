@@ -1,0 +1,21 @@
+.divtypeuser{
+    border: 2px;
+    padding: 25px;
+    margin: 20px;
+    border-style: solid;
+    border-color:gray;
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+}
+
+.divtypeuser:hover{
+    border-color: greenyellow;
+}
+
+.worker{
+    height: 100px;
+    width: 100px;
+    filter: grayscale(100%);
+    filter: brightness(0);
+}

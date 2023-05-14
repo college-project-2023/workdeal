@@ -1,16 +1,21 @@
 .divtypeuser{
-    border: 2px;
+    border: 1px;
     padding: 25px;
     margin: 20px;
     border-style: solid;
-    border-color:gray;
+    border-color:rgb(206, 206, 206);
     border-radius: 10px;
     height: fit-content;
     width: fit-content;
 }
 
 .divtypeuser:hover{
-    border-color: greenyellow;
+    border-color: rgb(40, 115, 119);
+    box-shadow: 0px 0px 5px rgb(31, 124, 105);
+}
+
+.divtypeuser:hover > img{
+    transform: scale(1.05);
 }
 
 .worker{
@@ -19,3 +24,4 @@
     filter: grayscale(100%);
     filter: brightness(0);
 }
+

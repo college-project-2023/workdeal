@@ -12,7 +12,7 @@ export const Signuptype = () => {
                 <Typeuser image='worker.png' name='I am worker, seeking for work'/>
                 <Typeuser image='user.png' name="I am client, looking for worker"/>
             </div>
-            <a id='txt_sign_up'>Welcome to the workdeal, we are herwe to serve you</a>
+            <a id='txt_sign_up'>Welcome to the workdeal, we are here to serve you</a>
         </div>
     )
   }

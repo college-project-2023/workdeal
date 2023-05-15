@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "author_img": "assets/images/blog/blog-author-1.jpg",
+    "img_thum": "assets/images/blog/blog-standard-1.jpg",
+    "auhtor_name": "Johan Martin JR",
+    "date": "25 January 2023",
+    "comment_number": "15",
+    "title": "Aliquam commodo suscipit voli neque. Ali quam erat utpat stret ghts.",
+    "description": "Gochujang ugh viral, butcher pabst put a bird on it meditation austin craft beer banh. Distillery ramps af, goch ujang hell of VHS kitsch austin. Vegan air plant trust fund."
+  },
+
+  {
+    "id": 2,
+    "author_img": "assets/images/blog/blog-author-1.jpg",
+    "img_thum": "assets/images/blog/blog-standard-2.jpg",
+    "auhtor_name": "Johan Martin JR",
+    "date": "15 January 2023",
+    "comment_number": "16",
+    "title": "Show Your House Some Love with These Cleaning Tips for the End of Winter.",
+    "description": "Gochujang ugh viral, butcher pabst put a bird on it meditation austin craft beer banh. Distillery ramps af, goch ujang hell of VHS kitsch austin. Vegan air plant trust fund."
+  },
+  {
+    "id": 3,
+    "author_img": "assets/images/blog/blog-author-1.jpg",
+    "img_thum": "assets/images/blog/blog-standard-3.jpg",
+    "auhtor_name": "Johan Martin JR",
+    "date": "8 January 2023",
+    "comment_number": "15",
+    "title": "New Year’s resolution: Stret ghts How to keep your home clean all year round.",
+    "description": "Gochujang ugh viral, butcher pabst put a bird on it meditation austin craft beer banh. Distillery ramps af, goch ujang hell of VHS kitsch austin. Vegan air plant trust fund."
+  }
+]

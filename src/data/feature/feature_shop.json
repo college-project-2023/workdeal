@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "img": "assets/images/shop/shop-1.png",
+    "service_count": "12 Services",
+    "tag": "Security",
+    "title": "Security Agency"
+  },
+  {
+    "id": 2,
+    "img": "assets/images/shop/shop-2.png",
+    "service_count": "12 Services",
+    "tag": "Gadgect",
+    "title": "Gadgect Repair"
+  },
+  {
+    "id": 3,
+    "img": "assets/images/shop/shop-3.png",
+    "service_count": "12 Services",
+    "tag": "Cleaning",
+    "title": "Cleaning Store"
+  },
+  {
+    "id": 4,
+    "img": "assets/images/shop/shop-4.png",
+    "service_count": "12 Services",
+    "tag": "Plumbing",
+    "title": "Plumbing Store "
+  }
+]

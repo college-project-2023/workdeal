@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "item_number": "100",
+    "serVice_img_1": "assets/images/cre-service/cre-service-1.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
+    "service_img_3": "assets/images/icons/category-icon-1.png",
+    "service_name": "House Sift",
+    "bg_name": "yellow"
+  },
+  {
+    "id": 2,
+    "item_number": "80",
+    "serVice_img_1": "assets/images/cre-service/cre-service-2.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-2.jpg",
+    "service_img_3": "assets/images/icons/category-icon-2.png",
+    "service_name": "Driver",
+    "bg_name": "cyan"
+  },
+  {
+    "id": 3,
+    "item_number": "300+",
+    "serVice_img_1": "assets/images/cre-service/cre-service-3.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-3.jpg",
+    "service_img_3": "assets/images/icons/category-icon-3.png",
+    "service_name": "Security",
+    "bg_name": "pink"
+  },
+  {
+    "id": 4,
+    "item_number": "50",
+    "serVice_img_1": "assets/images/cre-service/cre-service-4.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-4.jpg",
+    "service_img_3": "assets/images/icons/category-icon-4.png",
+    "service_name": "Car & Care",
+    "bg_name": "orange"
+  },
+  {
+    "id": 5,
+    "item_number": "150",
+    "serVice_img_1": "assets/images/cre-service/cre-service-5.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-2.jpg",
+    "service_img_3": "assets/images/icons/category-icon-5.png",
+    "service_name": "Gadgect Repaire",
+    "bg_name": "green"
+  },
+  {
+    "id": 6,
+    "item_number": "150",
+    "serVice_img_1": "assets/images/cre-service/cre-service-6.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
+    "service_img_3": "assets/images/icons/category-icon-1.png",
+    "service_name": "Home Clean",
+    "bg_name": "black"
+  }
+]

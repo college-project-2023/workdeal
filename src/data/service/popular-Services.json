@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "tag": "Saloon",
+    "thumb": "assets/images/services/service-1.jpg",
+    "author_thumb": "assets/images/services/service-author-2.png",
+    "author_name": "Egens Lab",
+    "title": "Sed Elit Massa, Maximus Quisen Fermentum Auctor.",
+    "price": "250"
+  },
+  {
+    "id": 2,
+    "tag": "Cleaning",
+    "thumb": "assets/images/services/service-2.jpg",
+    "author_thumb": "assets/images/services/service-author-2.png",
+    "author_name": "Finibus",
+    "title": "Cleaning & Renovation Services By Our Expert Cleaner.",
+    "price": "250"
+  },
+  {
+    "id": 3,
+    "tag": "Ac Repair",
+    "thumb": "assets/images/services/service-3.jpg",
+    "author_thumb": "assets/images/services/service-author-3.png",
+    "author_name": "Creasoft",
+    "title": "Nullam Dui Nulla, Lacinia Ac Masi Varius Sed Tempor Ac.",
+    "price": "250"
+  },
+  {
+    "id": 4,
+    "tag": "Spa & Beuty",
+    "thumb": "assets/images/services/service-4.jpg",
+    "author_thumb": "assets/images/services/service-author-4.png",
+    "author_name": "Isoteclin",
+    "title": "Aliquam Commodo Suscipit Vola Neque. Aliquam Erat Utpat.",
+    "price": "250"
+  },
+  {
+    "id": 5,
+    "tag": "House Sift",
+    "thumb": "assets/images/services/service-5.jpg",
+    "author_thumb": "assets/images/services/service-author-5.png",
+    "author_name": "Inflazyme",
+    "title": "Proin Eget Elit Elit. Sed Congueb Neque Vel Nulla Efficitur.",
+    "price": "250"
+  },
+  {
+    "id": 6,
+    "tag": "Electrician",
+    "thumb": "assets/images/services/service-3.jpg",
+    "author_thumb": "assets/images/services/service-author-6.png",
+    "author_name": "Nowonder",
+    "title": "Mauris Elit Lectus, Hendrerit Eui Quam At Lobortisi.",
+    "price": "250"
+  },
+  {
+    "id": 7,
+    "tag": "Engineer",
+    "thumb": "assets/images/services/service-7.jpg",
+    "author_thumb": "assets/images/services/service-author-3.png",
+    "author_name": "Egens Lab",
+    "title": "Lobortisi Proin Eget Elit Elit. Sed Congue Neque Vel.",
+    "price": "250"
+  },
+  {
+    "id": 8,
+    "tag": "Driver",
+    "thumb": "assets/images/services/service-8.jpg",
+    "author_thumb": "assets/images/services/service-author-2.png",
+    "author_name": "Finibus",
+    "title": "Sed Congue Proin Eget Elit Elit Quam At Lobortisi.",
+    "price": "250"
+  },
+  {
+    "id": 9,
+    "tag": "Cook",
+    "thumb": "assets/images/services/service-9.jpg",
+    "author_thumb": "assets/images/services/service-author-4.png",
+    "author_name": "Creasoft",
+    "title": "SProin Eget Elit Elit. Sed Congue Neque Vel.",
+    "price": "250"
+  },
+  {
+    "id": 10,
+    "tag": "Cleaning",
+    "thumb": "assets/images/services/service-10.jpg",
+    "author_thumb": "assets/images/services/service-author6.png",
+    "author_name": "Nowonder",
+    "title": "Aliquam Commodo Suscipit Voli Neque.",
+    "price": "250"
+  },
+  {
+    "id": 11,
+    "tag": "Cook",
+    "thumb": "assets/images/services/service-11.jpg",
+    "author_thumb": "assets/images/services/service-author1.png",
+    "author_name": "Inflazyme",
+    "title": "Nullam Dui Nulla, Lacinia Ac Tempor Ac Massa.",
+    "price": "250"
+  },
+  {
+    "id": 12,
+    "tag": "Cook",
+    "thumb": "assets/images/services/service-12.jpg",
+    "author_thumb": "assets/images/services/service-author3.png",
+    "author_name": "Nowonder",
+    "title": "Aliquam Commodo Suscipit Volineque. Aliquam Erat Utpat.",
+    "price": "250"
+  }
+]

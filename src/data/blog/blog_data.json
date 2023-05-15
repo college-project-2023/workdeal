@@ -1,0 +1,59 @@
+[
+  {
+    "id": "1",
+    "img": "assets/images/blog/blog-1.jpg",
+    "date": "6 April, 2023",
+    "title": "Praesent at sem mollis nisijabi elementum lectus.",
+    "description": "Aenean fermentum sapien ac aliquet thoseneni gravida. Fusce a ipsum metus answerala onike."
+  },
+  {
+    "id": "2",
+    "img": "assets/images/blog/blog-2.jpg",
+    "date": "6 April, 2023",
+    "title": "Cleaning & Renovation Service By Our Expert Cleaner.",
+    "description": "Aenean fermentum sapien ac aliquet thoseneni gravida. Fusce a ipsum metus answerala onike."
+  },
+  {
+    "id": "3",
+    "img": "assets/images/blog/blog-3.jpg",
+    "date": "6 April, 2023",
+    "title": "Donec at laoreet augue est ai Etiam nunc erat.",
+    "description": "Aenean fermentum sapien ac aliquet thoseneni gravida. Fusce a ipsum metus answerala onike."
+  },
+  {
+    "id": "4",
+    "img": "assets/images/blog/blog-4.jpg",
+    "date": "6 April, 2023",
+    "title": "New in the Shop : Glass Laundry Detergent Spray Bott."
+  },
+  {
+    "id": "5",
+    "img": "assets/images/blog/blog-5.jpg",
+    "date": "6 April, 2023",
+    "title": "What is the Multi-Surface Purpose Cleaning."
+  },
+  {
+    "id": "6",
+    "img": "assets/images/blog/blog-6.jpg",
+    "date": "6 April, 2023",
+    "title": "You might start with good intentions, but chaos."
+  },
+  {
+    "id": "7",
+    "img": "assets/images/blog/blog-7.jpg",
+    "date": "6 April, 2023",
+    "title": "The Fly Lady is part house cleaning tips blog, part club."
+  },
+  {
+    "id": "8",
+    "img": "assets/images/blog/blog-8.jpg",
+    "date": "6 April, 2023",
+    "title": "You can purchase books, checklists,"
+  },
+  {
+    "id": "9",
+    "img": "assets/images/blog/blog-9.jpg",
+    "date": "6 April, 2023",
+    "title": "Along the way, the Fly Lady teaches"
+  }
+]

@@ -10,8 +10,8 @@
 }
 
 .divtypeuser:hover{
-    border-color: rgb(40, 115, 119);
-    box-shadow: 0px 0px 5px rgb(31, 124, 105);
+    border-color: rgb(78, 239, 169);
+    box-shadow: 0px 0px 5px rgb(117, 255, 239);
 }
 
 .divtypeuser:hover > img{

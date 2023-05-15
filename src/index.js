@@ -2,13 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import { Signuptype } from './pages/sign-up-type'
+
+
+const Routing = () => {
+  return(
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<App/>} />
+        <Route path="/signup" element={<Signuptype/>} />
+      </Routes>
+    </Router>
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Routing/>
   </React.StrictMode>
+  
 );
 
 

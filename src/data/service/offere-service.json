@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "offer": "45% OFF",
+    "thumb": "assets/images/services/service-7.jpg",
+    "author_thumb": "assets/images/services/service-author-7.png",
+    "author_name": "Egens Lab",
+    "title": "Aliquam Commodo Suscipit Vola Neque. Aliquam Erat Utpat.",
+    "price": "250"
+  },
+  {
+    "id": "2",
+    "offer": "45% OFF",
+    "thumb": "assets/images/services/service-8.jpg",
+    "author_thumb": "assets/images/services/service-author-8.png",
+    "author_name": "Finibus",
+    "title": "Proin Eget Elit Elit. Sed Congueb Neque Vel Nulla Efficitur.",
+    "price": "250"
+  },
+  {
+    "id": "3",
+    "offer": "45% OFF",
+    "thumb": "assets/images/services/service-9.jpg",
+    "author_thumb": "assets/images/services/service-author-9.png",
+    "author_name": "Creasoft",
+    "title": "Mauris Elit Lectus, Hendrerit Eui Quam At Lobortisi.",
+    "price": "250"
+  }
+]

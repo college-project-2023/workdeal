@@ -173,16 +173,7 @@ function WhyChooseUs() {
                   <h5>Friendly Shop</h5>
                 </div>
               </div>
-              <img
-                src="assets/images/why-choose-dot-shape.png"
-                alt=""
-                className="shape-dot"
-              />
-              <img
-                src="assets/images/why-choose-shape.png"
-                alt=""
-                className="shape-triangle"
-              />
+              
             </div>
           </div>
         </div>

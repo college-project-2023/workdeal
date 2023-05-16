@@ -30,7 +30,7 @@ function Banner1() {
       border: "0px solid red",
       fontSize: 15,
       fontWeight: "500",
-      backgroundColor: "#ce1567",
+      backgroundColor: "#5bb543",
       minHeight: 55,
       outline: "none",
       borderRadius: 10,

@@ -79,13 +79,7 @@ function Header1() {
       ref={headerRef}
       // just use one header class for your project
       className={
-        currentRoute === "/"
-          ? "header-1 sticky_top"
-          : currentRoute === "/index2"
-          ? "header-2 sticky_top"
-          : currentRoute === "/index3"
-          ? "header-3 sticky_top"
-          : "header-2 sticky_top"
+        "header-1 sticky_top"
       }
     >
       <div className="header-logo">
@@ -93,13 +87,7 @@ function Header1() {
           <a>
             <img
               src={
-                currentRoute === "/"
-                  ? "assets/images/logo.svg"
-                  : currentRoute === "/index2"
-                  ? "assets/images/home2/logo.svg"
-                  : currentRoute === "/index3"
-                  ? "assets/images/home3/logo.svg"
-                  : "assets/images/home2/logo.svg"
+                "assets/images/logo.svg"
               }
               alt=""
             />
@@ -113,13 +101,7 @@ function Header1() {
               <a>
                 <img
                   src={
-                    currentRoute === "/"
-                      ? "assets/images/logo.svg"
-                      : currentRoute === "/index2"
-                      ? "assets/images/home2/logo.svg"
-                      : currentRoute === "/index3"
-                      ? "assets/images/home3/logo.svg"
-                      : "assets/images/home2/logo.svg"
+                    "assets/images/logo.svg"
                   }
                   alt=""
                 />
@@ -132,41 +114,10 @@ function Header1() {
           <ul>
             <li className="has-child active">
               <Link legacyBehavior href="/">
-                <a>Home</a>
+                <a className={currentRoute === "/" ? "active" : ""}>
+                  Home
+                </a>
               </Link>
-              <i
-                className="bi bi-chevron-down"
-                onClick={() => handleMenu("home-one")}
-              />
-              <ul
-                className={
-                  state.activeMenu === "home-one"
-                    ? "sub-menu d-block"
-                    : "sub-menu"
-                }
-              >
-                <li>
-                  <Link legacyBehavior href="/">
-                    <a className={currentRoute === "/" ? "active" : ""}>
-                      Home 01
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/index2">
-                    <a className={currentRoute === "/index2" ? "active" : ""}>
-                      Home 02
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/index3">
-                    <a className={currentRoute === "/index3" ? "active" : ""}>
-                      Home 03
-                    </a>
-                  </Link>
-                </li>
-              </ul>
             </li>
             <li>
               <Link legacyBehavior href="/about">
@@ -175,143 +126,23 @@ function Header1() {
                 </a>
               </Link>
             </li>
-            <li className="has-child">
+            <li >
               <Link legacyBehavior href="/service">
                 <a className={currentRoute === "/service" ? "active" : ""}>
                   Services
                 </a>
               </Link>
-              <i
-                className="bi bi-chevron-down"
-                onClick={() => handleMenu("service")}
-              />
-              <ul
-                className={
-                  state.activeMenu === "service"
-                    ? "sub-menu d-block"
-                    : "sub-menu"
-                }
-              >
-                <li>
-                  <Link legacyBehavior href="/service">
-                    <a className={currentRoute === "/service" ? "active" : ""}>
-                      Services
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/service-details">
-                    <a
-                      className={
-                        currentRoute === "/service-details" ? "active" : ""
-                      }
-                    >
-                      Service Details
-                    </a>
-                  </Link>
-                </li>
-              </ul>
             </li>
-            <li className="has-child">
-              <Link legacyBehavior href="/blog">
-                <a>Blogs</a>
+            <li>
+              <Link legacyBehavior href="/blog-standard">
+                <a
+                  className={
+                    currentRoute === "/blog-standard" ? "active" : ""
+                  }
+                >
+                  What's going on
+                </a>
               </Link>
-              <i
-                className="bi bi-chevron-down"
-                onClick={() => handleMenu("blog")}
-              />
-              <ul
-                className={
-                  state.activeMenu === "blog" ? "sub-menu d-block" : "sub-menu"
-                }
-              >
-                <li>
-                  <Link legacyBehavior href="/blog">
-                    <a className={currentRoute === "/blog" ? "active" : ""}>
-                      Blog
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-sidebar">
-                    <a
-                      className={
-                        currentRoute === "/blog-sidebar" ? "active" : ""
-                      }
-                    >
-                      Blog Sidebar
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-standard">
-                    <a
-                      className={
-                        currentRoute === "/blog-standard" ? "active" : ""
-                      }
-                    >
-                      Blog Standard
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/blog-details">
-                    <a
-                      className={
-                        currentRoute === "/blog-details" ? "active" : ""
-                      }
-                    >
-                      Blog Details
-                    </a>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className="has-child">
-              <a href="#">Pages</a>
-              <i
-                className="bi bi-chevron-down"
-                onClick={() => handleMenu("pages")}
-              />
-              <ul
-                className={
-                  state.activeMenu === "pages" ? "sub-menu d-block" : "sub-menu"
-                }
-              >
-                <li>
-                  <Link legacyBehavior href="/login">
-                    <a className={currentRoute === "/login" ? "active" : ""}>
-                      Login
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/sign-up">
-                    <a className={currentRoute === "/sign-up" ? "active" : ""}>
-                      Sign Up
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/error">
-                    <a>Error 404</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/faq">
-                    <a className={currentRoute === "/faq" ? "active" : ""}>
-                      FAQs
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link legacyBehavior href="/account">
-                    <a className={currentRoute === "/account" ? "active" : ""}>
-                      My Account
-                    </a>
-                  </Link>
-                </li>
-              </ul>
             </li>
             <li>
               <Link legacyBehavior href="/contact">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Select from "react-select";
+import axios from "axios";
 function Banner1() {
   const [selectedOption, setSelectedOption] = useState(null);
   const options = [
@@ -110,12 +111,12 @@ function Banner1() {
                 </div>
                 <div className="location-form">
                   <form action="#" method="post">
-                    <input
+                    <input 
                       type="text"
                       name="location"
                       placeholder="Find Your Services Here"
                     />
-                    <button type="submit">
+                    <button  type="submit">
                       <i className="bi bi-search" />
                     </button>
                   </form>

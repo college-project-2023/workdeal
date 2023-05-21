@@ -4,12 +4,21 @@ import Order from "../components/acount/Order";
 import UserProfile from "../components/acount/UserProfile";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import { auth } from '../firebase/firebase'
+import { signOut } from "firebase/auth";
+
 function Accountpage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
+
+  async function logout(){
+    await auth.signOut().then(()=>{
+      window.location="/"
+    })
+  }
 
   return (
     <Layout>
@@ -272,7 +281,7 @@ function Accountpage() {
                   id="v-pills-logout"
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
-                />
+                ><input type="button" onClick={logout} value="logout"/></div>
               </div>
             </div>
           </div>

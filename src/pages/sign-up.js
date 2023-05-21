@@ -2,12 +2,51 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import {auth} from '../firebase/firebase'
+import {createUserWithEmailAndPassword} from 'firebase/auth'
+import axios from "axios";
+import { Redirect } from "next";
+import { useRouter } from "next/router";
 
 function SignUpPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
+  const [email,setEmail] = useState();
+  const [password,setPassword] = useState();
+  const [fname,setFname] = useState();
+  const [lname,setLname] = useState();
+
+
+
+const register = async () => {
+
+
+  if(email!=null && email!="" && password!=null && password!="" && fname!=null && fname!="" && lname!=null && lname!="") {
+    if (document.getElementById("check_terms_signup").checked){
+      // Create a new user with email and password using firebase
+      createUserWithEmailAndPassword(auth, email, password)
+      .then(async (res) => {
+          console.log(res.user)
+          await axios.post("http://localhost:5000/create-user",{
+            email:email,fname:fname,lname:lname
+          }).then((res)=>{
+            if(res.status==200){
+              document.getElementById('txt_for_login').click();
+            }
+          })
+        })
+      .catch(err => window.alert(err))
+    }else{
+      window.alert("please accept the terms")
+    }
+    
+  }else{
+    window.alert("enter all fields")
+  }
+}
+
   return (
     <Layout>
       <Breadcrumb pageName="Sign Up" pageTitle="Sign Up" />
@@ -18,10 +57,10 @@ function SignUpPage() {
             <span>
               Do you already have an account?{" "}
               <Link legacyBehavior href="/login">
-                <a>Log in here</a>
+                <a id='txt_for_login'>Log in here</a>
               </Link>
             </span>
-            <form>
+            <form >
               <div className="row">
                 <div className="col-md-6">
                   <label htmlFor="fname">
@@ -31,6 +70,9 @@ function SignUpPage() {
                       name="fname"
                       id="fname"
                       placeholder="First Name"
+                      onChange={ e => {
+                        setFname(e.target.value)
+                      }}
                     />
                   </label>
                 </div>
@@ -42,6 +84,9 @@ function SignUpPage() {
                       name="lname"
                       id="lname"
                       placeholder="last Name"
+                      onChange={ e => {
+                        setLname(e.target.value)
+                      }}
                     />
                   </label>
                 </div>
@@ -53,6 +98,9 @@ function SignUpPage() {
                       name="email"
                       id="email"
                       placeholder="Your Email Here"
+                      onChange={ e => {
+                        setEmail(e.target.value)
+                      }}
                     />
                   </label>
                   <label htmlFor="password">
@@ -71,17 +119,20 @@ function SignUpPage() {
                       name="email"
                       id="password"
                       placeholder="Type Your Password"
+                      onChange={ e => {
+                        setPassword(e.target.value)
+                      }}
                     />
                   </label>
                 </div>
               </div>
               <div className="terms-forgot">
                 <p>
-                  <input type="checkbox" name="agree" />I agree to the{" "}
+                  <input type="checkbox" name="agree" id="check_terms_signup"/>I agree to the{" "}
                   <a href="#">Terms &amp; Policy</a>
                 </p>
               </div>
-              <input type="submit" defaultValue="Create Account" />
+              <input type="button" defaultValue="Create Account" onClick={ register } className="btn_create_account" />
             </form>
             <div className="other-signup">
               <h4>or Sign up WITH</h4>

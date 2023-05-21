@@ -1,14 +1,18 @@
+import Link from 'next/link';
 import React from 'react';
-import './type-user.css';
 
 export const Typeuser = (props) => {
 
+
+
   return (
     <div>
-      <div className='divtypeuser'>
-        <img src={props.image} className='worker'/>
-        <h5>{props.name}</h5>
-      </div>
+      <Link legacyBehavior href="/sign-up">
+        <div className='divtypeuser'>
+          <img src={props.image} className='worker'/>
+          <h5 id='txt_type_user_text'>{props.name}</h5>
+        </div>
+      </Link>
     </div>
   )
 }

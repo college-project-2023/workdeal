@@ -3,9 +3,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const Router = require("./routes/routes.js")
 
+
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
+
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
@@ -22,6 +24,7 @@ app.use(express.json());
 
 
 app.use(Router);
+console.log("asd");
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

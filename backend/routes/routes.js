@@ -1,6 +1,6 @@
 const express = require("express");
 const userModel = require("../models/search");
-const UserClient = require("../model/search")
+const userClientModel = require("../models/userdataclient")
 const app = express();
 
 const middleware = (request,response,next) => {
@@ -9,11 +9,12 @@ const middleware = (request,response,next) => {
 
 middleware();
 
-app.post("/signup", async (request,response) => {
-  const signup = new UserClient(request.body);
+app.post("/create-user", async (request,response) => {
+  const signup = new userClientModel(request.body);
   try {
     await signup.save()
-    response.send(signup)
+    response.status(200).send(signup)
+    response.setHeader("location","/account")
   } catch (error){
     response.status(500).send(error);
   }
@@ -31,14 +32,4 @@ app.post("/add_user", async (request, response) => {
     }
 });
 
-app.get("/workdeal/search/name", async (request, response) => {
-    const users = await userModel.find({});
-  
-    try {
-      response.send(users);
-    } catch (error) {
-      response.status(500).send(error);
-    }
-  });
-
-  module.exports = app;
+module.exports = app;

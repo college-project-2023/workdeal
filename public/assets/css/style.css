@@ -1,3 +1,61 @@
+
+.maindiv{
+  border: 0px;
+  padding: 25px;
+  border-style: solid;
+  border-color:#5bb543;
+  margin: 50px;
+  border-radius: 10px;
+  box-shadow:  0 0 3px #5bb543;
+  height: fit-content;
+  width: fit-content;
+}
+
+#txt_sign_up{
+  font-size: small;
+}
+
+.typecontainer{
+  display: flex;
+  flex-shrink: inherit;
+  flex-wrap: wrap;
+}
+
+.divtypeuser{
+  border: 1px;
+  padding: 25px;
+  margin: 20px;
+  border-style: solid;
+  border-color:#5bb543;
+  border-radius: 10px;
+  height: fit-content;
+  width: fit-content;
+}
+
+#txt_type_user_text{
+  color: #5bb543;
+}
+
+.divtypeuser:hover{
+  border-color: #9ffa86;
+  box-shadow: 0px 0px 5px #42ed12;
+}
+
+.divtypeuser:hover > img{
+  transform: scale(1.05);
+  transition-duration: 500ms;
+}
+
+.worker{
+  height: 100px;
+  width: 100px;
+  margin-bottom: 20px;
+  filter: grayscale(100%);
+  filter: brightness(0);
+}
+
+
+
 /*-----------------------------------------------------------------------------------
 
     Template Name: SERVE - On Demand Services HTML Template
@@ -5634,7 +5692,7 @@ footer .line-shape {
 .login-form form label input[type=password] {
   padding-right: 50px;
 }
-.login-form form input[type=submit] {
+.login-form form input[type=button] {
   background-color: #5bb543;
   border-radius: 5px;
   border: none;
@@ -5646,7 +5704,7 @@ footer .line-shape {
   color: #ffffff;
   transition: all 0.3s;
 }
-.login-form form input[type=submit]:hover {
+.login-form form input[type=button]:hover {
   color: #fff;
   background-color: #2e2e2e;
 }

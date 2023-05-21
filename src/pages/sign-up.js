@@ -2,12 +2,32 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import {auth} from './firebase'
+import {createUserWithEmailAndPassword} from 'firebase/auth'
 
 function SignUpPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
+  const [email,setEmail] = useState()
+  const [password,setPassword] = useState()
+  const [repassword,setRePassword] = useState()
+  const [accounttype,setAccount] = useState()
+
+
+const register = async () => {
+
+  if(validatePassword()) {
+    // Create a new user with email and password using firebase
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+          console.log(res.user)
+        })
+      .catch(err => setError(err.message))
+  }
+}
+
   return (
     <Layout>
       <Breadcrumb pageName="Sign Up" pageTitle="Sign Up" />
@@ -21,7 +41,7 @@ function SignUpPage() {
                 <a>Log in here</a>
               </Link>
             </span>
-            <form>
+            <form >
               <div className="row">
                 <div className="col-md-6">
                   <label htmlFor="fname">
@@ -81,7 +101,7 @@ function SignUpPage() {
                   <a href="#">Terms &amp; Policy</a>
                 </p>
               </div>
-              <input type="submit" defaultValue="Create Account" />
+              <input type="submit" defaultValue="Create Account" onClick={ register }/>
             </form>
             <div className="other-signup">
               <h4>or Sign up WITH</h4>

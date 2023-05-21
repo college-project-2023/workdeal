@@ -17,7 +17,7 @@ function Banner1() {
   const [search , setSearchText] = useState("");
 
   const setSearch = async (e) => {
-    axios.post("http://localhost:5000/add_user",{
+    await axios.post("http://localhost:5000/add_user",{
       name: search
     })
   

@@ -2,7 +2,7 @@
   "name": "serve-next",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000" ,
+  "proxy": "http://localhost:5000",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "firebase": "^9.22.0",
     "http-proxy-middleware": "^2.0.6",
     "next": "^13.2.1",
     "react": "^18.2.0",

@@ -1,6 +1,23 @@
 const express = require("express");
 const userModel = require("../models/search");
+const UserClient = require("../model/search")
 const app = express();
+
+const middleware = (request,response,next) => {
+  console.log("middlew")
+}
+
+middleware();
+
+app.post("/signup", async (request,response) => {
+  const signup = new UserClient(request.body);
+  try {
+    await signup.save()
+    response.send(signup)
+  } catch (error){
+    response.status(500).send(error);
+  }
+});
 
 
 app.post("/add_user", async (request, response) => {

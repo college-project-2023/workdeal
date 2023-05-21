@@ -2,7 +2,6 @@ const express = require ("express");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Router = require("./routes/routes.js")
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
 require('dotenv').config();
 const app = express();

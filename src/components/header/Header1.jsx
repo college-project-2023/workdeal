@@ -96,8 +96,9 @@ function Header1() {
 		<Link legacyBehavior href="/">
 		<a>
 		<img
+		intrinsicsize="109x28"
 		src={
-			"assets/images/logo.svg"
+			"assets/images/wlogo.png"
 		}
 		alt=""
 		/>
@@ -110,8 +111,16 @@ function Header1() {
 		<Link legacyBehavior href="/">
 		<a>
 		<img
+		/*style="max-width: 230px;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			height: 80%;
+			object-fit: cover;
+			object-position: 55%;"*/
+		
 		src={
-			"assets/images/logo.svg"
+			"assets/images/wlogo.png"
 		}
 		alt=""
 		/>

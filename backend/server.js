@@ -1,6 +1,8 @@
 const express = require ("express");
 const cors = require('cors');
 const mongoose = require('mongoose');
+const Router = require("./routes/routes.js")
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 require('dotenv').config();
 const app = express();
@@ -11,9 +13,19 @@ mongoose.connect(uri);
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
+ 
 })
+
+
 app.use(cors());
 app.use(express.json());
+
+
+
+app.use(Router);
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
+
+module.exports = { mongoose }

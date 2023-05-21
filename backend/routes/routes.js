@@ -13,15 +13,3 @@ app.post("/add_user", async (request, response) => {
       response.status(500).send(error);
     }
 });
-
-app.get("/workdeal/search/name", async (request, response) => {
-    const users = await userModel.find({});
-  
-    try {
-      response.send(users);
-    } catch (error) {
-      response.status(500).send(error);
-    }
-  });
-
-  module.exports = app;

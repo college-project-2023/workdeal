@@ -1,25 +1,43 @@
-import React from 'react'
-import { Typeuser } from '../components/sign-up-type/type-user'
-//import './sign-up-type.css'
+import React from "react";
 
-  function Signuptype(){
-    return (
-      <center>
-          <div className='maindiv'>
-              <h2>Join us today</h2>
-              <div className='typecontainer'>
-                  <Typeuser image='assets/images/worker.png' name='I am worker, seeking for work'/>
-                  <Typeuser image='assets/images/user.png' name='I am client, looking for worker'/>
-              </div>
-              <a id='txt_sign_up'>Welcome to the workdeal, we are here to serve you</a>
-          </div>
-      </center>
-      
-    )
+function Signuptype(props) {
+
+  function handleClientClick(){
+    document.getElementById("radio_client").checked = true;
+    props.setvalue("client")
   }
 
-  export default Signuptype;
+  function handleWorkerClick(){
+    document.getElementById('radio_worker').checked = true;
+    props.setvalue("worker")
+  }
 
+  return (
+    <center>
+      <div className="maindiv">
+        <div className="typecontainer">
+          <div>
+            <div className="divtypeuser" onClick={handleWorkerClick}>
+              <div className="chek-wrapper">
+                <input type="radio" id="radio_worker" className="check_sign_up_type" name="type" />
+              </div>
+              <img src="assets/images/worker.png" className="worker" />
+              <h5 id="txt_type_user_text">Create as worker</h5>
+            </div>
+          </div>
+          <div>
+            <div className="divtypeuser" onClick={handleClientClick}>
+              <div className="chek-wrapper">
+                <input type="radio" id="radio_client" className="check_sign_up_type" name="type" />
+              </div>
+              <img src="assets/images/user.png" className="worker"/>
+              <h5 id="txt_type_user_text">Create as client</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </center>
+  );
+}
 
-
-
+export default Signuptype;

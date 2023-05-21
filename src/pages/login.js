@@ -2,8 +2,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
-import {auth} from '../firebase/firebase'
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -11,25 +11,23 @@ function LoginPage() {
     setPasswordVisible((prevState) => !prevState);
   };
 
-  const [email,setEmail]  = useState();
-  const [password,setPassword] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-  function login(){
-    if(email!=null && email!="" && password!=null && password!="") {
-      if (document.getElementById("check_terms_signup").checked){
-      
+  function login() {
+    if (email != null && email != "" && password != null && password != "") {
+      if (document.getElementById("check_terms_signup").checked) {
         signInWithEmailAndPassword(auth, email, password)
-        .then(async (res) => {
-          window.location="/account";
-        })
-      .catch(err => window.alert(err))
-    }else{
-      window.alert("please accept the terms")
+          .then(async (res) => {
+            window.location = "/account";
+          })
+          .catch((err) => window.alert(err));
+      } else {
+        window.alert("please accept the terms");
+      }
+    } else {
+      window.alert("enter all fields");
     }
-    
-  }else{
-    window.alert("enter all fields")
-  }
   }
 
   return (
@@ -41,7 +39,7 @@ function LoginPage() {
             <h3>Log In</h3>
             <span>
               New Member?{" "}
-              <Link legacyBehavior href="/sign-up-type">
+              <Link legacyBehavior href="/sign-up">
                 <a>SignUp here</a>
               </Link>
             </span>
@@ -53,8 +51,8 @@ function LoginPage() {
                   name="email"
                   id="email"
                   placeholder="Your Email Here"
-                  onChange={e=>{
-                    setEmail(e.target.value)
+                  onChange={(e) => {
+                    setEmail(e.target.value);
                   }}
                 />
               </label>
@@ -74,15 +72,15 @@ function LoginPage() {
                   name="password"
                   id="password"
                   placeholder="Type Your Password"
-                  onChange={e=>{
-                    setPassword(e.target.value)
+                  onChange={(e) => {
+                    setPassword(e.target.value);
                   }}
                 />
               </label>
               <div className="terms-forgot">
                 <p>
-                  <input type="checkbox" name="agree" id="check_terms_signup"/>I agree to the{" "}
-                  <a href="#">Terms &amp; Policy</a>
+                  <input type="checkbox" name="agree" id="check_terms_signup" />
+                  I agree to the <a href="#">Terms &amp; Policy</a>
                 </p>
                 <a href="#">Forgot Your Password</a>
               </div>

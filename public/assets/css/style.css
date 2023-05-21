@@ -4,7 +4,7 @@
   padding: 25px;
   border-style: solid;
   border-color:#5bb543;
-  margin: 50px;
+  margin: 20px;
   border-radius: 10px;
   box-shadow:  0 0 3px #5bb543;
   height: fit-content;
@@ -23,7 +23,6 @@
 
 .divtypeuser{
   border: 1px;
-  padding: 25px;
   margin: 20px;
   border-style: solid;
   border-color:#5bb543;
@@ -34,6 +33,9 @@
 
 #txt_type_user_text{
   color: #5bb543;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  padding-right: 20px;
 }
 
 .divtypeuser:hover{
@@ -47,13 +49,22 @@
 }
 
 .worker{
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   margin-bottom: 20px;
   filter: grayscale(100%);
   filter: brightness(0);
 }
 
+.chek-wrapper{
+  display: flex;
+  flex-direction: row-reverse;
+  
+}
+
+.check_sign_up_type{
+  margin: 10px;
+}
 
 
 /*-----------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 const express = require("express");
 const userModel = require("../models/search");
 const userClientModel = require("../models/userdataclient")
+const userWorkerModel = require("../models/userdataworker")
 const app = express();
 
 const middleware = (request,response,next) => {
@@ -9,16 +10,27 @@ const middleware = (request,response,next) => {
 
 middleware();
 
-app.post("/create-user", async (request,response) => {
+app.post("/create-user-client", async (request,response) => {
   const signup = new userClientModel(request.body);
   try {
     await signup.save()
-    response.status(200).send(signup)
-    response.setHeader("location","/account")
+    response.send(signup)
   } catch (error){
     response.status(500).send(error);
   }
 });
+
+app.post("/create-user-worker", async (request,response) => {
+  const signup = new userWorkerModel(request.body);
+  try {
+    await signup.save()
+    response.send(signup)
+  } catch (error){
+    response.status(500).send(error);
+  }
+});
+
+
 
 
 app.post("/add_user", async (request, response) => {

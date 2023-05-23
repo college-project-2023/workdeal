@@ -1,3 +1,72 @@
+
+.maindiv{
+  border: 0px;
+  padding: 25px;
+  border-style: solid;
+  border-color:#5bb543;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow:  0 0 3px #5bb543;
+  height: fit-content;
+  width: fit-content;
+}
+
+#txt_sign_up{
+  font-size: small;
+}
+
+.typecontainer{
+  display: flex;
+  flex-shrink: inherit;
+  flex-wrap: wrap;
+}
+
+.divtypeuser{
+  border: 1px;
+  margin: 20px;
+  border-style: solid;
+  border-color:#5bb543;
+  border-radius: 10px;
+  height: fit-content;
+  width: fit-content;
+}
+
+#txt_type_user_text{
+  color: #5bb543;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  padding-right: 20px;
+}
+
+.divtypeuser:hover{
+  border-color: #9ffa86;
+  box-shadow: 0px 0px 5px #42ed12;
+}
+
+.divtypeuser:hover > img{
+  transform: scale(1.05);
+  transition-duration: 500ms;
+}
+
+.worker{
+  height: 50px;
+  width: 50px;
+  margin-bottom: 20px;
+  filter: grayscale(100%);
+  filter: brightness(0);
+}
+
+.chek-wrapper{
+  display: flex;
+  flex-direction: row-reverse;
+  
+}
+
+.check_sign_up_type{
+  margin: 10px;
+}
+
+
 /*-----------------------------------------------------------------------------------
 
     Template Name: SERVE - On Demand Services HTML Template
@@ -399,7 +468,7 @@ video {
   font-size: 20px;
   display: inline-block;
   text-transform: capitalize;
-  color: #ce1567;
+  color: #5bb543;
   margin-bottom: 10px;
 }
 .sec-title .title-left span:before {
@@ -450,7 +519,7 @@ video {
   font-weight: 500;
   font-size: 20px;
   text-align: right;
-  color: #ce1567;
+  color: #5bb543;
 }
 @media (max-width: 767px) {
   .sec-title .title-right a {
@@ -464,7 +533,7 @@ video {
   width: 19px;
   line-height: 20px;
   text-align: center;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 50%;
   margin-left: 15px;
@@ -476,7 +545,7 @@ video {
   transition: all 0.5s ease-out 0s;
 }
 .sec-title .title-right a:hover span {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 .sec-title .title-right a:hover span i {
   color: #fff;
@@ -737,10 +806,10 @@ video {
 }
 
 .header-1 .my-account a {
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
 }
 .header-1 .my-account a:before, .header-1 .my-account a:after {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 
 .header-3 .my-account a {
@@ -877,7 +946,13 @@ header {
   display: inline-block;
 }
 .header-logo a img {
-  max-width: 180px;
+  max-width: 230px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  object-position: 55%;
 }
 
 .main-menu .main-nav ul {
@@ -929,10 +1004,10 @@ header {
   transition: all 0.5s ease-out 0s;
 }
 .main-menu .main-nav ul li a.active {
-  color: #ce1567;
+  color: #5bb543;
 }
 .main-menu .main-nav ul li a:hover {
-  color: #ce1567;
+  color: #5bb543;
 }
 .main-menu .main-nav ul li > ul.sub-menu {
   position: absolute;
@@ -972,7 +1047,7 @@ header {
   transform-origin: left;
   transition: 0.4s ease-in;
   z-index: -1;
-  background: linear-gradient(266.54deg, #142935 -5.63%, #ce1567 95.62%);
+  background: linear-gradient(266.54deg, #142935 -5.63%, #5bb543 95.62%);
   transition: all 1s ease-out 0s;
 }
 .main-menu .main-nav ul li > ul.sub-menu li a:hover:before {
@@ -1016,18 +1091,18 @@ header {
   font-family: "Rubik", sans-serif;
   font-weight: 400;
   font-size: 12px;
-  color: #ce1567;
+  color: black;
 }
 .header-right .phone .phn-info a {
   font-family: "Rubik", sans-serif;
   font-weight: 500;
   font-size: 15px;
-  color: #142935;
+  color: #35ae14;
   display: inline-block;
   transition: all 0.5s ease-out 0s;
 }
 .header-right .phone .phn-info a:hover {
-  color: #ce1567;
+  color: #000000;
 }
 @media (max-width: 767px) {
   .header-right .wishlist {
@@ -1041,7 +1116,7 @@ header {
   transition: all 0.5s ease-out 0s;
 }
 .header-right .wishlist a:hover {
-  color: #ce1567;
+  color: #5bb543;
 }
 .header-right .account-btn {
   margin-left: 25px;
@@ -1060,7 +1135,7 @@ header {
   display: inline-block;
   color: #ffffff;
   background-color: transparent;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-shadow: 0px 0px 15px rgba(84, 161, 93, 0.1);
   border-radius: 30px;
   padding: 10px 30px;
@@ -1077,7 +1152,7 @@ header {
   position: absolute;
   top: 0%;
   left: 0%;
-  background-color: #ce1567;
+  background-color: #5bb543;
   transition: all 0.5s ease-out 0s;
   border-radius: 5px;
   z-index: -1;
@@ -1090,7 +1165,7 @@ header {
   position: absolute;
   top: 0%;
   left: 0%;
-  background-color: #ce1567;
+  background-color: #5bb543;
   transition: all 0.5s ease-out 0s;
   border-radius: 5px;
   z-index: -1;
@@ -1113,7 +1188,7 @@ header {
 .hero-area {
   position: relative;
   height: 100vh;
-  background-image: url(../images/home-1/hero-section-one.png);
+  background-color: #95e4ac39;
   background-size: cover;
   background-position: center center;
 }
@@ -1150,8 +1225,8 @@ header {
   font-weight: 500;
   font-size: 20px;
   text-align: right;
-  color: #ce1567;
-  border: 1px solid #ce1567;
+  color: #5bb543 ;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 30px;
   padding: 5px 20px;
@@ -1167,7 +1242,7 @@ header {
   height: 25px;
   width: 25px;
   text-align: center;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 50%;
   margin-left: 15px;
@@ -1221,7 +1296,7 @@ header {
 .hero-content span {
   font-weight: 700;
   font-size: 20px;
-  color: #ce1567;
+  color: #5bb543;
   display: block;
   margin-bottom: 5px;
 }
@@ -1335,9 +1410,13 @@ header {
   transform: translateY(-50%);
   z-index: 2;
 }
+
+.location-btn{
+  color: #5bb543;
+}
 .find-service .location-search .location-btn .nice-select.loc-select {
   height: 60px;
-  background-color: #ce1567;
+  background-color: #5bb543;
   background-image: none;
   border: none;
   min-width: 170px;
@@ -1393,7 +1472,7 @@ header {
 .find-service .location-search .location-form form button {
   position: absolute;
   right: 5px;
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 10px;
   border: none;
   color: #fff;
@@ -1472,7 +1551,7 @@ header {
   font-size: 13px;
   display: inline-block;
   text-align: center;
-  color: #ce1567;
+  color: #5bb543;
   background-color: #ffffff;
   border: 1px solid #eeeeee;
   box-sizing: border-box;
@@ -1488,7 +1567,7 @@ header {
 }
 .find-service .suggest .suggest-list li a:hover {
   color: #fff;
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 30px;
 }
 
@@ -1508,13 +1587,13 @@ header {
   width: 25px;
   line-height: 25px;
   text-align: center;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 50%;
 }
 .creative-services .sec-title .title-right .slider-navigations .swiper-button-prev-c:hover,
 .creative-services .sec-title .title-right .slider-navigations .swiper-button-next-c:hover {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 .creative-services .sec-title .title-right .slider-navigations .swiper-button-prev-c:hover i,
 .creative-services .sec-title .title-right .slider-navigations .swiper-button-next-c:hover i {
@@ -1527,7 +1606,7 @@ header {
 .creative-services .sec-title .title-right .slider-navigations .swiper-button-prev-c i,
 .creative-services .sec-title .title-right .slider-navigations .swiper-button-next-c i {
   position: relative;
-  color: #ce1567;
+  color: #5bb543;
   left: -10px;
   font-size: 18px;
   transition: all 0.5s ease-out 0s;
@@ -1551,7 +1630,7 @@ header {
   text-align: center;
   color: #ffffff;
   display: block;
-  background-color: #ce1567;
+  background-color: #5bb543;
   padding: 15px;
   transition: all 0.5s ease-out 0s;
 }
@@ -1566,7 +1645,7 @@ header {
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: #ce1567;
+  background-color: #5bb543;
   z-index: 1;
   visibility: hidden;
   opacity: 0;
@@ -1636,13 +1715,13 @@ header {
   display: inline-block;
   text-align: center;
   color: #ffffff;
-  background-color: #ce1567;
+  background-color: #5bb543;
   padding: 9px 15px;
   line-height: 1;
   transition: all 0.5s ease-out 0s;
 }
 .single-service .thumb .tag a:hover {
-  color: #ce1567;
+  color: #5bb543;
   background-color: #fff;
 }
 .single-service .single-inner {
@@ -1690,13 +1769,13 @@ header {
   width: 24px;
   line-height: 26px;
   text-align: center;
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 50%;
   font-size: 12px;
   transition: all 0.5s ease-out 0s;
 }
 .single-service .single-inner .author-info .wish a:hover {
-  color: #ce1567;
+  color: #5bb543;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   background-color: #fff;
 }
@@ -1754,7 +1833,7 @@ header {
   font-family: "Teko", sans-serif;
   font-weight: 500;
   font-size: 24px;
-  color: #ce1567;
+  color: #5bb543;
   margin-left: 5px;
 }
 .single-service .single-inner .started > span small {
@@ -1764,7 +1843,7 @@ header {
   font-family: "Teko", sans-serif;
   font-weight: 500;
   font-size: 20px;
-  color: #ce1567;
+  color: #5bb543;
 }
 .single-service .single-inner .started a span {
   display: inline-block;
@@ -1772,7 +1851,7 @@ header {
   width: 19px;
   line-height: 18px;
   text-align: center;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 50%;
   margin-left: 10px;
@@ -1787,10 +1866,10 @@ header {
   transform: scale(1.1);
 }
 .single-service:hover .single-inner h4 a {
-  color: #ce1567;
+  color: #5bb543;
 }
 .single-service:hover .started a span {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 .single-service:hover .started a span i {
   color: #fff;
@@ -1802,7 +1881,7 @@ header {
 ===========================*/
 .features-shop {
   padding: 70px 0;
-  background-image: url(../images/shop/shop-bg.png);
+  /*background-image: url(../images/shop/shop-bg.png);*/
   background-size: cover;
   background-position: center center;
   background-color: #f5fffd;
@@ -1818,7 +1897,7 @@ header {
   background-color: transparent;
   height: 16px;
   width: 16px;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   opacity: 1;
 }
 .swiper.shop-slider .swiper-pagination .swiper-pagination-bullet-active {
@@ -1831,7 +1910,7 @@ header {
   top: 50%;
   height: 6px;
   width: 6px;
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
@@ -1902,7 +1981,7 @@ header {
   font-weight: 500;
   font-size: 20px;
   text-align: right;
-  color: #ce1567;
+  color: #5bb543;
   margin-top: 15px;
 }
 .single-shop .shop-inner a span {
@@ -1911,7 +1990,7 @@ header {
   width: 19px;
   line-height: 18px;
   text-align: center;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 50%;
   margin-left: 10px;
@@ -1942,10 +2021,10 @@ header {
   display: flex;
 }
 .single-shop:hover .shop-inner h4 {
-  color: #ce1567;
+  color: #5bb543;
 }
 .single-shop:hover .shop-inner a span {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 .single-shop:hover .shop-inner a span i {
   color: #fff;
@@ -2072,7 +2151,7 @@ header {
   font-style: normal;
   font-weight: 600;
   font-size: 45px;
-  color: #ce1567;
+  color: #5bb543;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .single-archive span {
@@ -2144,10 +2223,10 @@ header {
 ===========================*/
 .testimonial {
   padding: 90px 0;
-  background-image: url(../images/testimonial/testimonial-bg.png);
+  /*background-image: url(../images/testimonial/testimonial-bg.png);*/
   background-size: cover;
   background-position: center center;
-  background-color: rgba(206, 21, 103, 0.0784313725);
+  background-color: #85e56b33;
 }
 @media (max-width: 767px) {
   .testimonial {
@@ -2172,19 +2251,19 @@ header {
   width: 40px;
   line-height: 42px;
   text-align: center;
-  background-color: #edc6d7;
+  background-color: #5eaf482c;
   border-radius: 50%;
   margin: 0 10px;
   transition: all 0.5s ease-out 0s;
 }
 .swiper.testimonial-slider .slider-navigations .swiper-button-prev-c i,
 .swiper.testimonial-slider .slider-navigations .swiper-button-next-c i {
-  color: #ce1567;
+  color: #5bb543;
   transition: all 0.5s ease-out 0s;
 }
 .swiper.testimonial-slider .slider-navigations .swiper-button-prev-c:hover,
 .swiper.testimonial-slider .slider-navigations .swiper-button-next-c:hover {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 .swiper.testimonial-slider .slider-navigations .swiper-button-prev-c:hover i,
 .swiper.testimonial-slider .slider-navigations .swiper-button-next-c:hover i {
@@ -2249,7 +2328,7 @@ header {
   height: 40px;
   line-height: 40px;
   text-align: center;
-  background-color: #ce1567;
+  background-color: #5bb543;
   color: #fff;
   border-radius: 50%;
   font-size: 18px;
@@ -2330,7 +2409,7 @@ header {
   font-weight: 700;
   font-size: 40px;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px #ce1567;
+  -webkit-text-stroke: 1px #5bb543;
   line-height: 1;
   margin-right: 21px;
   transition: all 0.5s ease-out 0s;
@@ -2345,8 +2424,8 @@ header {
   background-color: #f0fffc;
 }
 .step:hover h4 span {
-  -webkit-text-fill-color: #ce1567;
-  -webkit-text-stroke: 1px #ce1567;
+  -webkit-text-fill-color: #5bb543;
+  -webkit-text-stroke: 1px #5bb543;
 }
 
 .how-work-right {
@@ -2384,7 +2463,7 @@ header {
   top: -15px;
   width: 270px;
   height: 170px;
-  background: linear-gradient(54.39deg, #ce1567 0%, rgba(21, 200, 160, 0) 43.84%);
+  background: linear-gradient(54.39deg, #5bb543 0%, rgba(21, 200, 160, 0) 43.84%);
   border-radius: 10px;
   transform: rotate(180deg);
   z-index: -1;
@@ -2396,7 +2475,7 @@ header {
   bottom: -15px;
   width: 270px;
   height: 170px;
-  background: linear-gradient(54.39deg, #ce1567 0%, rgba(21, 200, 160, 0) 43.84%);
+  background: linear-gradient(54.39deg, #5bb543 0%, rgba(21, 200, 160, 0) 43.84%);
   border-radius: 10px;
   z-index: -1;
 }
@@ -2418,10 +2497,10 @@ header {
   width: 50px;
   line-height: 50px;
   text-align: center;
-  background-color: rgba(206, 21, 103, 0.2901960784);
+  background-color: #53cd4b2c;
   font-size: 30px;
   border-radius: 50%;
-  color: #ce1567;
+  color: #5bb543;
   animation-name: ripple;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
@@ -2432,7 +2511,7 @@ header {
 
 @keyframes ripple {
   0% {
-    box-shadow: 0 0 0 0 rgba(206, 21, 103, 0.2901960784), 0 0 0 0 rgba(206, 21, 103, 0.2901960784);
+    box-shadow: 0 0 0 0 #5bb543, 0 0 0 0 #5bb543;
   }
   80% {
     box-shadow: 0 0 0 20px rgba(255, 255, 255, 0), 0 0 0 40px rgba(255, 255, 255, 0);
@@ -2477,7 +2556,7 @@ header {
 .single-blog .blog-inner span {
   font-family: "Rubik", sans-serif;
   font-size: 16px;
-  color: #ce1567;
+  color: #5bb543;
   display: inline-block;
 }
 .single-blog .blog-inner > a {
@@ -2485,7 +2564,7 @@ header {
   font-family: "Teko", sans-serif;
   font-weight: 500;
   font-size: 20px;
-  color: #ce1567;
+  color: #5bb543;
   text-transform: capitalize;
   line-height: 1;
 }
@@ -2495,7 +2574,7 @@ header {
   width: 19px;
   line-height: 18px;
   text-align: center;
-  border: 1px solid #ce1567;
+  border: 1px solid #5bb543;
   box-sizing: border-box;
   border-radius: 50%;
   margin-left: 15px;
@@ -2511,10 +2590,10 @@ header {
   transform: scale(1.1);
 }
 .single-blog:hover .blog-inner h4 a {
-  color: #ce1567;
+  color: #5bb543;
 }
 .single-blog:hover .blog-inner > a span {
-  background-color: #ce1567;
+  background-color: #5bb543;
 }
 .single-blog:hover .blog-inner > a span i {
   color: #fff;
@@ -2534,7 +2613,7 @@ header {
   top: 0;
   height: 100%;
   width: 40%;
-  background-color: #ce1567;
+  background-color: #5bb543;
   transform: skewX(10deg);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2657,7 +2736,7 @@ footer .line-shape {
   bottom: -10px;
   height: 3px;
   width: 30px;
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 10px;
 }
 .footer-widget h4:after {
@@ -2667,7 +2746,7 @@ footer .line-shape {
   bottom: -10px;
   height: 3px;
   width: 10px;
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 10px;
 }
 
@@ -2690,7 +2769,7 @@ footer .line-shape {
   transition: all 0.5s ease-out 0s;
 }
 .footer-menu li a:hover {
-  color: #ce1567;
+  color: #5bb543;
 }
 
 .information .info {
@@ -2705,7 +2784,7 @@ footer .line-shape {
   margin-right: 15px;
 }
 .information .icon i {
-  color: #ce1567;
+  color: #5bb543;
   font-size: 20px;
 }
 .information .desc a {
@@ -2721,7 +2800,7 @@ footer .line-shape {
   padding-bottom: 0;
 }
 .information .desc a:hover {
-  color: #ce1567;
+  color: #5bb543;
 }
 
 .footer-bottom {
@@ -2747,7 +2826,7 @@ footer .line-shape {
 }
 @media (max-width: 767px) {
   .footer-bottom .copy-right span a {
-    color: #ce1567;
+    color: #5bb543;
   }
 }
 .footer-bottom .copy-right span a:hover {
@@ -2781,7 +2860,7 @@ footer .line-shape {
   transition: all 0.5s ease-out 0s;
 }
 .footer-bottom .footer-social-media ul li a:hover {
-  background-color: #ce1567;
+  background-color: #5bb543;
   border-radius: 10px;
 }
 
@@ -2810,7 +2889,7 @@ footer .line-shape {
   font-size: 15px;
 }
 .header-2 .main-menu .main-nav ul li > ul.sub-menu li a::before {
-  background: linear-gradient(266.54deg, #ce1567 -5.63%, #5bb543 95.62%);
+  background: linear-gradient(266.54deg, #5bb543 -5.63%, #5bb543 95.62%);
 }
 .header-2 .header-right .phone .phn-info span {
   color: #5bb543;
@@ -5630,7 +5709,7 @@ footer .line-shape {
 .login-form form label input[type=password] {
   padding-right: 50px;
 }
-.login-form form input[type=submit] {
+.login-form form input[type=button] {
   background-color: #5bb543;
   border-radius: 5px;
   border: none;
@@ -5642,7 +5721,7 @@ footer .line-shape {
   color: #ffffff;
   transition: all 0.3s;
 }
-.login-form form input[type=submit]:hover {
+.login-form form input[type=button]:hover {
   color: #fff;
   background-color: #2e2e2e;
 }

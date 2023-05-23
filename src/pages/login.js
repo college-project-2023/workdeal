@@ -2,12 +2,54 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import CryptoJS from "crypto-js";
 
 function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
+
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  function login() {
+    if (email != null && email != "" && password != null && password != "") {
+      if (document.getElementById("check_terms_signup").checked) {
+        signInWithEmailAndPassword(auth, email, password)
+          .then(async (res) => {
+            window.location = "/account";
+            const cookie = new Cookies();
+            if (auth.currentUser != null) {
+              auth.currentUser.getIdToken().then((tkn) => {
+                const data = CryptoJS.AES.encrypt(
+                  JSON.stringify(tkn),
+                  "getlost"
+                ).toString();
+            
+                cookie.set("loggedin", data);
+              });
+            } else {
+              cookie.set("loggedin", "false");
+            }
+
+            axios.get("http://localhost:5000/", {
+              withCredentials: true,
+            });
+          })
+          .catch((err) => window.alert(err));
+      } else {
+        window.alert("please accept the terms");
+      }
+    } else {
+      window.alert("enter all fields");
+    }
+  }
+
   return (
     <Layout>
       <Breadcrumb pageName="Log In" pageTitle="Log In" />
@@ -29,6 +71,9 @@ function LoginPage() {
                   name="email"
                   id="email"
                   placeholder="Your Email Here"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </label>
               <label>
@@ -47,20 +92,24 @@ function LoginPage() {
                   name="password"
                   id="password"
                   placeholder="Type Your Password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
               </label>
               <div className="terms-forgot">
                 <p>
-                  <input type="checkbox" name="agree" />I agree to the{" "}
-                  <a href="#">Terms &amp; Policy</a>
+                  <input type="checkbox" name="agree" id="check_terms_signup" />
+                  I agree to the <a href="#">Terms &amp; Policy</a>
                 </p>
                 <a href="#">Forgot Your Password</a>
               </div>
               <input
-                type="submit"
+                type="button"
                 name="submit"
                 defaultValue="LogIn"
                 placeholder="dasdasdasd"
+                onClick={login}
               />
             </form>
             <div className="other-signup">

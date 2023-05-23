@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import Select from "react-select";
+import axios from "axios";
+
 function Banner1() {
   const [selectedOption, setSelectedOption] = useState(null);
   const options = [
@@ -11,6 +13,17 @@ function Banner1() {
     { value: "Sylhet", label: "Sylhet" },
     { value: "Rajshahi", label: "Rajshahi" },
   ];
+
+  const [search , setSearchText] = useState("");
+
+  const setSearch = async (e) => {
+    await axios.post("http://localhost:5000/add_user",{
+      name: search
+    })
+  
+  }
+
+
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
@@ -30,7 +43,7 @@ function Banner1() {
       border: "0px solid red",
       fontSize: 15,
       fontWeight: "500",
-      backgroundColor: "#ce1567",
+      backgroundColor: "#5bb543",
       minHeight: 55,
       outline: "none",
       borderRadius: 10,
@@ -109,13 +122,16 @@ function Banner1() {
                   />
                 </div>
                 <div className="location-form">
-                  <form action="#" method="post">
-                    <input
+
+                  
+                  <form method="post">
+                    <input 
                       type="text"
                       name="location"
                       placeholder="Find Your Services Here"
+                      onChange={e=>setSearchText(e.target.value)}
                     />
-                    <button type="submit">
+                    <button  type="button" onClick={setSearch}>
                       <i className="bi bi-search" />
                     </button>
                   </form>

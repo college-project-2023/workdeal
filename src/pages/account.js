@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import CountUp from "react-countup";
 import Order from "../components/acount/Order";
 import UserProfile from "../components/acount/UserProfile";
@@ -11,17 +11,15 @@ import axios from 'axios';
 function Accountpage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+
   function setCookie() {
     const cookie = new Cookies();
-    if (auth.currentUser != null) {
+    if (auth.currentUser) {
       cookie.set("loggedin", auth.currentUser.getIdToken);
     } else {
       cookie.set("loggedin", "false");
     }
 
-    axios.get("http://localhost:5000/", {
-      withCredentials: true,
-    });
   }
 
   const togglePasswordVisibility = () => {

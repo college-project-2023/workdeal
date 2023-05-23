@@ -12,6 +12,7 @@ const firebaseConfig = {
 }
  
 var app = null;
+var user=null;
 var auth = null;
 
 if (getApps().length < 1) {
@@ -19,7 +20,14 @@ if (getApps().length < 1) {
   auth = getAuth(app);
 }
 
+if(auth!=null){
+  user=auth.currentUser;
+}else{
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  user=auth.currentUser;
+}
 
-
+export {user}
 
 export { auth }

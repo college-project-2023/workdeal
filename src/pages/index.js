@@ -16,26 +16,35 @@ import Header1 from "./../components/header/Header1";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { auth } from "../firebase/firebase";
+import CryptoJS from "crypto-js";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const cookie = new Cookies();
-    if (auth.currentUser != null) {
-      auth.currentUser.getIdToken().then((tkn) => {
-        cookie.set("loggedin", tkn);
-      });
-    } else {
-      cookie.set("loggedin", "false");
-    }
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
     }, 3000);
-    axios.get("http://localhost:5000/", {
-      withCredentials: true,
-    })
   }, []);
+
+  useEffect(() => {
+    const cookie = new Cookies();
+    if (auth.currentUser) {
+      auth.currentUser.getIdToken().then((tkn) => {
+        const data = CryptoJS.AES.encrypt(
+          JSON.stringify(tkn),
+          "getlost"
+        ).toString();
+
+        cookie.set("loggedin", data);
+      });
+    } 
+
+    axios
+      .get("http://localhost:5000/", {
+        withCredentials: true,
+      })
+  }, [auth]);
 
   return (
     <>

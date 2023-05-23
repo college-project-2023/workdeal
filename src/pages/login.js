@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import CryptoJS from "crypto-js";
 
 function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -25,7 +26,12 @@ function LoginPage() {
             const cookie = new Cookies();
             if (auth.currentUser != null) {
               auth.currentUser.getIdToken().then((tkn) => {
-                cookie.set("loggedin", tkn);
+                const data = CryptoJS.AES.encrypt(
+                  JSON.stringify(tkn),
+                  "getlost"
+                ).toString();
+            
+                cookie.set("loggedin", data);
               });
             } else {
               cookie.set("loggedin", "false");

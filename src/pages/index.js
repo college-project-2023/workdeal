@@ -13,15 +13,30 @@ import FeaturesShop from "../components/shop/FeaturesShop";
 import Testimonial1 from "../components/testimonial/Testimonial1";
 import WhyChooseUs from "../components/whyChooseUs/WhyChooseUs";
 import Header1 from "./../components/header/Header1";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { auth } from "../firebase/firebase";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    const cookie = new Cookies();
+    if (auth.currentUser != null) {
+      auth.currentUser.getIdToken().then((tkn) => {
+        cookie.set("loggedin", tkn);
+      });
+    } else {
+      cookie.set("loggedin", "false");
+    }
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
     }, 3000);
+    axios.get("http://localhost:5000/", {
+      withCredentials: true,
+    })
   }, []);
+
   return (
     <>
       {!loading ? (

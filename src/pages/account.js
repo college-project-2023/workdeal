@@ -4,20 +4,35 @@ import Order from "../components/acount/Order";
 import UserProfile from "../components/acount/UserProfile";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
-import { auth } from '../firebase/firebase'
-import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import Cookies from "universal-cookie";
+import axios from 'axios';
 
 function Accountpage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  function setCookie() {
+    const cookie = new Cookies();
+    if (auth.currentUser != null) {
+      cookie.set("loggedin", auth.currentUser.getIdToken);
+    } else {
+      cookie.set("loggedin", "false");
+    }
+
+    axios.get("http://localhost:5000/", {
+      withCredentials: true,
+    });
+  }
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
 
-  async function logout(){
-    await auth.signOut().then(()=>{
-      window.location="/"
-    })
+  async function logout() {
+    await auth.signOut().then(() => {
+      setCookie();
+      window.location = "/";
+    });
   }
 
   return (
@@ -281,7 +296,9 @@ function Accountpage() {
                   id="v-pills-logout"
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
-                ><input type="button" onClick={logout} value="logout"/></div>
+                >
+                  <input type="button" onClick={logout} value="logout" />
+                </div>
               </div>
             </div>
           </div>

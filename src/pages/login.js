@@ -4,6 +4,8 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -20,6 +22,18 @@ function LoginPage() {
         signInWithEmailAndPassword(auth, email, password)
           .then(async (res) => {
             window.location = "/account";
+            const cookie = new Cookies();
+            if (auth.currentUser != null) {
+              auth.currentUser.getIdToken().then((tkn) => {
+                cookie.set("loggedin", tkn);
+              });
+            } else {
+              cookie.set("loggedin", "false");
+            }
+
+            axios.get("http://localhost:5000/", {
+              withCredentials: true,
+            });
           })
           .catch((err) => window.alert(err));
       } else {

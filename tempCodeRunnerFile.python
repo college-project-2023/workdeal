@@ -1,0 +1,12 @@
+def main():
+    b = Bottle()
+    print(b.getQuantity(), b.getCapacity()) # 0ml, 100ml
+    b.fill(700)
+    print(b.getQuantity(), b.getCapacity()) # 700ml, 100ml
+    b.pour(300)
+    print(b.getQuantity(),b.getCapacity()) # 400ml, 1000ml
+    
+    class Bottle:
+        pass
+    if __name__=="_main_":
+        main()

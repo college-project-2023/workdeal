@@ -10,9 +10,7 @@ import Signuptype from "./sign-up-type";
 
 function SignUpPage() {
 
-  //const location = useLocation();
-  //const {from} = location.state;
-  //window.alert(from)
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);

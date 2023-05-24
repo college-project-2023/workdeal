@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import Order from "../components/acount/Order";
 import UserProfile from "../components/acount/UserProfile";
@@ -6,11 +6,43 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import Cookies from "universal-cookie";
-import axios from 'axios';
+import axios from "axios";
 
 function Accountpage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [authentication, setAuthentication] = useState(null);
 
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setAuthentication(user);
+      }
+    });
+    async () => {
+      await axios
+        .get("http://localhost:5000/checkuser", {
+          withCredentials: true,
+        })
+        .then((response) => {
+          if (response.data == "login") {
+            window.location = "/login";
+          } else {
+            if (auth.currentUser) {
+              const useruid = auth.currentUser.uid;
+              async () => {
+                await axios
+                  .get(`http://localhost:5000/get-user-data/${useruid}`, {
+                    withCredentials: true,
+                  })
+                  .then((data) => {
+                    
+                  });
+              };
+            }
+          }
+        });
+    };
+  }, [authentication]);
 
   function setCookie() {
     const cookie = new Cookies();
@@ -19,7 +51,6 @@ function Accountpage() {
     } else {
       cookie.set("loggedin", "false");
     }
-
   }
 
   const togglePasswordVisibility = () => {

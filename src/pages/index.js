@@ -39,9 +39,8 @@ export default function Home() {
         cookie.set("loggedin", data);
       });
     } 
-
     axios
-      .get("http://localhost:5000/", {
+      .get("http://localhost:5000/checkuser", {
         withCredentials: true,
       })
   }, [auth]);

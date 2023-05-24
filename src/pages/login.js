@@ -37,7 +37,7 @@ function LoginPage() {
               cookie.set("loggedin", "false");
             }
 
-            axios.get("http://localhost:5000/", {
+            axios.get("http://localhost:5000/checkuser", {
               withCredentials: true,
             });
           })

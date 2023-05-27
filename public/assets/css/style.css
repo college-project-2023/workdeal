@@ -64,6 +64,18 @@
 
 .check_sign_up_type{
   margin: 10px;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-clip:border-box;
+  border: 2px solid rgb(19, 132, 53);
+  background-color: rgba(255,252,229,1);
+}
+
+
+.check_sign_up_type:checked{
+  background-color: #35ae14
 }
 
 
@@ -7825,7 +7837,7 @@ footer .line-shape {
 }
 .user-info .thumb {
   min-width: 100px;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 .user-info .thumb img {
   height: 100px;
@@ -7843,6 +7855,11 @@ footer .line-shape {
   font-size: 16px;
   text-transform: capitalize;
   color: #6c6c6c;
+}
+
+.user-desc{
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .user-form .nice-select {

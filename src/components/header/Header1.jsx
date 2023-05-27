@@ -153,10 +153,10 @@ function Header1() {
 		</Link>
 		</li>
 		<li>
-		<Link legacyBehavior href="/blog-standard">
+		<Link legacyBehavior href="/blog-details">
 		<a
 		className={
-			currentRoute === "/blog-standard" ? "active" : ""
+			currentRoute === "/blog-details" ? "active" : ""
 		}
 		>
 		What's going on

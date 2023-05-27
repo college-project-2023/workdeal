@@ -1,23 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import Order from "../components/acount/Order";
 import UserProfile from "../components/acount/UserProfile";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
-import { auth } from '../firebase/firebase'
-import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 function Accountpage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [authentication, setAuthentication] = useState(null);
+  const [typeofacc, setTypeOfAcc] = useState("worker");
+  const [userdata, setUserdata] = useState();
+
+
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setAuthentication(user);
+      }
+    });
+    axios
+      .get("http://localhost:5000/checkuser", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data == "login") {
+          window.location = "/login";
+        } else {
+          if (auth.currentUser) {
+            const useruid = auth.currentUser.uid;
+            axios
+              .get(`http://localhost:5000/get-user-data/${useruid}`, {
+                withCredentials: true,
+              })
+              .then((data) => {
+                setUserdata(data.data);
+                setTypeOfAcc(data.data.typeofacc);
+              });
+          }
+        }
+      });
+  }, [authentication]);
+
+  function setCookie() {
+    const cookie = new Cookies();
+    if (auth.currentUser) {
+      cookie.set("loggedin", auth.currentUser.getIdToken);
+    } else {
+      cookie.set("loggedin", "false");
+    }
+  }
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
 
-  async function logout(){
-    await auth.signOut().then(()=>{
-      window.location="/"
-    })
+  async function logout() {
+    await auth.signOut().then(() => {
+      setCookie();
+      window.location = "/";
+    });
   }
 
   return (
@@ -35,30 +79,35 @@ function Accountpage() {
               >
                 <button
                   className="nav-link active"
-                  id="v-pills-home-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-home"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-home"
-                  aria-selected="true"
-                >
-                  <i className="bi bi-columns-gap" />
-                  Dashboard
-                </button>
-                <button
-                  className="nav-link"
                   id="v-pills-profile-tab"
                   data-bs-toggle="pill"
                   data-bs-target="#v-pills-profile"
                   type="button"
                   role="tab"
+                  aria-current="page"
                   aria-controls="v-pills-profile"
-                  aria-selected="false"
+                  aria-selected="true"
                 >
                   <i className="bi bi-person" />
                   My Profile
                 </button>
+
+                {typeofacc == "worker" && (
+                  <button
+                    className="nav-link"
+                    id="v-pills-home-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-home"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-home"
+                    aria-selected="false"
+                  >
+                    <i className="bi bi-columns-gap" />
+                    Dashboard
+                  </button>
+                )}
+
                 <button
                   className="nav-link"
                   id="v-pills-order-tab"
@@ -101,7 +150,7 @@ function Accountpage() {
               </div>
               <div className="tab-content" id="v-pills-tabContent">
                 <div
-                  className="tab-pane fade show active"
+                  className="tab-pane fade"
                   id="v-pills-home"
                   role="tabpanel"
                   aria-labelledby="v-pills-home-tab"
@@ -178,22 +227,28 @@ function Accountpage() {
                   </div>
                 </div>
                 <div
-                  className="tab-pane fade"
+                  className="tab-pane fade show active"
                   id="v-pills-profile"
                   role="tabpanel"
                   aria-labelledby="v-pills-profile-tab"
                 >
                   <div className="user-profile">
                     <div className="user-info">
-                      <div className="thumb">
-                        <img src="assets/images/user-1.jpg" alt="" />
+                        <div className="thumb">
+                          <img
+                            id="img-profile-pic"
+                            src="assets/images/acc.png"
+                            alt=""
+                          />
+                        </div>
+                      {userdata != null && (
+                      <div >
+                        <h3>{userdata.fname+" "+userdata.lname}</h3>
+                        <span>{userdata.typeofacc}</span>
                       </div>
-                      <div className="user-desc">
-                        <h3>Johan Martin SR-</h3>
-                        <span>Co Founder</span>
-                      </div>
+                      )}
                     </div>
-                    <UserProfile />
+                    {userdata != null && <UserProfile user={userdata} />}
                   </div>
                 </div>
                 <Order />
@@ -281,7 +336,9 @@ function Accountpage() {
                   id="v-pills-logout"
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
-                ><input type="button" onClick={logout} value="logout"/></div>
+                >
+                  <input type="button" onClick={logout} value="logout" />
+                </div>
               </div>
             </div>
           </div>

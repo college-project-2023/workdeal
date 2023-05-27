@@ -10,9 +10,42 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    name: {
+    fname: {
       type: String,
       required: true,
+    },
+    lname:{
+      type: String,
+      required: true,
+    },
+    mobile:{
+      type: String,
+      required: false,
+    },
+    address:{
+      type: String,
+      required: false,
+    },
+    city:{
+      type: String,
+      required: false,
+    },
+    zipcode:{
+      type: String,
+      required: false,
+    },
+    statename:{
+      type: String,
+      required: false,
+    },
+    country:{
+      type: String,
+      required: false,
+    },
+    
+    typeofacc:{
+      type:String,
+      required:true,
     }
   },
   {

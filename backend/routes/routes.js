@@ -6,6 +6,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const admin = require("../firebase-config");
 var crypto = require("crypto-js");
+const { response } = require("express");
 app.use(cookieParser());
 
 var loggedin = false;
@@ -26,7 +27,7 @@ async function middleware(request, response, next) {
         console.log("not logged in");
       }
     } catch (Exception) {
-      response.send("login")
+      response.send("login");
     }
   } else {
     response.send("login");
@@ -58,15 +59,90 @@ app.post("/create-user-worker", async (request, response) => {
 app.get(`/get-user-data/:uid`, async (req, res) => {
   const worker = new userWorkerModel(req.body);
   const client = new userClientModel(req.body);
-  console.log(req.params.uid);
   const userid = req.params.uid;
   worker.collection.findOne({ uid: userid }, function (error, data) {
     if (error) {
-      res.sendStatus(404);
+      client.collection.findOne({ uid: userid }, function (error, data) {
+        if (error) {
+          res.sendStatus(404);
+        } else {
+          res.send(data);
+        }
+      });
+    } else {
+      if (data == null) {
+        client.collection.findOne({ uid: userid }, function (error, data) {
+          if (error) {
+            res.sendStatus(404);
+          } else {
+            if (data != null) {
+              res.send(data);
+            } else {
+              res.sendStatus(404);
+            }
+          }
+        });
+      }
     }
-    res.send(data);
   });
 });
+
+app.post(`/update-user-worker/`, async (req, res) => {
+  const user = new userWorkerModel(req.body);
+  try{
+    const newdoc = await user.collection.findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          uid: req.body.uid,
+          fname: req.body.fname,
+          lname: req.body.lname,
+          email: req.body.email,
+          mobile: req.body.mobile,
+          address: req.body.address,
+          city: req.body.addrcity,
+          zipcode: req.body.zipcode,
+          statename: req.body.addrstatename,
+          country: req.body.addrcountry,
+          typeofacc: "worker",
+        },
+      }
+    );
+    response.send(newdoc)
+  }catch(error){
+    res.send(error);
+  }
+  
+});
+
+app.post(`/update-user-client/`, async (req, res) => {
+  const user = new userClientModel(req.body);
+  try{
+    const newdoc = await user.collection.findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          uid: req.body.uid,
+          fname: req.body.fname,
+          lname: req.body.lname,
+          email: req.body.email,
+          mobile: req.body.mobile,
+          address: req.body.address,
+          city: req.body.addrcity,
+          zipcode: req.body.zipcode,
+          statename: req.body.addrstatename,
+          country: req.body.addrcountry,
+          typeofacc: "client",
+        },
+      }
+    );
+    response.send(newdoc)
+  }catch(error){
+    res.send(error);
+  }
+  
+});
+
 
 app.post("/add_user", async (request, response) => {
   const user = new userModel(request.body);

@@ -19,7 +19,7 @@ function SignUpPage() {
   const [password, setPassword] = useState();
   const [fname, setFname] = useState();
   const [lname, setLname] = useState();
-  const [typeofacc ,setTypeOfAcc] = useState();
+  const [typeofacc ,setTypeOfAcc] = useState("worker");
 
   const register = async () => {
     if (
@@ -47,7 +47,9 @@ function SignUpPage() {
               .post(linkfordb, {
                 uid: res.user.uid,
                 email: email,
-                name: fname+" "+lname
+                fname: fname,
+                lname:lname,
+                typeofacc:typeofacc
               })
               .then((res) => {
                 if (res.status == 200) {

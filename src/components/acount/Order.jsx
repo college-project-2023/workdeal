@@ -1,6 +1,59 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { auth } from "../../firebase/firebase";
 
-function Order() {
+function Order(props) {
+  const userid = auth.currentUser.uid;
+  const [orders, setOrdersData] = useState([]);
+  const service = props.service;
+
+
+  const [orderPending,setOrderPending] = useState(0);
+  const [orderComplete,setOrderComplete] = useState(0);
+
+
+  function setOrderDataToDashboard(){
+    for(let i=0;i<orders.length;i++){
+      if (orders[i].status=="Complete"){
+        setOrderComplete(orderComplete+1)
+      }else{
+        setOrderPending(orderPending+1)
+      }
+    }
+  }
+
+  function sendToMapPage(){
+    
+  }
+
+  useEffect(()=>{
+    setOrderDataToDashboard()
+  },[orders])
+
+  useEffect(()=>{
+    props.pending(orderPending)
+    props.complete(orderComplete)
+  },[orderPending,orderComplete]);
+
+  async function getOrders() {
+    axios
+      .get(`http://localhost:5000/get-orders-worker/${userid}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setOrdersData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  
+
   return (
     <div
       className="tab-pane fade"
@@ -30,91 +83,34 @@ function Order() {
               </tr>
             </thead>
             {/* every single data*/}
-            <tbody>
-              <tr>
-                <td data-label="Service Title">
-                  <img src="assets/images/table-data/table-data-1.jpg" alt="" />
-                  <span>Hair Cut Service</span>
-                </td>
-                <td data-label="Order ID">#200124001</td>
-                <td data-label="Order Ammount">1222.8365</td>
-                <td data-label="Status">Complete</td>
-                <td data-label="Action">
-                  <div className="action">
-                    <div className="view">
-                      <i className="bi bi-eye" />
-                    </div>
-                    <div className="delete">
-                      <i className="bi bi-trash3" />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              {/* every single data*/}
-              <tr>
-                <td data-label="Service title">
-                  <img src="assets/images/table-data/table-data-2.jpg" alt="" />
-                  <span>Hous Shift Service</span>
-                </td>
-                <td data-label="Order ID">#2005601</td>
-                <td data-label="Order Ammount">1455.8768</td>
-                <td data-label="Status">Complete</td>
-                <td data-label="Action">
-                  <div className="action">
-                    <div className="view">
-                      <i className="bi bi-eye" />
-                    </div>
-                    <div className="delete">
-                      <i className="bi bi-trash3" />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              {/* every single data*/}
-              <tr>
-                <td data-label="Service title">
-                  <img src="assets/images/table-data/table-data-3.jpg" alt="" />
-                  <span>Electric Line Services</span>
-                </td>
-                <td data-label="Order ID">#200129875</td>
-                <td data-label="Order Ammount">1268.8955</td>
-                <td data-label="Status">Complete</td>
-                <td data-label="Action">
-                  <div className="action">
-                    <div className="view">
-                      <i className="bi bi-eye" />
-                    </div>
-                    <div className="delete">
-                      <i className="bi bi-trash3" />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+            {orders && (
+              <tbody>
+                {orders.map((item) => (
+                  <tr key={item._id}>
+                    <td data-label="Service Title">
+                      <img
+                        src="assets/images/table-data/table-data-1.jpg"
+                        alt=""
+                      />
+                      <span>{service}</span>
+                    </td>
+                    <td data-label="Order ID">{item._id}</td>
+                    <td data-label="Order Ammount">{item.amount}</td>
+                    <td data-label="Status">{item.status}</td>
+                    <td data-label="Action">
+                      <div className="action">
+                        <div className="view" onClick={sendToMapPage}>
+                          <i className="bi bi-eye" />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
           </table>
         </div>
-        <div className="show-entries">
-          <div className="entrie">
-            <span>Showing 10 to 20 of 1 entries</span>
-            <ul className="paginate">
-              <li>
-                <a href="#">Previous</a>
-              </li>
-              <li>
-                <a href="#">01</a>
-              </li>
-              <li className="active">
-                <a href="#">02</a>
-              </li>
-              <li>
-                <a href="#">03</a>
-              </li>
-              <li>
-                <a href="#">Next</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

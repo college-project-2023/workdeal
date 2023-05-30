@@ -50,7 +50,8 @@ const UserClientSchema = new mongoose.Schema({
   collection:"users/client"
 });
 
-const UserClient = mongoose.model("UserClient", UserClientSchema);
+const mydb = mongoose.connection.useDb('workdeal');
+const UserClient = mydb.model("UserClient", UserClientSchema);
 
 module.exports = UserClient;
 

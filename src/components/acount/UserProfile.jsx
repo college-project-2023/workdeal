@@ -37,7 +37,7 @@ function UserProfile(props) {
             }else{
               typeofaccount="client"
             }
-            axios
+            axios 
               .post(`http://localhost:5000/update-user-${typeofaccount}/`, {
                   fname: fname,
                   lname: lname,

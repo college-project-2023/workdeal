@@ -167,10 +167,6 @@ function SignUpPage() {
                   <i className="fab fa-google" />
                   Signup with google
                 </a>
-                <a href="#" className="facebook">
-                  <i className="fab fa-facebook-f" />
-                  Sign up with facebook
-                </a>
               </div>
             </div>
             <p>

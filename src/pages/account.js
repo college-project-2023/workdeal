@@ -14,6 +14,9 @@ function Accountpage() {
   const [typeofacc, setTypeOfAcc] = useState("worker");
   const [userdata, setUserdata] = useState();
 
+  const [orderPending,setOrderPending] = useState(0);
+  const [orderComplete,setOrderComplete] = useState(0);
+
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
@@ -36,8 +39,18 @@ function Accountpage() {
                 withCredentials: true,
               })
               .then((data) => {
-                setUserdata(data.data);
-                setTypeOfAcc(data.data.typeofacc);
+               if(data.status==200){
+                  setUserdata(data.data);
+                  setTypeOfAcc(data.data.typeofacc);
+                }else{
+                  window.alert("something went wrong")
+                }
+              }).catch((error)=>{
+                if(error.response.status==404){
+                  window.location="/login-google-required"
+                }else {
+                  window.alert("something went wrong")
+                }
               });
           }
         }
@@ -63,6 +76,7 @@ function Accountpage() {
       window.location = "/";
     });
   }
+
 
   return (
     <Layout>
@@ -121,6 +135,7 @@ function Accountpage() {
                   <i className="bi bi-bag-check" />
                   All Order
                 </button>
+                {typeofacc=="client" && 
                 <button
                   className="nav-link"
                   id="v-pills-settings-tab"
@@ -133,7 +148,7 @@ function Accountpage() {
                 >
                   <i className="bi bi-house-door" />
                   Address
-                </button>
+                </button>}
                 <button
                   className="nav-link"
                   id="v-pills-logout-tab"
@@ -168,7 +183,7 @@ function Accountpage() {
                           </div>
                           <h2>
                             {" "}
-                            <CountUp start={0} end={223} duration={3} />
+                            <CountUp start={0} end={orderPending} duration={1} />
                           </h2>
                         </div>
                       </div>
@@ -185,29 +200,13 @@ function Accountpage() {
                           </div>
                           <h2>
                             {" "}
-                            <CountUp start={0} end={121} duration={3} />
+                            <CountUp start={0} end={orderComplete} duration={1} />
                           </h2>
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-6">
-                      <div className="order-box">
-                        <h5>Order Active</h5>
-                        <div className="box-inner">
-                          <div className="icon">
-                            <img
-                              src="assets/images/icons/order-box-3.png"
-                              alt=""
-                            />
-                          </div>
-                          <h2>
-                            {" "}
-                            <CountUp start={0} end={2523} duration={3} />
-                          </h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
+                    
+                    <div className="col-lg-12">
                       <div className="order-box">
                         <h5>Total Order</h5>
                         <div className="box-inner">
@@ -219,7 +218,7 @@ function Accountpage() {
                           </div>
                           <h2>
                             {" "}
-                            <CountUp start={0} end={23223} duration={3} />
+                            <CountUp start={0} end={orderPending+orderComplete} duration={3} />
                           </h2>
                         </div>
                       </div>
@@ -251,7 +250,8 @@ function Accountpage() {
                     {userdata != null && <UserProfile user={userdata} />}
                   </div>
                 </div>
-                <Order />
+                {authentication && userdata &&
+                <Order service={userdata.service} pending={setOrderPending} complete={setOrderComplete}/>}
                 <div
                   className="tab-pane fade"
                   id="v-pills-settings"

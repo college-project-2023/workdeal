@@ -2,11 +2,13 @@ const express = require("express");
 const userModel = require("../models/search");
 const userClientModel = require("../models/users/userdataclient");
 const userWorkerModel = require("../models/users/userdataworker");
+const OrderWorker = require("../models/orders/workers")
 const app = express();
 const cookieParser = require("cookie-parser");
 const admin = require("../firebase-config");
 var crypto = require("crypto-js");
 const { response } = require("express");
+const { default: mongoose } = require("mongoose");
 app.use(cookieParser());
 
 var loggedin = false;
@@ -82,6 +84,8 @@ app.get(`/get-user-data/:uid`, async (req, res) => {
             }
           }
         });
+      }else{
+        res.send(data)
       }
     }
   });
@@ -105,6 +109,7 @@ app.post(`/update-user-worker/`, async (req, res) => {
           statename: req.body.addrstatename,
           country: req.body.addrcountry,
           typeofacc: "worker",
+          service:req.body.service,
         },
       }
     );
@@ -154,5 +159,21 @@ app.post("/add_user", async (request, response) => {
     response.status(500).send(error);
   }
 });
+
+app.get(`/get-orders-worker/:uid` , async(req,res) =>{
+  const orders = new OrderWorker(req.body);
+  const userid = req.params.uid;
+
+  console.log(orders.db.name)
+
+  OrderWorker.find({ uid: userid })
+  .then((workers) => {
+    res.json(workers);
+  })
+  .catch((error) => {
+    res.send(error);
+  });
+
+})
 
 module.exports = app;

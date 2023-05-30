@@ -46,6 +46,10 @@ const UserWorkerSchema = new mongoose.Schema(
     typeofacc:{
       type:String,
       required:true,
+    },
+    service:{
+      type:String,
+      required:true
     }
   },
   {
@@ -53,6 +57,7 @@ const UserWorkerSchema = new mongoose.Schema(
   }
 );
 
-const UserWorker = mongoose.model("UserWorker", UserWorkerSchema);
+const mydb = mongoose.connection.useDb('workdeal');
+const UserWorker = mydb.model("UserWorker", UserWorkerSchema);
 
 module.exports = UserWorker;

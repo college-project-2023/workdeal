@@ -24,7 +24,6 @@ app.use(express.json());
 
 
 app.use(Router);
-console.log("asd");
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

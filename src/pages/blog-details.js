@@ -309,7 +309,6 @@ function BlogDetailsPage() {
                 </div>
               </div>
             </div>
-            <BlogSidebar />
           </div>
         </div>
       </section>

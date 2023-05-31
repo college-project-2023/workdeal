@@ -1,18 +1,33 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-function ServiceFilter() {
-  const [selectedOption, setSelectedOption] = useState(null);
+function ServiceFilter(props) {
+  const [selectedOption, setSelectedOption] = useState('');
   function handleSelectChange(event) {
-    setSelectedOption(event.target.value);
+    setSelectedOption(event.value);
   }
+  const [selectedcg, setSelectedcg] = useState('');
+  function handleSelectChangecg(event) {
+    setSelectedcg(event.target.value);
+  }
+  const [selectedpr, setSelectedpr] = useState();
+  function handleSelectChangepr(event) {
+    setSelectedpr(event.target.value);
+  }
+  const [selectedrt, setSelectedrt] = useState('');
+  function handleSelectChangert(event) {
+    setSelectedrt(event.target.value);
+  }
+  const fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+  console.log(fdata);
+  props.sendtopage(fdata);
   const options = [
-    { value: "Dhaka", label: "Dhaka" },
-    { value: "Barisal", label: "Barisal" },
-    { value: "Khulna", label: "Khulna" },
-    { value: "Rangpur", label: "Rangpur" },
-    { value: "Sylhet", label: "Sylhet" },
-    { value: "Rajshahi", label: "Rajshahi" },
+    { value: "Ahmedabad", label: "Ahmedabad" },
+    { value: "vadodara", label: "Vadodara" },
+    { value: "Rajkot", label: "Rajkot" },
+    { value: "Surat", label: "Surat" },
+    { value: "Anand", label: "Anand" },
+    { value: "Jamnagar", label: "Jamnagar" },
   ];
   const customStyles = {
     menu: (provided, state) => ({
@@ -95,6 +110,7 @@ function ServiceFilter() {
                 width="250px"
                 menuColor="#333"
                 defaultValue={selectedOption}
+                onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
                 instanceId="my-unique-id"
@@ -106,30 +122,40 @@ function ServiceFilter() {
               <select
                 className="srv-select"
                 style={{ padding: "10px 20px", border: "1px solid #ddd" }}
+                onChange={handleSelectChangecg}
+                value={selectedcg}
               >
-                <option value="sda">Select Category</option>
+                <option value="">Select Category</option>
                 <option value="Saloon">Saloon</option>
+                <option value="Cook">Cooking</option>
                 <option value="Cleaning">Cleaning</option>
                 <option value="Ac repair">Ac repair</option>
-                <option value="Spa & beauty">Spa &amp; beauty</option>
+                <option value="Spa & beauty">Spa & beauty</option>
               </select>
               <select
                 className="srv-select"
                 style={{ padding: "10px 20px", border: "1px solid #ddd" }}
+                onChange={handleSelectChangepr}
+                value={selectedpr}
               >
-                <option value="sda">Price Reange</option>
-                <option value="500-1000">500-1000</option>
-                <option value="1000-2000">1000-2000</option>
-                <option value="2000-5000">2000-5000</option>
+                <option value="">Price Range</option>
+                <option value={500}>&lt;500</option>
+                <option value={500-1000}>500-1000</option>
+                <option value={1000-2000}>1000-2000</option>
+                <option value={2000-5000}>2000-5000</option>
               </select>
               <select
                 className="srv-select"
                 style={{ padding: "10px 20px", border: "1px solid #ddd" }}
+                onChange={handleSelectChangert}
+                value={selectedrt}
               >
-                <option value="sda">Rating</option>
-                <option value="3.5 Star">3.5 Star</option>
-                <option value="4.5 Star">4.5 Star</option>
-                <option value="5 Star">5 Star</option>
+                <option value="">Rating</option>
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5">5 Star </option>
               </select>
             </div>
           </div>

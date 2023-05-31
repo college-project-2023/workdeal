@@ -83,7 +83,7 @@ function SignUpPage() {
               <div className="row">
                 <div className="col-md-6">
                   <label htmlFor="fname">
-                    Frist Name*
+                    First Name*
                     <input
                       type="text"
                       name="fname"

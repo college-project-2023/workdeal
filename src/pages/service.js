@@ -1,31 +1,67 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState,useEffect,useRef } from "react";
 import Brands from "../components/common/Brands";
 import Breadcrumb from "../components/common/Breadcrumb";
 import ServiceFilter from "../components/service/ServiceFilter";
-import serviceData from "../data/service/popular-Services.json";
+//import serviceData from "../data/service/popular-Services.json";
 import Layout from "./../components/layout/Layout";
-function Servicepage() {
+import axios from "axios";
+ function Servicepage() {
+  const [serviceData,setServicedata]=useState([]);
+  const filters = useRef({"location": "vadodara","category":"sda","pricerange":"sda","rating":"sda"});
+  const previousFliter = useRef({});
+  const fetchData = async () => {    
+    try{      
+      await axios.get('http://localhost:5000/data',{params : {
+        tag : filters.current.category,
+        location:filters.current.location,
+        price : filters.current.pricerange,
+        rating : filters.current.rating
+      }}).then((res)=>{
+        console.log(res.data);
+        setServicedata(res.data);
+      })
+    }catch(error) {
+      console.error(error);
+    }
+  };
+  async function onSendpage(send){
+    
+    filters.current = send;
+    console.log(filters.current.category);
+    if(filters.current.category!=previousFliter.current.category || filters.current.location!=previousFliter.current.location || filters.current.pricerange!=previousFliter.current.pricerange || filters.current.rating!=previousFliter.current.rating){
+      fetchData();
+     previousFliter.current.category = filters.current.category;
+     previousFliter.current.location = filters.current.location;
+     previousFliter.current.pricerange = filters.current.pricerange;
+     previousFliter.current.rating = filters.current.rating;
+     console.log(previousFliter.current.category);
+   }
+    
+  };
+
+  //useEffect(() => {
+    
+   
+    //onSendpage();
+  //}, []);
+  console.log(filters.current.pricerange!=previousFliter.current.pricerange);
+  //useEffect(()=>{
+    
+  //},[])
+  
+ 
   return (
     <Layout>
       <Breadcrumb pageName="Our Services" pageTitle="Our Services" />
       <section id="down" className="services-area sec-m-top">
         <div className="container">
-          <ServiceFilter />
+          
+          <ServiceFilter sendtopage={onSendpage}/>
           <div className="row g-4">
-            {serviceData.map((item) => {
-              const {
-                id,
-                tag,
-                thumb,
-                author_thumb,
-                author_name,
-                title,
-                price,
-              } = item;
-              return (
+            {serviceData.map((item) => (
                 <div
-                  key={id}
+                  key={item.id}
                   className="col-md-6 col-lg-4 wow animate fadeInLeft"
                   data-wow-delay="200ms"
                   data-wow-duration="1500ms"
@@ -34,12 +70,12 @@ function Servicepage() {
                     <div className="thumb">
                       <Link legacyBehavior href="#">
                         <a>
-                          <img src={thumb} alt="" />
+                          <img src={item.thumb} alt="" />
                         </a>
                       </Link>
                       <div className="tag">
                         <Link legacyBehavior href="/service">
-                          <a>{tag}</a>
+                          <a>{item.tag}</a>
                         </Link>
                       </div>
                       <div className="wish">
@@ -53,10 +89,10 @@ function Servicepage() {
                     <div className="single-inner">
                       <div className="author-info">
                         <div className="author-thumb">
-                          <img src={author_thumb} alt="" />
+                          <img src={item.author_thumb} alt="" />
                         </div>
                         <div className="author-content">
-                          <span>{author_name}</span>
+                          <span>{item.author_name}</span>
                           <div className="ratting">
                             <ul className="stars">
                               <li>
@@ -81,7 +117,7 @@ function Servicepage() {
                       </div>
                       <h4>
                         <Link legacyBehavior href="/service-details">
-                          <a>{title}</a>
+                          <a>{item.title}</a>
                         </Link>
                       </h4>
                       <div className="started">
@@ -95,14 +131,14 @@ function Servicepage() {
                         </Link>
                         <span>
                           <small>$</small>
-                          {price}
+                          {item.price}
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              
+            ))}
           </div>
           <div
             className="paginatation wow animate fadeInUp"

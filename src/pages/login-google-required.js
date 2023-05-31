@@ -123,7 +123,18 @@ const signupdata = () => {
           </label>
         </div>
 
-        {typeofacc=="worker" &&
+        
+
+      </div>
+              
+      <div className="terms-forgot">
+        <p>
+          <input type="checkbox" name="agree" id="check_terms_signup" />I agree
+          to the <a href="#">Terms &amp; Policy</a>
+        </p>
+      </div>
+      <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
+      {typeofacc=="worker" &&
         <div className="col-12">
           <label htmlFor="password">
             Service*
@@ -135,16 +146,6 @@ const signupdata = () => {
             </select>
           </label>
         </div>}
-
-      </div>
-              
-      <div className="terms-forgot">
-        <p>
-          <input type="checkbox" name="agree" id="check_terms_signup" />I agree
-          to the <a href="#">Terms &amp; Policy</a>
-        </p>
-      </div>
-      <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
       <input
         type="button"
         onClick={register}

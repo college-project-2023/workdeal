@@ -1,50 +1,83 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React, { useEffect, useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import axios from "axios";
 
-const city = [
-  { value: "City", label: "City" },
-  { value: "dhaka", label: "Dhaka" },
-  { value: "chittagong", label: "Chittagong" },
-  { value: "comilla", label: "Comilla" },
-];
+function UserProfile(props) {
+  const [fname, setFname] = useState(props.user.fname);
+  const [lname, setLname] = useState(props.user.lname);
+  const [email, setEmail] = useState(props.user.email);
+  const [mobile, setMobileNumber] = useState(props.user.mobile);
+  const [address, setAdress] = useState(props.user.address);
+  const [addrcity, setCity] = useState(props.user.city);
+  const [zipcode, setZipCode] = useState(props.user.zipcode);
+  const [addrstatename, setStateName] = useState(props.user.statename);
+  const [addrcountry, setCountry] = useState(props.user.country);
+  const [password, setPass] = useState("");
+  
 
-const state = [
-  { value: "dhaka", label: "Dhaka" },
-  { value: "chittagong", label: "Chittagong" },
-  { value: "comilla", label: "Comilla" },
-];
 
-const country = [
-  { value: "bangladesh", label: "Bangladesh" },
-  { value: "nepal", label: "Nepal" },
-  { value: "chaina", label: "China" },
-];
 
-function UserProfile() {
-  const [selectedOptions, setSelectedOptions] = useState({});
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
-  const customStyles = {
-    valueContainer: (provided) => ({
-      ...provided,
-      padding: "5px 8px", // Customize padding here
-    }),
-    control: (base) => ({
-      ...base,
-      border: "1px solid #eeeeee",
-      // This line disable the blue border
-      boxShadow: "none",
-    }),
-  };
-  const handleSelectChange = (option, name) => {
-    setSelectedOptions((prevState) => ({ ...prevState, [name]: option }));
-  };
+
+  function updateProfile() {
+    var ele = document.getElementById("btn_submit_updat_profile");
+    ele.disabled = true;
+    ele.style.backgroundColor = "Gray";
+      if (password != null && password != "") {
+        signInWithEmailAndPassword(auth, email, password)
+          .then((res) => {
+            var typeofaccount;
+            if (props.user.typeofacc=="worker"){
+              typeofaccount="worker"
+            }else{
+              typeofaccount="client"
+            }
+            axios 
+              .post(`http://localhost:5000/update-user-${typeofaccount}/`, {
+                  fname: fname,
+                  lname: lname,
+                  email: email,
+                  mobile: mobile,
+                  address: address,
+                  addrcity: addrcity,
+                  zipcode: zipcode,
+                  addrstatename: addrstatename,
+                  addrcountry: addrcountry,
+                  uid: auth.currentUser.uid,
+                },
+              )
+              .then((res) => {
+                if (res.status == 200) {
+                  window.alert("Profile updated successfully");
+                  window.location="/account"
+                } else {
+                  window, alert("Something went wrong");
+                }
+                ele.disabled = false;
+                ele.style.backgroundColor = "#5bb543";
+              });
+          })
+          .catch((error) => {
+            window.alert(error.message);
+            ele.disabled = false;
+            ele.style.backgroundColor = "#5bb543";
+          });
+      } else {
+        ele.disabled = false;
+        ele.style.backgroundColor = "#5bb543";
+        window.alert("Please enter password");
+      }
+  }
+
 
   return (
     <div className="user-form">
-      <form onSubmit={handleSelectChange}>
+      <form>
         <div className="row">
           <div className="col-lg-6">
             <label>
@@ -53,6 +86,10 @@ function UserProfile() {
                 type="text"
                 name="fname"
                 id="fname"
+                value={fname}
+                onChange={(e) => {
+                  setFname(e.target.value);
+                }}
                 placeholder="Your first name"
               />
             </label>
@@ -64,6 +101,10 @@ function UserProfile() {
                 type="text"
                 name="lname"
                 id="lname"
+                value={lname}
+                onChange={(e) => {
+                  setFname(e.target.value);
+                }}
                 placeholder="Your last name"
               />
             </label>
@@ -75,6 +116,10 @@ function UserProfile() {
                 type="text"
                 name="number"
                 id="number"
+                value={mobile}
+                onChange={(e) => {
+                  setMobileNumber(e.target.value);
+                }}
                 placeholder={+8801}
               />
             </label>
@@ -86,6 +131,11 @@ function UserProfile() {
                 type="email"
                 name="email"
                 id="email"
+                disabled={true}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 placeholder="Your Email"
               />
             </label>
@@ -93,55 +143,77 @@ function UserProfile() {
           <div className="col-12">
             <label>
               Address
-              <input type="text" name="address" id="address" />
+              <input
+                type="text"
+                name="address"
+                id="address"
+                value={address}
+                onChange={(e) => {
+                  setAdress(e.target.value);
+                }}
+              />
             </label>
           </div>
           <div className="col-lg-6">
             <div className="select-level level-b">
-              <label>City</label>
-              <Select
-                name="city"
-                styles={customStyles}
-                placeholder="City"
-                options={city}
-                defaultValue={city}
-                value={selectedOptions.city}
-                onChange={(option) => handleSelectChange(option, "city")}
-              />
+              <label>
+                City
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  value={addrcity}
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                />
+              </label>
             </div>
           </div>
           <div className="col-lg-6">
             <div className="select-level level-b">
-              <label>State</label>
-              <Select
-                name="state"
-                styles={customStyles}
-                placeholder="State"
-                defaultValue={state}
-                options={state}
-                value={selectedOptions.state}
-                onChange={(option) => handleSelectChange(option, "state")}
-              />
+              <label>
+                State
+                <input
+                  type="text"
+                  name="state"
+                  id="state"
+                  value={addrstatename}
+                  onChange={(e) => {
+                    setStateName(e.target.value);
+                  }}
+                />
+              </label>
             </div>
           </div>
           <div className="col-lg-6">
             <label>
               Zip Code
-              <input type="text" name="zipcode" id="zipcode" />
+              <input
+                type="text"
+                name="zipcode"
+                id="zipcode"
+                value={zipcode}
+                onChange={(e) => {
+                  setZipCode(e.target.value);
+                }}
+              />
             </label>
           </div>
           <div className="col-lg-6">
             <div className="select-level level-b">
-              <label>Country</label>
-              <Select
-                name="country"
-                styles={customStyles}
-                placeholder="Country"
-                options={country}
-                defaultValue={country}
-                value={selectedOptions.country}
-                onChange={(option) => handleSelectChange(option, "country")}
-              />
+              <label>
+                Country
+                <input
+                  type="text"
+                  name="country"
+                  id="counry"
+                  value={addrcountry}
+                  onChange={(e) => {
+                    setCountry(e.target.value);
+                  }}
+                />
+              </label>
             </div>
           </div>
           <div className="col-12">
@@ -162,31 +234,21 @@ function UserProfile() {
                   name="email"
                   id="passwordTwo"
                   placeholder="******"
+                  value={password}
+                  onChange={(e) => {
+                    setPass(e.target.value);
+                  }}
                 />
               </label>
             </div>
-            <div className="form-inner">
-              <label>
-                Confrim Password*
-                <i
-                  onClick={() => togglePasswordVisibility()}
-                  className={
-                    !passwordVisible
-                      ? "bi bi-eye-slash"
-                      : "bi bi-eye-slash  bi-eye"
-                  }
-                  id="togglePasswordThree"
-                />
-                <input
-                  type={!passwordVisible ? "password" : "text"}
-                  name="email"
-                  id="passwordThree"
-                  placeholder="*****"
-                />
-              </label>
-            </div>
-            <button type="submit">Update Profile</button>
-            <button className="cancel">Cancel</button>
+
+            <button
+              id="btn_submit_updat_profile"
+              type="button"
+              onClick={updateProfile}
+            >
+              Update Profile
+            </button>
           </div>
         </div>
       </form>

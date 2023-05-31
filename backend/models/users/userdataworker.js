@@ -10,9 +10,46 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    name: {
+    fname: {
       type: String,
       required: true,
+    },
+    lname:{
+      type: String,
+      required: true,
+    },
+    mobile:{
+      type: String,
+      required: false,
+    },
+    address:{
+      type: String,
+      required: false,
+    },
+    city:{
+      type: String,
+      required: false,
+    },
+    zipcode:{
+      type: String,
+      required: false,
+    },
+    statename:{
+      type: String,
+      required: false,
+    },
+    country:{
+      type: String,
+      required: false,
+    },
+    
+    typeofacc:{
+      type:String,
+      required:true,
+    },
+    service:{
+      type:String,
+      required:true
     }
   },
   {
@@ -20,6 +57,7 @@ const UserWorkerSchema = new mongoose.Schema(
   }
 );
 
-const UserWorker = mongoose.model("UserWorker", UserWorkerSchema);
+const mydb = mongoose.connection.useDb('workdeal');
+const UserWorker = mydb.model("UserWorker", UserWorkerSchema);
 
 module.exports = UserWorker;

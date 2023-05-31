@@ -10,7 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.4.0",
+=======
+    "browser-image-compression": "^2.0.2",
+>>>>>>> d49a757a7d6da13cd4b184bb3c816318a9a70717
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
@@ -25,7 +29,7 @@
     "react-dom": "^18.2.0",
     "react-modal-video": "^2.0.0",
     "react-router-dom": "^6.11.2",
-    "react-select": "^5.7.0",
+    "react-select": "^5.7.3",
     "react-slick": "^0.29.0",
     "swiper": "^8.4.5",
     "universal-cookie": "^4.0.4",

@@ -42,7 +42,15 @@ export default function Home() {
     axios
       .get("http://localhost:5000/checkuser", {
         withCredentials: true,
-      })
+      }).then(async(res)=>{
+            if (res=="login"){
+              await auth.signOut().then(() => {
+                cookie.set("loggedin", "false");
+                window.location = "/";
+                window.alert("Last session expired, Logged out!!")
+              });
+            }
+      });
   }, [auth]);
 
   return (

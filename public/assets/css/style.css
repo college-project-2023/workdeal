@@ -64,8 +64,92 @@
 
 .check_sign_up_type{
   margin: 10px;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-clip:border-box;
+  border: 2px solid rgb(19, 132, 53);
+  background-color: rgba(255,252,229,1);
 }
 
+
+.check_sign_up_type:checked{
+  background-color: #35ae14
+}
+
+.service-selection-signup{
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  
+}
+
+.btn-current-task{
+  height: fit-content;
+  border: none;
+  border: 1px solid #5bb543;
+  background-color: #5bb543;
+  border-radius: 5px;
+  min-width: fit-content;
+  margin: 5px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  text-transform: capitalize;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+.btn-current-task-delete{
+  height: fit-content;
+  border: none;
+  border: 1px solid #de2f2f;
+  background-color: #de2f2f;
+  border-radius: 5px;
+  min-width: fit-content;
+  margin: 5px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  text-transform: capitalize;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+.btn-current-task-cancel{
+  height: fit-content;
+  border: none;
+  border: 1px solid #bec129;
+  background-color: #bec129;
+  border-radius: 5px;
+  min-width: fit-content;
+  margin: 5px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  text-transform: capitalize;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+.profile-logout{
+  display: flex;
+    flex-direction: column;
+    padding: 50px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#txt_edit_address{
+  padding: 5px;
+  margin: 25px;
+  border-radius: 5px;
+  border-color: rgb(175, 175, 175); 
+}
 
 /*-----------------------------------------------------------------------------------
 
@@ -822,7 +906,7 @@ video {
 .breadcrumbs {
   position: relative;
   min-height: 450px;
-  background-image: url(../images/breadcrumbs-bg.png);
+  background-image: url(../images/services/spage.png);
   background-size: cover;
   background-position: center center;
   z-index: 1;
@@ -5625,6 +5709,111 @@ footer .line-shape {
 /*===========================
      33.Login-area css 
 ===========================*/
+.form {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  max-width: 630px;
+  padding: 55px 50px;
+  margin: 0 auto;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .form {
+    padding: 55px 15px;
+  }
+}
+.form h3 {
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  color: #142935;
+}
+.form span {
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: #6c6c6c;
+}
+.form span a {
+  display: inline-block;
+  color: #6c6c6c;
+  font-weight: 600;
+}
+.form > p {
+  font-size: 16px;
+  text-align: center;
+  color: #142935;
+}
+.form > p a {
+  display: inline-block;
+  text-decoration-line: underline;
+  color: #5bb543;
+  font-weight: 500;
+}
+
+
+
+.form {
+  margin-top: 60px;
+}
+@media (max-width: 767px) {
+  .form {
+    margin-top: 40px;
+  }
+}
+.form label {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 25px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  display: block;
+  color: #142935;
+}
+.form label i {
+  position: absolute;
+  right: 20px;
+  top: 43px;
+  cursor: pointer;
+}
+.form label input {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 50px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #6c6c6c;
+  padding: 0 20px;
+}
+.form label input[type=password] {
+  padding-right: 50px;
+}
+.form input[type=button] {
+  background-color: #5bb543;
+  border-radius: 5px;
+  border: none;
+  height: 50px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+  color: #ffffff;
+  transition: all 0.3s;
+}
+.form input[type=button]:hover {
+  color: #fff;
+  background-color: #2e2e2e;
+}
+
+
+
 .login-form {
   background-color: #ffffff;
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
@@ -5668,6 +5857,8 @@ footer .line-shape {
   color: #5bb543;
   font-weight: 500;
 }
+
+
 
 .login-form form {
   margin-top: 60px;
@@ -5788,7 +5979,6 @@ footer .line-shape {
   margin-bottom: 20px;
 }
 .other-signup .others-account {
-  display: flex;
   justify-content: space-between;
 }
 @media (max-width: 767px) {
@@ -7825,7 +8015,7 @@ footer .line-shape {
 }
 .user-info .thumb {
   min-width: 100px;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 .user-info .thumb img {
   height: 100px;
@@ -7843,6 +8033,11 @@ footer .line-shape {
   font-size: 16px;
   text-transform: capitalize;
   color: #6c6c6c;
+}
+
+.user-desc{
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .user-form .nice-select {

@@ -54,6 +54,7 @@ function UserProfile(props) {
               .then((res) => {
                 if (res.status == 200) {
                   window.alert("Profile updated successfully");
+                  window.location="/account"
                 } else {
                   window, alert("Something went wrong");
                 }

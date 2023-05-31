@@ -25,6 +25,10 @@ const UserClientSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  address2:{
+    type: String,
+    required: false,
+  },
   city:{
     type: String,
     required: false,

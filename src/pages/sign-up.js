@@ -5,7 +5,6 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import Signuptype from "./sign-up-type";
 
 function SignUpPage() {

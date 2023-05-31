@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
-import Order from "../components/acount/Order";
+import OrderWorker from "../components/acount/OrderWorker";
 import UserProfile from "../components/acount/UserProfile";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import OrderClient from "../components/acount/OrderClient";
 
 function Accountpage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [authentication, setAuthentication] = useState(null);
   const [typeofacc, setTypeOfAcc] = useState("worker");
   const [userdata, setUserdata] = useState();
+  const [address1, setAddress1] = useState();
+  const [address2, setAddress2] = useState();
 
-  const [orderPending,setOrderPending] = useState(0);
-  const [orderComplete,setOrderComplete] = useState(0);
-
+  const [orderPending, setOrderPending] = useState(0);
+  const [orderComplete, setOrderComplete] = useState(0);
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
@@ -39,23 +41,55 @@ function Accountpage() {
                 withCredentials: true,
               })
               .then((data) => {
-               if(data.status==200){
+                if (data.status == 200) {
                   setUserdata(data.data);
                   setTypeOfAcc(data.data.typeofacc);
-                }else{
-                  window.alert("something went wrong")
+                  setAddress1(data.data.address);
+                  setAddress2(data.data.address2);
+                } else {
+                  window.alert("something went wrong");
                 }
-              }).catch((error)=>{
-                if(error.response.status==404){
-                  window.location="/login-google-required"
-                }else {
-                  window.alert("something went wrong")
+              })
+              .catch((error) => {
+                if (error.response.status == 404) {
+                  window.location = "/login-google-required";
+                } else {
+                  window.alert("something went wrong");
                 }
               });
           }
         }
       });
   }, [authentication]);
+
+  function updateAddress() {
+    console.log(userdata.city)
+    axios
+      .post(`http://localhost:5000/update-user-client/`, {
+        fname: userdata.fname,
+        lname: userdata.lname,
+        email: userdata.email,
+        address: address1,
+        address2: address2,
+        uid: auth.currentUser.uid,
+        mobile: userdata.mobile,
+        addrcity: userdata.city,
+        zipcode: userdata.zipcode,
+        addrstatename: userdata.statename,
+        addrcountry: userdata.country,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          window.alert("Address updated successfully");
+          window.location = "/account";
+        } else {
+          window, alert("Something went wrong");
+        }
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }
 
   function setCookie() {
     const cookie = new Cookies();
@@ -76,7 +110,6 @@ function Accountpage() {
       window.location = "/";
     });
   }
-
 
   return (
     <Layout>
@@ -135,20 +168,21 @@ function Accountpage() {
                   <i className="bi bi-bag-check" />
                   All Order
                 </button>
-                {typeofacc=="client" && 
-                <button
-                  className="nav-link"
-                  id="v-pills-settings-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-settings"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-settings"
-                  aria-selected="false"
-                >
-                  <i className="bi bi-house-door" />
-                  Address
-                </button>}
+                {typeofacc == "client" && (
+                  <button
+                    className="nav-link"
+                    id="v-pills-settings-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-settings"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-settings"
+                    aria-selected="false"
+                  >
+                    <i className="bi bi-house-door" />
+                    Address
+                  </button>
+                )}
                 <button
                   className="nav-link"
                   id="v-pills-logout-tab"
@@ -183,7 +217,11 @@ function Accountpage() {
                           </div>
                           <h2>
                             {" "}
-                            <CountUp start={0} end={orderPending} duration={1} />
+                            <CountUp
+                              start={0}
+                              end={orderPending}
+                              duration={1}
+                            />
                           </h2>
                         </div>
                       </div>
@@ -200,12 +238,16 @@ function Accountpage() {
                           </div>
                           <h2>
                             {" "}
-                            <CountUp start={0} end={orderComplete} duration={1} />
+                            <CountUp
+                              start={0}
+                              end={orderComplete}
+                              duration={1}
+                            />
                           </h2>
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="col-lg-12">
                       <div className="order-box">
                         <h5>Total Order</h5>
@@ -218,7 +260,11 @@ function Accountpage() {
                           </div>
                           <h2>
                             {" "}
-                            <CountUp start={0} end={orderPending+orderComplete} duration={3} />
+                            <CountUp
+                              start={0}
+                              end={orderPending + orderComplete}
+                              duration={3}
+                            />
                           </h2>
                         </div>
                       </div>
@@ -233,25 +279,34 @@ function Accountpage() {
                 >
                   <div className="user-profile">
                     <div className="user-info">
-                        <div className="thumb">
-                          <img
-                            id="img-profile-pic"
-                            src="assets/images/acc.png"
-                            alt=""
-                          />
-                        </div>
-                      {userdata != null && (
-                      <div >
-                        <h3>{userdata.fname+" "+userdata.lname}</h3>
-                        <span>{userdata.typeofacc}</span>
+                      <div className="thumb">
+                        <img
+                          id="img-profile-pic"
+                          src="assets/images/acc.png"
+                          alt=""
+                        />
                       </div>
+                      {userdata != null && (
+                        <div>
+                          <h3>{userdata.fname + " " + userdata.lname}</h3>
+                          <span>{userdata.typeofacc}</span>
+                        </div>
                       )}
                     </div>
                     {userdata != null && <UserProfile user={userdata} />}
                   </div>
                 </div>
-                {authentication && userdata &&
-                <Order service={userdata.service} pending={setOrderPending} complete={setOrderComplete}/>}
+                {authentication &&
+                  userdata &&
+                  (typeofacc == "worker" ? (
+                    <OrderWorker
+                      service={userdata.service}
+                      pending={setOrderPending}
+                      complete={setOrderComplete}
+                    />
+                  ) : (
+                    <OrderClient />
+                  ))}
                 <div
                   className="tab-pane fade"
                   id="v-pills-settings"
@@ -272,7 +327,7 @@ function Accountpage() {
                         <div className="icon">
                           <i className="bi bi-house-door" />
                         </div>
-                        <p>At Home</p>
+                        <p>Address 1</p>
                         <div className="tooltip">
                           <div
                             className="contact-signle hover-border1 d-flex flex-row align-items-center wow fadeInDown"
@@ -290,10 +345,25 @@ function Accountpage() {
                             </div>
                             <div className="text">
                               <h4>Location</h4>
-                              <p>
-                                168/170, Ave 01,Old York Drive Rich Mirpur,
-                                Dhaka
-                              </p>
+                              {userdata && (
+                                <div>
+                                  <input
+                                    type={Text}
+                                    id="txt_edit_address"
+                                    value={address1}
+                                    onChange={(e) => {
+                                      setAddress1(e.target.value);
+                                    }}
+                                  />
+                                  <button
+                                    className="btn-current-task"
+                                    type="button"
+                                    onClick={updateAddress}
+                                  >
+                                    Done
+                                  </button>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -302,7 +372,7 @@ function Accountpage() {
                         <div className="icon">
                           <i className="bi bi-house-door" />
                         </div>
-                        <p>At Office</p>
+                        <p>Address 2</p>
                         <div className="tooltip">
                           <div
                             className="contact-signle hover-border1 d-flex flex-row align-items-center wow fadeInDown"
@@ -320,10 +390,25 @@ function Accountpage() {
                             </div>
                             <div className="text">
                               <h4>Location</h4>
-                              <p>
-                                168/170, Ave 01,Old York Drive Rich Mirpur,
-                                Dhaka
-                              </p>
+                              {userdata && (
+                                <div>
+                                  <input
+                                    type={Text}
+                                    id="txt_edit_address"
+                                    value={address2}
+                                    onChange={(e) => {
+                                      setAddress2(e.target.value);
+                                    }}
+                                  />
+                                  <button
+                                    className="btn-current-task"
+                                    type="button"
+                                    onClick={updateAddress}
+                                  >
+                                    Done
+                                  </button>
+                                </div>
+                              )}
                             </div>
                           </div>{" "}
                         </div>
@@ -337,7 +422,17 @@ function Accountpage() {
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
                 >
-                  <input type="button" onClick={logout} value="logout" />
+                  <div className="profile-logout">
+                    <center>
+                      <h3>Are you sure?</h3>
+                      <input
+                        className="btn-current-task"
+                        type="button"
+                        onClick={logout}
+                        value="logout"
+                      />
+                    </center>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import Cookies from "universal-cookie";
 
 function ServiceFilter(props) {
-  const [selectedOption, setSelectedOption] = useState('');
+  const cookies = new Cookies();
+  const l = cookies.get('mycookie');
+  const i = cookies.get('mycookie2');
+  const [selectedOption, setSelectedOption] = useState(l.value);
   function handleSelectChange(event) {
     setSelectedOption(event.value);
   }
-  const [selectedcg, setSelectedcg] = useState('');
+  const [selectedcg, setSelectedcg] = useState(i);
   function handleSelectChangecg(event) {
     setSelectedcg(event.target.value);
   }
@@ -109,12 +113,11 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={selectedOption}
+                defaultValue={{ value: selectedOption, label: l.label }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
-                instanceId="my-unique-id"
-              />
+                instanceId="my-unique-id">select</Select>
             </div>
           </div>
           <div className="col-lg-9">

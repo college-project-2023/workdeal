@@ -33,6 +33,8 @@ const ServiceSchema = new mongoose.Schema({
   collection:"services"
 });
 
-const service = mongoose.model("service", ServiceSchema);
+
+const mydb = mongoose.connection.useDb('workdeal');
+const service = mydb.model("service", ServiceSchema);
 
 module.exports = service;

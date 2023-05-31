@@ -10,11 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^1.4.0",
-=======
     "browser-image-compression": "^2.0.2",
->>>>>>> d49a757a7d6da13cd4b184bb3c816318a9a70717
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",

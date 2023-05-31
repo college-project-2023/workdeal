@@ -1,6 +1,6 @@
-  if i in a:
+if i in a:
         b.append(1)
-    else:
+else:
         b.append(0)
 
 print(b)

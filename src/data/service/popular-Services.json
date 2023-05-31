@@ -6,7 +6,9 @@
     "author_thumb": "assets/images/services/service-author-2.png",
     "author_name": "Egens Lab",
     "title": "Sed Elit Massa, Maximus Quisen Fermentum Auctor.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 2,
@@ -15,7 +17,9 @@
     "author_thumb": "assets/images/services/service-author-2.png",
     "author_name": "Finibus",
     "title": "Cleaning & Renovation Services By Our Expert Cleaner.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 3,
@@ -25,6 +29,8 @@
     "author_name": "Creasoft",
     "title": "Nullam Dui Nulla, Lacinia Ac Masi Varius Sed Tempor Ac.",
     "price": "250"
+    ,"location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 4,
@@ -33,7 +39,9 @@
     "author_thumb": "assets/images/services/service-author-4.png",
     "author_name": "Isoteclin",
     "title": "Aliquam Commodo Suscipit Vola Neque. Aliquam Erat Utpat.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 5,
@@ -42,7 +50,9 @@
     "author_thumb": "assets/images/services/service-author-5.png",
     "author_name": "Inflazyme",
     "title": "Proin Eget Elit Elit. Sed Congueb Neque Vel Nulla Efficitur.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 6,
@@ -51,7 +61,9 @@
     "author_thumb": "assets/images/services/service-author-6.png",
     "author_name": "Nowonder",
     "title": "Mauris Elit Lectus, Hendrerit Eui Quam At Lobortisi.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 7,
@@ -60,7 +72,9 @@
     "author_thumb": "assets/images/services/service-author-3.png",
     "author_name": "Egens Lab",
     "title": "Lobortisi Proin Eget Elit Elit. Sed Congue Neque Vel.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 8,
@@ -69,7 +83,9 @@
     "author_thumb": "assets/images/services/service-author-2.png",
     "author_name": "Finibus",
     "title": "Sed Congue Proin Eget Elit Elit Quam At Lobortisi.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 9,
@@ -78,7 +94,9 @@
     "author_thumb": "assets/images/services/service-author-4.png",
     "author_name": "Creasoft",
     "title": "SProin Eget Elit Elit. Sed Congue Neque Vel.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 10,
@@ -87,7 +105,9 @@
     "author_thumb": "assets/images/services/service-author6.png",
     "author_name": "Nowonder",
     "title": "Aliquam Commodo Suscipit Voli Neque.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 11,
@@ -96,7 +116,9 @@
     "author_thumb": "assets/images/services/service-author1.png",
     "author_name": "Inflazyme",
     "title": "Nullam Dui Nulla, Lacinia Ac Tempor Ac Massa.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   },
   {
     "id": 12,
@@ -105,6 +127,8 @@
     "author_thumb": "assets/images/services/service-author3.png",
     "author_name": "Nowonder",
     "title": "Aliquam Commodo Suscipit Volineque. Aliquam Erat Utpat.",
-    "price": "250"
+    "price": "250",
+    "location": "vadodara",
+    "rating" : "4"
   }
 ]

@@ -5,14 +5,11 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import Signuptype from "./sign-up-type";
 
 function SignUpPage() {
 
-  //const location = useLocation();
-  //const {from} = location.state;
-  //window.alert(from)
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
@@ -21,7 +18,7 @@ function SignUpPage() {
   const [password, setPassword] = useState();
   const [fname, setFname] = useState();
   const [lname, setLname] = useState();
-  const [typeofacc ,setTypeOfAcc] = useState();
+  const [typeofacc ,setTypeOfAcc] = useState("worker");
 
   const register = async () => {
     if (
@@ -49,7 +46,9 @@ function SignUpPage() {
               .post(linkfordb, {
                 uid: res.user.uid,
                 email: email,
-                name: fname+" "+lname
+                fname: fname,
+                lname:lname,
+                typeofacc:typeofacc
               })
               .then((res) => {
                 if (res.status == 200) {
@@ -166,10 +165,6 @@ function SignUpPage() {
                 <a href="#" className="google">
                   <i className="fab fa-google" />
                   Signup with google
-                </a>
-                <a href="#" className="facebook">
-                  <i className="fab fa-facebook-f" />
-                  Sign up with facebook
                 </a>
               </div>
             </div>

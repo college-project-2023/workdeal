@@ -13,6 +13,10 @@ import FeaturesShop from "../components/shop/FeaturesShop";
 import Testimonial1 from "../components/testimonial/Testimonial1";
 import WhyChooseUs from "../components/whyChooseUs/WhyChooseUs";
 import Header1 from "./../components/header/Header1";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { auth } from "../firebase/firebase";
+import CryptoJS from "crypto-js";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -22,6 +26,33 @@ export default function Home() {
       setLoading(true);
     }, 3000);
   }, []);
+
+  useEffect(() => {
+    const cookie = new Cookies();
+    if (auth.currentUser) {
+      auth.currentUser.getIdToken().then((tkn) => {
+        const data = CryptoJS.AES.encrypt(
+          JSON.stringify(tkn),
+          "getlost"
+        ).toString();
+
+        cookie.set("loggedin", data);
+      });
+    } 
+    axios
+      .get("http://localhost:5000/checkuser", {
+        withCredentials: true,
+      }).then(async(res)=>{
+            if (res=="login"){
+              await auth.signOut().then(() => {
+                cookie.set("loggedin", "false");
+                window.location = "/";
+                window.alert("Last session expired, Logged out!!")
+              });
+            }
+      });
+  }, [auth]);
+
   return (
     <>
       {!loading ? (

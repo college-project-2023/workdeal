@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
+import { googleProvider } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import CryptoJS from "crypto-js";
 
 function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -20,6 +25,23 @@ function LoginPage() {
         signInWithEmailAndPassword(auth, email, password)
           .then(async (res) => {
             window.location = "/account";
+            const cookie = new Cookies();
+            if (auth.currentUser != null) {
+              auth.currentUser.getIdToken().then((tkn) => {
+                const data = CryptoJS.AES.encrypt(
+                  JSON.stringify(tkn),
+                  "getlost"
+                ).toString();
+
+                cookie.set("loggedin", data);
+              });
+            } else {
+              cookie.set("loggedin", "false");
+            }
+
+            axios.get("http://localhost:5000/checkuser", {
+              withCredentials: true,
+            });
           })
           .catch((err) => window.alert(err));
       } else {
@@ -28,6 +50,37 @@ function LoginPage() {
     } else {
       window.alert("enter all fields");
     }
+  }
+
+  async function loginWithGoogle() {
+    const result = await signInWithPopup(auth, googleProvider)
+      .then((res) => {
+        if (auth.currentUser.metadata.creationTime ===auth.currentUser.metadata.lastSignInTime) {
+          window.location="/login-google-required"
+        } else {
+          window.location = "/account";
+          const cookie = new Cookies();
+          if (auth.currentUser != null) {
+            auth.currentUser.getIdToken().then((tkn) => {
+              const data = CryptoJS.AES.encrypt(
+                JSON.stringify(tkn),
+                "getlost"
+              ).toString();
+
+              cookie.set("loggedin", data);
+            });
+          } else {
+            cookie.set("loggedin", "false");
+          }
+
+          axios.get("http://localhost:5000/checkuser", {
+            withCredentials: true,
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   return (
@@ -95,13 +148,9 @@ function LoginPage() {
             <div className="other-signup">
               <h4>or Sign up WITH</h4>
               <div className="others-account">
-                <a href="#" className="google">
+                <a className="google" onClick={loginWithGoogle}>
                   <i className="fab fa-google" />
                   Signup with google
-                </a>
-                <a href="#" className="facebook">
-                  <i className="fab fa-facebook-f" />
-                  Sign up with facebook
                 </a>
               </div>
             </div>

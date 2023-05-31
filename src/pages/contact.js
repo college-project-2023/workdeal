@@ -5,7 +5,7 @@ import Layout from "./../components/layout/Layout";
 function ContactPage() {
   return (
     <Layout>
-      <Breadcrumb pageName="Contact Us" pageTitle="Contact Us" />
+      <Breadcrumb pageName="Contact" pageTitle="Contact" />
       <section id="down" className="contact-us-area sec-m">
         <div className="container">
           <div className="contact-info">
@@ -49,7 +49,7 @@ function ContactPage() {
           </div>
           <div className="contact-form">
             <span>We’re Ready To Help You</span>
-            <h2>Send Us Message</h2>
+            <h2>Send Message</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
               eiusmodesmu.

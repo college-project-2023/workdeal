@@ -1,27 +1,51 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Select from "react-select";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const allowedInputs = ["Saloon", "Cook", "Cleaning","Ac repair","Spa & beauty"];
 
-function Banner1() {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const options = [
-    { value: "Dhaka", label: "Dhaka" },
-    { value: "Barisal", label: "Barisal" },
-    { value: "Khulna", label: "Khulna" },
-    { value: "Rangpur", label: "Rangpur" },
-    { value: "Sylhet", label: "Sylhet" },
-    { value: "Rajshahi", label: "Rajshahi" },
-  ];
-
-  const [search , setSearchText] = useState("");
-
-  const setSearch = async (e) => {
-    await axios.post("http://localhost:5000/add_user",{
-      name: search
-    })
-  
+function Banner1(props) {
+  //const { setParam1} = useContext(DataContext);
+  const cookies = new Cookies();
+  const [inputValue, setInputValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);  
+  const [selectedOption, setSelectedOption] = useState("");
+  function handleSelectChange(event) {
+    setSelectedOption(event);
   }
+  const handleInputChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    setInputValue(value);
+    setSuggestions(getMatchingSuggestions(value));
+  };
+  cookies.set('mycookie',selectedOption);
+  cookies.set('mycookie2',inputValue);
+  const options = [
+    { value: "Ahmedabad", label: "Ahmedabad" },
+    { value: "vadodara", label: "Vadodara" },
+    { value: "Rajkot", label: "Rajkot" },
+    { value: "Surat", label: "Surat" },
+    { value: "Anand", label: "Anand" },
+    { value: "Jamnagar", label: "Jamnagar" },
+  ];
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (allowedInputs.includes(inputValue)) {
+      console.log('Valid input:', inputValue);
+    } else {
+      console.log('Invalid input:', inputValue);
+    }
+  };
+  const handleSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+  const getMatchingSuggestions = (value) => {
+    return allowedInputs.filter(input =>
+      input.toLowerCase().includes(value)
+    );
+  };
 
 
   const customStyles = {
@@ -116,23 +140,59 @@ function Banner1() {
                     menuColor="#333"
                     defaultValue={selectedOption}
                     options={options}
+                    onChange={handleSelectChange}
                     placeholder="Select"
                     instanceId="my-unique-id"
                   />
                 </div>
                 <div className="location-form">
-
-                  
-                  <form method="post">
+                  <form method="post" onSubmit={handleSubmit}>
                     <input 
                       type="text"
                       name="location"
+                      value={inputValue}
+                      onChange={handleInputChange}
                       placeholder="Find Your Services Here"
-                      onChange={e=>setSearchText(e.target.value)}
+                      style={{
+                        padding: '8px',
+                        fontSize: '16px',
+                        border: '1px solid #ccc',
+                        borderRadius: '10px',
+                      }}
                     />
-                    <button  type="button" onClick={setSearch}>
+                    <button  type="submit" >
+                    <Link legacyBehavior href="/service ">
                       <i className="bi bi-search" />
+                   </Link>
                     </button>
+                    {suggestions.length > 0 && (
+                    <ul className="suggestions"
+                    style={{
+                      listStyleType: 'none',
+                      padding: '0',
+                      margin: '4px 0',
+                      border: '1px solid #ccc',
+                      borderRadius: '4px',
+                      backgroundColor: 'white',
+                      position: 'absolute',
+                    }}>
+                      {suggestions.map((suggestion, index) => (
+                      <li key={index} onClick={() => handleSuggestionClick(suggestion)} 
+                      style={{
+                        padding: '8px',
+                        cursor: 'pointer',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.backgroundColor = '#81d866';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.backgroundColor = 'white';
+                      }}>
+                        {suggestion}
+                        </li>
+                        ))}
+                        </ul>
+                        )}
                   </form>
                 </div>
               </div>

@@ -1,14 +1,16 @@
 import Link from "next/link";
-import React, { useState,useEffect,useRef } from "react";
+import React, { useState,useEffect,useRef,useContext  } from "react";
 import Brands from "../components/common/Brands";
 import Breadcrumb from "../components/common/Breadcrumb";
 import ServiceFilter from "../components/service/ServiceFilter";
 //import serviceData from "../data/service/popular-Services.json";
 import Layout from "./../components/layout/Layout";
 import axios from "axios";
+import Cookies from "universal-cookie";
  function Servicepage() {
+ // const {param1,setParam1} = useContext(DataContext);
   const [serviceData,setServicedata]=useState([]);
-  const filters = useRef({"location": "vadodara","category":"sda","pricerange":"sda","rating":"sda"});
+  const filters = useRef({"location":"","category":"sda","pricerange":"sda","rating":"sda"});
   const previousFliter = useRef({});
   const fetchData = async () => {    
     try{      
@@ -121,9 +123,9 @@ import axios from "axios";
                         </Link>
                       </h4>
                       <div className="started">
-                        <Link legacyBehavior href="/service-details">
+                        <Link legacyBehavior href="/contact">
                           <a>
-                            View Details
+                            Book Now
                             <span>
                               <i className="bi bi-arrow-right" />
                             </span>

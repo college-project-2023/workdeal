@@ -25,15 +25,17 @@ function AboutArea() {
               <div className="about-title">
                 <span>About us</span>
                 <h2>
-                  Orem ipsum dolor sit amet, consectetur adip cing elit. Suspen
-                  disse eu risus
+                Delivering Excellence in Home Services.  Your Trusted Partner for Quality and Reliability
                 </h2>
               </div>
               <p>
-                Today, we supported the education of 20000 children born in poor
-                families cross 12 undeveloped countries over the world. in the
-                future, our goals areIn at nibh vulputate turpis feugiat dictum.
+             <b>Welcome to WorkDeal!</b>
+
+             <p> At WorkDeal, we understand the importance of having reliable and skilled professionals when it comes to home services.
+              We know how challenging it can be to find the right plumber, AC repair technician, electrician, or any other service provider for your specific needs.
+              That's why we created WorkDeal – to simplify the process and connect you with trustworthy professionals in your area.</p>
               </p>
+              <p>Our confirmed & knowledgeable pros are forever ready to help you and are loyal to providing best choice aids that you need, so we uphold the feature that we promise to our valuable consumers.</p>
               <ul className="feature-list">
                 <li>
                   <i className="bi bi-check-all" />

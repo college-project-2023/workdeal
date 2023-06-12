@@ -16,9 +16,7 @@ function WhyChooseus2() {
                   <span>Trust Agency</span>
                   <h2>Why Choose Us</h2>
                   <p>
-                    Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                    metus. tolad answerala tomadunali Aliquam viverra sagittis
-                    felis.
+                  WorkDeal provides service to all areas of the city, with a large network of dedicated service providers. They offer both online and offline services, and are 24*7. They understand and value the customer's time, so they offer door-to-door services on just a single call.
                   </p>
                 </div>
               </div>
@@ -32,9 +30,7 @@ function WhyChooseus2() {
                   <div className="choose-cnt">
                     <h4>Ensuring Masks</h4>
                     <p>
-                      Proin purus tortor, pharetra et fringilla id, tempus eget
-                      velitel. Integer at molestie nisi. Morbi eget magna et
-                      odio.
+                    Wearing Face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protect to our workers and clients health.
                     </p>
                   </div>
                 </div>
@@ -47,9 +43,7 @@ function WhyChooseus2() {
                   <div className="choose-cnt">
                     <h4>24/7 Supports</h4>
                     <p>
-                      Proin purus tortor, pharetra et fringilla id, tempus eget
-                      velitel. Integer at molestie nisi. Morbi eget magna et
-                      odio.
+                    Serving 24x7 to our customer is top motto of WorkDeal. Now get services at your door anytime, anywhere.
                     </p>
                   </div>
                 </div>
@@ -62,9 +56,7 @@ function WhyChooseus2() {
                   <div className="choose-cnt">
                     <h4>Sanitising Hands</h4>
                     <p>
-                      Proin purus tortor, pharetra et fringilla id, tempus eget
-                      velitel. Integer at molestie nisi. Morbi eget magna et
-                      odio.
+                    Germs are everywhere! Workers get onto hands when items we touch during daily activities. Cleaning hands at key times with soap and water or hand sanitizer is one of the most important steps you can take to avoid getting spreading germs to customers.
                     </p>
                   </div>
                 </div>

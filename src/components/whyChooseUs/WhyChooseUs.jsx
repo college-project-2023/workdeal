@@ -27,9 +27,11 @@ function WhyChooseUs() {
                   <span>Trust Agency</span>
                   <h2>Best Offered Services</h2>
                   <p>
-                    Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                    metus. tolad answerala tomadunali Aliquam viverra sagittis
-                    felis.
+                  <b>WorkDeal</b>   provides service to all areas of the city, with a large network of dedicated service providers. They offer both online and offline services, and are 24*7. They understand and value the customer's time, so they offer door-to-door services on just a single call.
+                <p> <b>Expert Technician :</b> 
+                From switch relief to complete home addition, we give expert grasp to every home complication.</p>
+ <b>Genuine Price</b>
+ <p>At WorkDeal, we believe in providing genuine pricing for all our home services. Our platform is designed to ensure transparency and fairness, allowing you to receive accurate and competitive quotes from trusted professionals.</p>
                   </p>
                 </div>
               </div>
@@ -54,10 +56,7 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                      Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                      metus. tolad Aenean fermentum sapien ac aliquet gravida.
-                      Fusce a ipsum metus. tolad answerala tomadunali Aliquam
-                      viverra sagittis felis.
+                    Wearing Face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protect to our workers and clients health.
                     </div>
                   </div>
                 </div>
@@ -81,10 +80,7 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                      Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                      metus. tolad Aenean fermentum sapien ac aliquet gravida.
-                      Fusce a ipsum metus. tolad answerala tomadunali Aliquam
-                      viverra sagittis felis.
+                    Serving 24x7 to our customer is top motto of WorkDeal. Now get services at your door anytime, anywhere.
                     </div>
                   </div>
                 </div>
@@ -108,10 +104,8 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                      Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                      metus. tolad Aenean fermentum sapien ac aliquet gravida.
-                      Fusce a ipsum metus. tolad answerala tomadunali Aliquam
-                      viverra sagittis felis.
+                    Germs are everywhere! Workers get onto hands and items we touch during daily activities. 
+                    Cleaning hands at key times with soap and water or hand sanitizer that contains at least 60% alcohol is one of the most important steps you can take to avoid getting spreading germs to those around customers.
                     </div>
                   </div>
                 </div>

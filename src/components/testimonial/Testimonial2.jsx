@@ -67,15 +67,13 @@ function Testimonial2() {
                     <i className="fas fa-quote-left" />
                   </div>
                   <div className="reviewer-info">
-                    <h4>Johan Martin</h4>
-                    <span>CEO Founder</span>
+                    <h4>Radhika Singh</h4>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>
-                  Suspendisse potenti. Suspendisse potenti. Phasellus sedan
-                  arcu. Donec commodo lobortis purus quis dictum. Sedijabui
-                  aliquamtinl ante tortor, vel dapibus mi tempor sit amet. andi
-                  pretium.{" "}
+                "I recently used the workdeal app to find a plumber to fix a leaky faucet in my kitchen.The app is user-friendly and the booking process was a breeze. The plumber arrived on time,
+                was professional,and fixed the issue promptly. I highly recommend the workdeal app for anyone looking for quick and efficient home services!"{" "}
                 </p>
               </div>
             </SwiperSlide>
@@ -97,14 +95,12 @@ function Testimonial2() {
                     <i className="fas fa-quote-left" />
                   </div>
                   <div className="reviewer-info">
-                    <h4>Angel Kolenia</h4>
-                    <span>CO Founder</span>
+                    <h4>Arpan Patel</h4>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>
-                  Fusce congue nibh nec ligula accumsan, sed consectetur tellus
-                  placerat. Curabitur gravida velit at tristique imperdiet. In
-                  pellentesque orci metus, eu congue sapien commodo eget.{" "}
+                "The workdeal app is a great platform to find various services for household needs. I used it to hire an electrician to fix some wiring issues in my house. The app provided a wide range of options, and I was able to choose a skilled electrician at a reasonable price.The service was satisfactory,but the interface could be improved for smoother navigation. I would use the app again."{" "}
                 </p>
               </div>
             </SwiperSlide>
@@ -126,14 +122,12 @@ function Testimonial2() {
                     <i className="fas fa-quote-left" />
                   </div>
                   <div className="reviewer-info">
-                    <h4>Dorjonia Koken</h4>
-                    <span>Founder</span>
+                    <h4>Shivam Joshi</h4>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>
-                  Maecenas dignissim posuere velit nec scelerisque. Cras vel
-                  volutpat augue, sit amet commodo ipsum. Nunc ultricies sit
-                  amet massa mattis porttitor Mauris purus Nunc ultricies enim.
+                I recently used the WorkDeal app to find a painter for my home renovation project. The app was intuitive, and I received prompt responses from painters. The painter I chose did an excellent job, paying attention to detail and delivering high-quality work. The only improvement I would suggest is providing more information about the professionals' portfolios within the app.
                 </p>
               </div>
             </SwiperSlide>

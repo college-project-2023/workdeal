@@ -42,6 +42,8 @@ function BlogDetailsPage() {
                 <p>
                 <b>Air Out the House:</b> Open the windows on a sunny day to let in fresh air and circulate it throughout the house. This will help eliminate any stale odors and create a welcoming atmosphere.
                 </p>
+                <p><b>Clean and Organize Closets:</b> Declutter and organize your closets. Sort through winter clothing, pack away items not needed until next year, and donate or discard any unused items. Utilize storage bins or vacuum-sealed bags to maximize space.</p>
+                <p><b>Refresh Bedding and Linens:</b> Wash or dry clean winter bedding, such as comforters, blankets, and flannel sheets. Replace them with lighter linens suitable for spring. Flip and rotate your mattress for even wear and improved comfort.</p>
                 <blockquote>
                   <i className="bi bi-quote" />
                   <p>
@@ -54,15 +56,10 @@ function BlogDetailsPage() {
                 <div className="details-wrapper">
                   <div className="row">
                     <div className="col-lg-6">
-                      <h4>How can have anything you ant in life if you ?</h4>
+                      <h4>Tips for Creating a Comfortable and Safe Home Office Setup</h4>
                       <p>
-                        Gochujang ugh viral, butcher pabst put a bird on it
-                        meditation austin craft beer banh. Distillery ramps af,
-                        goch ujang hell of VHS kitsch austin. Vegan air plant
-                        trust fund, poke sartorial ennui next lev el photo booth
-                        coloring book etsy green juice meditation austin craft
-                        beer.circumstances more than minus id quod maxime
-                        placeat facere possimus.
+                       
+Creating a comfortable and safe home office setup is crucial for productivity and overall well-being. Start by investing in ergonomic furniture such as a supportive chair and an adjustable desk. Optimize lighting to reduce eye strain, whether through natural light or well-placed lamps. Designate a specific area in your home as your dedicated workspace to establish boundaries and minimize distractions. Keep your equipment properly positioned and organized, and ensure adequate ventilation for a fresh and healthy environment. Take regular breaks to stretch and rest your eyes, and implement fire safety measures such as smoke detectors and fire extinguishers. Lastly, maintain a clutter-free space to promote focus and reduce potential hazards. By following these tips, you can create a comfortable and safe home office that enhances your productivity and well-being.
                       </p>
                     </div>
                     <div className="col-lg-6">
@@ -72,19 +69,37 @@ function BlogDetailsPage() {
                   <ul>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      There are many variations of passages of Lorem Ipsum
-                      available Abominable.
+                      Choose ergonomic furniture.
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Necessary, making this the first true generator on the
-                      Internet.
+                      Optimize lighting for reduced eye strain.
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Obtain pain of because is pain, but because you nally cire
-                      umstances more than.
+                      Set up a dedicated workspace.
                     </li>
+                    <li>
+                      <i className="bi bi-circle-fill" />
+                      Ensure adequate ventilation.
+                    </li>
+                    <li>
+                      <i className="bi bi-circle-fill" />
+                      Organize cables and wires.
+                    </li>
+                    <li>
+                      <i className="bi bi-circle-fill" />
+                      Place equipment for optimal ergonomics.
+                    </li>
+                    <li>
+                      <i className="bi bi-circle-fill" />
+                      Take regular breaks and stretch.
+                    </li>
+                    <li>
+                      <i className="bi bi-circle-fill" />
+                      Maintain a clutter-free environment.
+                    </li>
+                    
                   </ul>
                 </div>
                 <h4>Creative Electric &amp; Plumbing Training</h4>
@@ -162,15 +177,13 @@ function BlogDetailsPage() {
                           <i className="fas fa-star" />
                         </li>
                       </ul>
-                      <h4>Robat Fox SR</h4>
+                      <h4>Nakul Mehta</h4>
                       <a href="#">
                         <i className="bi bi-calendar-week" />
                         25 January 2023
                       </a>
                       <p>
-                        Aenean dolor massa, rhoncus ut tortor in, pretium tempus
-                        neque. Vestibulum venenati leo et dic tum finibus. Nulla
-                        vulputate dolor sit amet tristique dapibus.
+                      "I love the 'What's Going On' page! It's such a great resource for staying updated on local events and getting helpful home service tips. The success stories and expert advice sections are my favorites. Keep up the fantastic work!"
                       </p>
                       <div className="reply">
                         <a href="#">
@@ -202,15 +215,13 @@ function BlogDetailsPage() {
                           <i className="fas fa-star" />
                         </li>
                       </ul>
-                      <h4>Esther Howard</h4>
+                      <h4>Nima Shah</h4>
                       <a href="#">
                         <i className="bi bi-calendar-week" />
                         25 January 2023
                       </a>
                       <p>
-                        Aenean dolor massa, rhoncus ut tortor in, pretium tempus
-                        neque. Vestibulum venenati leo et dic tum finibus. Nulla
-                        vulputate dolor sit amet tristique dapibus.
+                      "This 'What's Going On' page is exactly what I needed! It's so convenient to have a central place to find local events and get inspired by success stories. The tips and industry trends are a bonus. Thank you for providing such valuable content!"
                       </p>
                       <div className="reply">
                         <a href="#">
@@ -242,15 +253,13 @@ function BlogDetailsPage() {
                           <i className="fas fa-star" />
                         </li>
                       </ul>
-                      <h4>Selena mou</h4>
+                      <h4>Yaksh Sheth</h4>
                       <a href="#">
                         <i className="bi bi-calendar-week" />
                         25 January 2023
                       </a>
                       <p>
-                        Aenean dolor massa, rhoncus ut tortor in, pretium tempus
-                        neque. Vestibulum venenati leo et dic tum finibus. Nulla
-                        vulputate dolor sit amet tristique dapibus.
+                      "I can't get enough of the 'What's Going On' page! It's a one-stop-shop for all things home services and beyond. The local event calendar keeps me updated, and the cleaning tips and expert advice are a valuable bonus. I highly recommend checking it out!"
                       </p>
                       <div className="reply">
                         <a href="#">

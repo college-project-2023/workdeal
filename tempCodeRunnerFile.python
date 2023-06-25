@@ -1,2 +1,16 @@
-a = 20
-print("type(a): ", type(a))
+def soln(nums):
+    ans=[-1]*len(nums)
+    def calc(i):
+        if ans[i]!=-1:return ans[i]
+        if nums[i]==-1:return 0
+        else:ans[i]=calc(nums[i])+1
+        return ans[i]
+    for i in range(len(nums)):
+        calc(i)
+    
+    return len(set(ans))
+       
+n=int(input())
+nums=list(map(int,input().split()))
+
+print(soln(nums))

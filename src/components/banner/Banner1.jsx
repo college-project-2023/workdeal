@@ -109,11 +109,10 @@ function Banner1(props) {
             data-wow-duration="1500ms"
           >
             <span>Wellcome Our Service Sale</span>
-            <h1>Nonstop Services Life Better.</h1>
+            <h1> With Workdeal, work smarter, not harder!</h1>
             <p>
-              Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum metus.
-              answerala and Suspendisse potenti. Nullam ac lorem ex. Ut feugiat
-              maximus ante, vel gravida exel volutpat at.
+            Client satisfaction is a top precedence forus.We go over and beyond to give excellent service and products.
+            Our good labor force, professional station and cooperation are essential rudiments in delivering good services.
             </p>
             <div className="find-service">
               <div className="location-search">

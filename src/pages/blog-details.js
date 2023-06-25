@@ -35,21 +35,12 @@ function BlogDetailsPage() {
                   <img src="assets/images/blog/blog-standard-2.jpg" alt="" />
                 </div>
                 <p>
-                  Gochujang ugh viral, butcher pabst put a bird on it meditation
-                  austin craft beer banh. Distillery ramps af, goch ujang hell
-                  of VHS kitsch austin. Vegan air plant trust fund, poke
-                  sartorial ennui next lev el photo booth coloring book etsy
-                  green juice meditation austin craft beer.
+                <b>Deep Clean the Carpets:</b> Start by thoroughly cleaning your carpets. Vacuum the entire house to remove loose dirt, and consider renting a carpet cleaner or hiring professionals for a deeper cleanse.
                 </p>
+                <p><b>Dust and Wipe Down Surfaces:</b> Grab a microfiber cloth and go room by room, dusting and wiping down surfaces. Focus on areas like window sills, baseboards, light fixtures, and ceiling fans. Take the time to clean any winter decorations before storing them away.</p>
+                <p><b>Freshen Up the Windows:</b>Clean your windows inside and out to remove winter grime and restore clarity. Use a glass cleaner or a solution of vinegar and water for streak-free results.</p>
                 <p>
-                  One advanced diverted domestic repeated bringing you old.
-                  Possible procured her trifling laughter thoughts property she
-                  met way. Companions shy had solicitude favourable own. Which
-                  could saw guest man now heard but. Lasted my coming uneasy
-                  marked so should. Gravity letters it amongst herself dearest
-                  an windows by. Wooded ladies she basket season age her uneasy
-                  saw. Discourse unwilling am no described dejection incommode
-                  no listening of. Before nature his parish boy.
+                <b>Air Out the House:</b> Open the windows on a sunny day to let in fresh air and circulate it throughout the house. This will help eliminate any stale odors and create a welcoming atmosphere.
                 </p>
                 <blockquote>
                   <i className="bi bi-quote" />

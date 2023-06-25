@@ -33,29 +33,26 @@ function HowItwork1() {
               <h4>3 Step To Take Our Services</h4>
               <div className="step">
                 <h4>
-                  <span>01</span>Select the Service
+                  <span>01</span>Schedule Your Service
                 </h4>
                 <p>
-                  Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                  metusil Vonean hrmentum sapien ac aliquet gravida.
+                Fill Credential, Book Service & Relax
                 </p>
               </div>
               <div className="step">
                 <h4>
-                  <span>02</span>Pick your schedule
+                  <span>02</span>Service At Your Home
                 </h4>
                 <p>
-                  Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                  metusil Vonean hrmentum sapien ac aliquet gravida.
+                Keep Calm, We Will Serve At Your Door
                 </p>
               </div>
               <div className="step">
                 <h4>
-                  <span>03</span>Place Your Order &amp; Relax
+                  <span>03</span>Pay After Service
                 </h4>
                 <p>
-                  Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                  metusil Vonean hrmentum sapien ac aliquet gravida.
+                Make Payment After Job Get Done
                 </p>
               </div>
             </div>

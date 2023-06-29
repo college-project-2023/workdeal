@@ -6051,6 +6051,7 @@ footer .line-shape {
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 25px;
+  margin-bottom: 55px;
 }
 .about-left .feature-counts .single-count span {
   font-family: "Teko", sans-serif;
@@ -6218,6 +6219,7 @@ footer .line-shape {
 }
 .about-right .frame-1 .img-1 img {
   border-radius: 5px;
+  height: 100%;
   width: 100%;
 }
 .about-right .frame-2 {

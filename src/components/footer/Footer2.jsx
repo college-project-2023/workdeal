@@ -1,7 +1,15 @@
 import Link from "next/link";
 import React from "react";
+import Cookies from "universal-cookie";
 
 function Footer2() {
+
+  const cookies= new Cookies();
+
+  const handleService = (input) => {
+    cookies.set('mycookie2',input);
+  }
+
   return (
     <footer className="footer-2">
       <img
@@ -17,16 +25,15 @@ function Footer2() {
                 <div className="footer-logo">
                   <Link legacyBehavior href="/">
                     <a>
-                      <img src="assets/images/footer-logo.svg" alt="" />
+                      <img src="assets/images/footer_logo.png" alt="" />
                     </a>
                   </Link>
                 </div>
                 <p>
-                  Aenean fermentum sapien acena gravida. Fusce a ipsum metuslai.
-                  Suspendisse oi potenti.
+                Book Your Desired Service in a Few Clicks: Streamlined Booking for All Your Home Service Needs!
                 </p>
                 <div className="request-btn">
-                  <Link legacyBehavior href="/contact">
+                  <Link legacyBehavior href="/service">
                     <a>Request a Service</a>
                   </Link>
                 </div>
@@ -42,17 +49,7 @@ function Footer2() {
                     </Link>
                   </li>
                   <li>
-                    <Link legacyBehavior href="/blog">
-                      <a>Blog Grid</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <a href="#">Help &amp; Support</a>
-                  </li>
-                  <li>
-                    <Link legacyBehavior href="/service-details">
-                      <a>Services Details</a>
-                    </Link>
+                    <a href="/contact">Help &amp; Support</a>
                   </li>
                   <li>
                     <a href="#">Privacy Policy</a>
@@ -69,27 +66,27 @@ function Footer2() {
                 <ul className="footer-menu">
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Electronics</a>
+                      <a onClick={handleService("Electronic")}>Electronics</a>
                     </Link>
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Driver Service</a>
+                      <a onClick={handleService("Cook")}>Cooking</a>
                     </Link>
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Electric &amp; Plumbing</a>
+                      <a onClick={handleService("Ac Repair")}>Ac Repair</a>
                     </Link>
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Gadgets Repair</a>
+                      <a onClick={handleService("Plumbing")}>Plumbing</a>
                     </Link>
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Security Service</a>
+                      <a onClick={handleService("Cleaning")}>Cleaning</a>
                     </Link>
                   </li>
                 </ul>
@@ -122,7 +119,7 @@ function Footer2() {
                       <i className="fas fa-map-marker-alt" />
                     </div>
                     <div className="desc">
-                      <p>168/170, Avenue 01, Mirpur DOHS, Bangladesh</p>
+                      <p>Vadodara, Gujarat, India, 390001</p>
                     </div>
                   </div>
                 </div>

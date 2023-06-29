@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 const allowedInputs = ["Saloon", "Cook", "Cleaning","Ac repair","Spa & beauty"];
 
+
 function Banner1(props) {
   //const { setParam1} = useContext(DataContext);
   const cookies = new Cookies();
@@ -111,8 +112,7 @@ function Banner1(props) {
             <span>Wellcome Our Service Sale</span>
             <h1> With Workdeal, work smarter, not harder!</h1>
             <p>
-            Client satisfaction is a top precedence forus.We go over and beyond to give excellent service and products.
-            Our good labor force, professional station and cooperation are essential rudiments in delivering good services.
+            Client satisfaction is our  top precedence focus. We go over and beyond to give excellent service and products. Good labor force, professional station and cooperation are our essential rudiments in delivering good services.
             </p>
             <div className="find-service">
               <div className="location-search">

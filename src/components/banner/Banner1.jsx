@@ -11,7 +11,7 @@ function Banner1(props) {
   const cookies = new Cookies();
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);  
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState({ value: "", label: "select" });
   function handleSelectChange(event) {
     setSelectedOption(event);
   }

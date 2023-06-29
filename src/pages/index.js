@@ -9,7 +9,7 @@ import CreativeService from "../components/service/CreativeService";
 import HomeService from "../components/service/HomeService";
 import OfferService from "../components/service/OfferService";
 import PopularService from "../components/service/PopularService";
-import FeaturesShop from "../components/shop/FeaturesShop";
+//import FeaturesShop from "../components/shop/FeaturesShop";
 import Testimonial1 from "../components/testimonial/Testimonial1";
 import WhyChooseUs from "../components/whyChooseUs/WhyChooseUs";
 import Header1 from "./../components/header/Header1";
@@ -80,7 +80,6 @@ export default function Home() {
           <CreativeService />
           <PopularService />
           <HomeService />
-          <FeaturesShop />
           <OfferService />
           <WhyChooseUs />
           <Testimonial1 />

@@ -25,32 +25,31 @@ function AboutArea() {
               <div className="about-title">
                 <span>About us</span>
                 <h2>
-                Delivering Excellence in Home Services.  Your Trusted Partner for Quality and Reliability
+                Transform Your Home with Top-Quality Services: Discover the Ultimate Home Service Provider for All Your Needs!
                 </h2>
               </div>
               <p>
              <b>Welcome to WorkDeal!</b>
 
-             <p> At WorkDeal, we understand the importance of having reliable and skilled professionals when it comes to home services.
-              We know how challenging it can be to find the right plumber, AC repair technician, electrician, or any other service provider for your specific needs.
-              That's why we created WorkDeal – to simplify the process and connect you with trustworthy professionals in your area.</p>
+             <p> Your premier destination for all your home service needs. We are a trusted and reliable online platform that connects homeowners with top-rated service professionals in their local area. Our goal is to make it effortless for you to find and hire experienced professionals who can provide high-quality services to enhance your home.</p>
               </p>
-              <p>Our confirmed & knowledgeable pros are forever ready to help you and are loyal to providing best choice aids that you need, so we uphold the feature that we promise to our valuable consumers.</p>
+              <p>we aim to be your first choice resource for all your home service needs. Explore our website today and take the first step towards enhancing your home with the help of trusted experts.</p>
               <ul className="feature-list">
                 <li>
                   <i className="bi bi-check-all" />
-                  Page Load (time, size, number of requests).
+                  Join us Today.
                 </li>
                 <li>
                   <i className="bi bi-check-all" />
-                  Adance Data analysis operation.
+                  Let us find you best service provider.
                 </li>
               </ul>
+
               <div className="cmn-btn">
-                <Link legacyBehavior href="/about">
-                  <a>More About</a>
+                <Link legacyBehavior href="/account">
+                  <a>Join Now</a>
                 </Link>
-              </div>
+              </div>  
               <div className="feature-counts">
                 <div className="single-count">
                   <span className="counter">40</span>
@@ -80,15 +79,6 @@ function AboutArea() {
                 <img src="assets/images/about/about-shape.png" alt="" />
               </div>
               <div className="frame-1">
-                <div className="about-video">
-                  <div className="popup-video">
-                    <i
-                      className="bi bi-play-fill"
-                      style={{ cursor: "pointer" }}
-                      onClick={openModal}
-                    />
-                  </div>
-                </div>
                 <div className="img-1">
                   <img src="assets/images/about/about-banner-1.jpg" alt="" />
                 </div>
@@ -104,12 +94,6 @@ function AboutArea() {
             </div>
           </div>
         </div>
-        <ReactModalVideo
-          channel="youtube"
-          isOpen={isOpen}
-          videoId="0O2aH4XLbto"
-          onClose={closeModal}
-        />
       </div>
     </section>
   );

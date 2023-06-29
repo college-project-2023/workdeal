@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import BlogSidebar from "../components/blog/BlogSidebar";
+//import BlogSidebar from "../components/blog/BlogSidebar";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Brands from "./../components/common/Brands";
 import Layout from "./../components/layout/Layout";

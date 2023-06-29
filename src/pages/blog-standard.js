@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import BlogSidebar from "../components/blog/BlogSidebar";
+//import BlogSidebar from "../components/blog/BlogSidebar";
 import Brands from "../components/common/Brands";
 import Breadcrumb from "../components/common/Breadcrumb";
 import blogStandardData from "../data/blog/blg_standard_data.json";
@@ -135,7 +135,6 @@ function BlogStandardPage() {
                 </ul>
               </div>
             </div>
-            <BlogSidebar />
           </div>
         </div>
       </section>

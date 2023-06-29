@@ -17,7 +17,7 @@ function Footer() {
                 <div className="footer-logo">
                   <Link legacyBehavior href="/">
                     <a>
-                      <img src="assets/images/footer-logo.svg" alt="" />
+                      <img src="assets/images/footer_logo.png" alt="" />
                     </a>
                   </Link>
                 </div>
@@ -26,7 +26,7 @@ function Footer() {
                   Suspendisse oi potenti.
                 </p>
                 <div className="request-btn">
-                  <Link legacyBehavior href="/contact">
+                  <Link legacyBehavior href="/service">
                     <a>Request a Service</a>
                   </Link>
                 </div>

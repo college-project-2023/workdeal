@@ -6,7 +6,8 @@ function ServiceFilter(props) {
   const cookies = new Cookies();
   const l = cookies.get('mycookie');
   const i = cookies.get('mycookie2');
-  const [selectedOption, setSelectedOption] = useState(l.value);
+  console.log(l);
+  const [selectedOption, setSelectedOption] = useState("");
   function handleSelectChange(event) {
     setSelectedOption(event.value);
   }
@@ -113,7 +114,7 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={{ value: selectedOption, label: l.label }}
+                defaultValue={{ value: selectedOption }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
@@ -131,9 +132,14 @@ function ServiceFilter(props) {
                 <option value="">Select Category</option>
                 <option value="Saloon">Saloon</option>
                 <option value="Cook">Cooking</option>
-                <option value="Cleaning">Cleaning</option>
+                <option value="Cleaning">Home Clean</option>
                 <option value="Ac repair">Ac repair</option>
                 <option value="Spa & beauty">Spa & beauty</option>
+                <option value="House Sift">House Sift</option>
+                <option value="Vihcle & Care">Vihcle & Care</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Interior">Interior</option>
               </select>
               <select
                 className="srv-select"

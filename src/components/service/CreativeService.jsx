@@ -51,7 +51,7 @@ function CreativeService() {
             >
               <div className="title-left">
                 <span>Category</span>
-                <h2>See Our All Creative Services</h2>
+                <h2>See All Creative Services</h2>
               </div>
               <div className="title-right">
                 <strong>Category</strong>
@@ -75,6 +75,7 @@ function CreativeService() {
                 <SwiperSlide key={id} className="swiper-slide">
                   <div
                     className="creative-service wow animate fadeInDown"
+                   
                     data-wow-delay="200ms"
                     data-wow-duration="1500ms"
                   >
@@ -86,7 +87,7 @@ function CreativeService() {
                       </div>
                     </div>
                     <h6>
-                      <Link legacyBehavior href="/service-details">
+                      <Link legacyBehavior href="/service">
                         <a>{service_name}</a>
                       </Link>
                     </h6>

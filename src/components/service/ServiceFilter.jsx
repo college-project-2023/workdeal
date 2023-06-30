@@ -130,13 +130,13 @@ function ServiceFilter(props) {
                 value={selectedcg}
               >
                 <option value="">Select Category</option>
-                <option value="Saloon">Saloon</option>
-                <option value="Cook">Cooking</option>
+                <option value="Salon">Salon</option>
+                <option value="Cook">Cook</option>
                 <option value="Cleaning">Home Clean</option>
                 <option value="Ac repair">Ac repair</option>
                 <option value="Spa & beauty">Spa & beauty</option>
-                <option value="House Sift">House Sift</option>
-                <option value="Vihcle & Care">Vihcle & Care</option>
+                <option value="House Shift">House Shift</option>
+                <option value="Vehicle & Care">Vehicle & Care</option>
                 <option value="Plumbing">Plumbing</option>
                 <option value="Electronics">Electronics</option>
                 <option value="Interior">Interior</option>

@@ -6,14 +6,15 @@ export const MyContext = createContext();
 
 // Create a provider component
 export const MyProvider = ({ children }) => {
-  const [myVariable, setMyVariable] = useState('');
+  const [serviceType, setServiceType] = useState({"location":"","category":"","pricerange":"","rating":""});
 
   const updateVariable = (newValue) => {
-    setMyVariable(newValue);
+    setServiceType(newValue);
   };
 
+
   return (
-    <MyContext.Provider value={{ myVariable, updateVariable }}>
+    <MyContext.Provider value={{ serviceType, updateVariable }}>
       {children}
     </MyContext.Provider>
   );

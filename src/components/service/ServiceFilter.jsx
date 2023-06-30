@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Select from "react-select";
 import Cookies from "universal-cookie";
+import { MyContext } from "../context";
 
 function ServiceFilter(props) {
+
+  const {serviceType,updateVariable} = useContext(MyContext);
+
   const cookies = new Cookies();
   const l = cookies.get('mycookie');
   const i = cookies.get('mycookie2');
   console.log(l);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(serviceType.location);
   function handleSelectChange(event) {
     setSelectedOption(event.value);
   }
-  const [selectedcg, setSelectedcg] = useState(i);
+  const [selectedcg, setSelectedcg] = useState(serviceType.category);
   function handleSelectChangecg(event) {
     setSelectedcg(event.target.value);
   }
-  const [selectedpr, setSelectedpr] = useState();
+  const [selectedpr, setSelectedpr] = useState(serviceType.pricerange);
   function handleSelectChangepr(event) {
     setSelectedpr(event.target.value);
   }
-  const [selectedrt, setSelectedrt] = useState('');
+  const [selectedrt, setSelectedrt] = useState(serviceType.rating);
   function handleSelectChangert(event) {
     setSelectedrt(event.target.value);
   }
@@ -114,7 +118,7 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={{ value: selectedOption }}
+                defaultValue={{label:selectedOption, value: selectedOption }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"

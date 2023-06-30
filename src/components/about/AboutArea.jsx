@@ -1,17 +1,7 @@
 import Link from "next/link";
-import React, { useState } from "react";
-import ReactModalVideo from "react-modal-video";
-import "react-modal-video/scss/modal-video.scss";
+import React from "react";
+
 function AboutArea() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
   return (
     <section id="down" className="about-us-area sec-m-top">
       <div className="container">
@@ -25,15 +15,28 @@ function AboutArea() {
               <div className="about-title">
                 <span>About us</span>
                 <h2>
-                Transform Your Home with Top-Quality Services: Discover the Ultimate Home Service Provider for All Your Needs!
+                  Transform Your Home with Top-Quality Services: Discover the
+                  Ultimate Home Service Provider for All Your Needs!
                 </h2>
               </div>
-              <p>
-             <b>Welcome to WorkDeal!</b>
+              <div>
+                <b>Welcome to WorkDeal!</b>
 
-             <p> Your premier destination for all your home service needs. We are a trusted and reliable online platform that connects homeowners with top-rated service professionals in their local area. Our goal is to make it effortless for you to find and hire experienced professionals who can provide high-quality services to enhance your home.</p>
+                <p>
+                  {" "}
+                  Your premier destination for all your home service needs. We
+                  are a trusted and reliable online platform that connects
+                  homeowners with top-rated service professionals in their local
+                  area. Our goal is to make it effortless for you to find and
+                  hire experienced professionals who can provide high-quality
+                  services to enhance your home.
+                </p>
+              </div>
+              <p>
+                we aim to be your first choice resource for all your home
+                service needs. Explore our website today and take the first step
+                towards enhancing your home with the help of trusted experts.
               </p>
-              <p>we aim to be your first choice resource for all your home service needs. Explore our website today and take the first step towards enhancing your home with the help of trusted experts.</p>
               <ul className="feature-list">
                 <li>
                   <i className="bi bi-check-all" />
@@ -49,7 +52,7 @@ function AboutArea() {
                 <Link legacyBehavior href="/account">
                   <a>Join Now</a>
                 </Link>
-              </div>  
+              </div>
               <div className="feature-counts">
                 <div className="single-count">
                   <span className="counter">40</span>

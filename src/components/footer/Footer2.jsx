@@ -1,13 +1,17 @@
 import Link from "next/link";
 import React from "react";
+import { useContext } from "react";
 import Cookies from "universal-cookie";
+import { MyContext } from '../context';
 
-function Footer2() {
+const Footer2 =()=> {
 
   const cookies= new Cookies();
+  const { myVariable, updateVariable } = useContext(MyContext);
+  
 
   const handleService = (input) => {
-    cookies.set('mycookie2',input);
+    updateVariable(input);
   }
 
   return (

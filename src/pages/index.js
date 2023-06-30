@@ -60,7 +60,7 @@ export default function Home() {
       ) : (
         <>
           <Head>
-            <title>SERVE - On Demand Services Next JS Template</title>
+            <title>WorkDeal - deal is just a step away</title>
             <meta charSet="UTF-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge"></meta>
             <meta

@@ -7,6 +7,7 @@ const userWorkerModel = require("../models/users/userdataworker");
 const OrderWorker = require("../models/orders/workers");
 const CurrentOrderWorker = require("../models/orders/currentOrder");
 const OrderClient = require("../models/orders/client")
+const BlogData = require("../models/blog-data")
 const app = express();
 const cookieParser = require("cookie-parser");
 const admin = require("../firebase-config");
@@ -310,5 +311,19 @@ app.post("/delete-service-client", async (req, res) => {
       res.send(error);
     });
 });
+
+
+//blog data
+app.get("/blog",async (req,res) =>{
+  await BlogData.find()
+  .then((data)=>{
+    console.log(data)
+    res.json(data);
+  })
+  .catch((error)=>{
+    res.send(error);
+  });
+});
+
 
 module.exports = app;

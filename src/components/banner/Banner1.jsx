@@ -1,27 +1,29 @@
 import Link from "next/link";
 import { useState,useContext } from "react";
 import Select from "react-select";
-import axios from "axios";
+import { MyContext } from "../context";
 import Cookies from "universal-cookie";
 const allowedInputs = ["Salon", "Cook", "Cleaning","Ac repair","Spa & beauty","House Shift","Vehicle & Care","Plumbing","Electronics","Interior"]
 
 
 function Banner1(props) {
-  //const { setParam1} = useContext(DataContext);
+  const { serviceType, updateVariable} = useContext(MyContext);
+
   const cookies = new Cookies();
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);  
   const [selectedOption, setSelectedOption] = useState({ value: "", label: "select" });
   function handleSelectChange(event) {
+    console.log(event);
     setSelectedOption(event);
+    updateVariable({"location":event.value,"category":inputValue,"pricerange":"","rating":""});
   }
   const handleInputChange = (event) => {
     const value = event.target.value.toLowerCase();
     setInputValue(value);
     setSuggestions(getMatchingSuggestions(value));
   };
-  cookies.set('mycookie',selectedOption);
-  cookies.set('mycookie2',inputValue);
+
   const options = [
     { value: "Ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
@@ -40,6 +42,7 @@ function Banner1(props) {
   };
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
+    updateVariable({"location":selectedOption.value,"category":suggestion,"pricerange":"","rating":""});
     setSuggestions([]);
   };
   const getMatchingSuggestions = (value) => {

@@ -70,7 +70,7 @@ app.get('/data', async (req, res) => {
   try {
    const {tag, location , price, rating} = req.query;
    const filter = {};
-   if(tag){
+   if(tag!=""){
     filter.tag = tag;
    }
    if(location){

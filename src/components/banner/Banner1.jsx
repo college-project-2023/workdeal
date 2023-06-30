@@ -3,7 +3,7 @@ import { useState,useContext } from "react";
 import Select from "react-select";
 import axios from "axios";
 import Cookies from "universal-cookie";
-const allowedInputs = ["Saloon", "Cook", "Cleaning","Ac repair","Spa & beauty"];
+const allowedInputs = ["Salon", "Cook", "Cleaning","Ac repair","Spa & beauty","House Shift","Vehicle & Care","Plumbing","Electronics","Interior"]
 
 
 function Banner1(props) {
@@ -109,10 +109,10 @@ function Banner1(props) {
             data-wow-delay="200ms"
             data-wow-duration="1500ms"
           >
-            <span>Wellcome Our Service Sale</span>
-            <h1> With Workdeal, work smarter, not harder!</h1>
+            <span>Welcome to WorkDeal</span>
+            <h1>Your trusted destination for all household service needs!</h1>
             <p>
-            Client satisfaction is our  top precedence focus. We go over and beyond to give excellent service and products. Good labor force, professional station and cooperation are our essential rudiments in delivering good services.
+            We understand the importance of finding reliable workers who can provide exceptional service for your household tasks.Take the first step towards enhancing your home with the help of trusted experts.
             </p>
             <div className="find-service">
               <div className="location-search">
@@ -201,12 +201,12 @@ function Banner1(props) {
                 <ul className="suggest-list">
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Beauty &amp; Salon</a>
+                      <a>Spa &amp; Beauty</a>
                     </Link>
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Shifting</a>
+                      <a>House Shift</a>
                     </Link>
                   </li>
                   <li>
@@ -216,7 +216,7 @@ function Banner1(props) {
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>WallPainting</a>
+                      <a>Salon </a>
                     </Link>
                   </li>
                 </ul>
@@ -229,9 +229,10 @@ function Banner1(props) {
             data-wow-duration="1500ms"
           >
             <img
-              src="assets/images/home-1/hero-section-right-img.png"
+              src="assets/images/home-1/fp_wd_1.png"
               alt=""
               className="banner"
+              style = {{borderRadius:"20px"}}
             />
           </div>
         </div>

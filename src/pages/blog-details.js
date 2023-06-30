@@ -14,8 +14,8 @@ function BlogDetailsPage() {
             <div className="col-lg-8">
               <div className="blog-details-content">
                 <h3>
-                  Show Your House Some Love with These Cleaning Tips for the End
-                  of Winter
+                  Show Your House Some Love with These Cleaning Tips for the Starting
+                  of Monsoon
                 </h3>
                 <div className="date-cmnt">
                   <a href="#">
@@ -24,11 +24,7 @@ function BlogDetailsPage() {
                   </a>
                   <a href="#">
                     <i className="bi bi-person-circle" />
-                    Posted by Admin
-                  </a>
-                  <a href="#">
-                    <i className="bi bi-chat-left-text" />
-                    15 Comments
+                    Posted by WorkDeal
                   </a>
                 </div>
                 <div className="thumbnail">
@@ -47,20 +43,18 @@ function BlogDetailsPage() {
                 <blockquote>
                   <i className="bi bi-quote" />
                   <p>
-                    “If the delivery provider maintains all the standards then
-                    it is safe to have get products delivered to you. It is hard
-                    to maintain but still safer to get your products ordered If
-                    you’ve been following the crypto space”
+                    “If you are ordering service online for home cleaning, make sure to be safe. we are providing our best service to the customers. still it's worker's responsibility as well as client's to make safer deal”
                   </p>
                 </blockquote>
                 <div className="details-wrapper">
                   <div className="row">
                     <div className="col-lg-6">
-                      <h4>Tips for Creating a Comfortable and Safe Home Office Setup</h4>
+                      <h4>Tips for preventing monsoone water from entering house</h4>
                       <p>
-                       
-Creating a comfortable and safe home office setup is crucial for productivity and overall well-being. Start by investing in ergonomic furniture such as a supportive chair and an adjustable desk. Optimize lighting to reduce eye strain, whether through natural light or well-placed lamps. Designate a specific area in your home as your dedicated workspace to establish boundaries and minimize distractions. Keep your equipment properly positioned and organized, and ensure adequate ventilation for a fresh and healthy environment. Take regular breaks to stretch and rest your eyes, and implement fire safety measures such as smoke detectors and fire extinguishers. Lastly, maintain a clutter-free space to promote focus and reduce potential hazards. By following these tips, you can create a comfortable and safe home office that enhances your productivity and well-being.
-                      </p>
+                      Cleaning and preventing monsoon water from entering your house requires proactive measures. Here are some tips to help you clean monsoon water from your house and prevent it effectively:
+                      Clear Drainage Systems: Ensure that your gutters, downspouts, and drains are clear of debris, leaves, and other obstructions. Regularly clean and maintain these systems to allow proper flow and prevent water from backing up and entering your house.
+                      Check for Leaks and Cracks: Inspect your roof, walls, windows, and doors for any leaks or cracks that may allow water to seep into your house during heavy rainfall. Repair any damages promptly to prevent water infiltration
+                    </p>
                     </div>
                     <div className="col-lg-6">
                       <img src="assets/images/blog/blog-inner.jpg" alt="" />
@@ -69,250 +63,45 @@ Creating a comfortable and safe home office setup is crucial for productivity an
                   <ul>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Choose ergonomic furniture.
+                      Clear Drainage Systems
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Optimize lighting for reduced eye strain.
+                      Check for Leaks and Cracks
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Set up a dedicated workspace.
+                      Waterproof Exterior Surfaces
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Ensure adequate ventilation.
+                      Install Sump Pump
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Organize cables and wires.
+                      Use Sandbags or Flood Barriers
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Place equipment for optimal ergonomics.
+                      Maintain Proper Landscaping
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Take regular breaks and stretch.
+                      Seal Windows and Doors
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Maintain a clutter-free environment.
+                      Keep Emergency Supplies Ready
                     </li>
                     
                   </ul>
                 </div>
-                <h4>Creative Electric &amp; Plumbing Training</h4>
-                <p>
-                  Obtain pain of because is pain, but because you nally
-                  circumstances more than some work um soluta nobis est eligendi
-                  optio cumque nihil impedit quo minus id quod maxime placeat
-                  facere possimus, omn is voluptas assumenda est, omnis dolor
-                  repellendus. Temporibus autem ibusdam et aut officiis debit is
-                  aut rerum necessitatibus saepe eveniet et molestiae non
-                  recusandae
-                </p>
-                <div className="single-post-tag-social">
-                  <div className="tags">
-                    <span>Post Tag:</span>
-                    <Link legacyBehavior href="/blog-details">
-                      <a>Cars,</a>
-                    </Link>
-                    <Link legacyBehavior href="/blog-details">
-                      <a>Cleaning,</a>
-                    </Link>
-                    <Link legacyBehavior href="/blog-details">
-                      <a>Plumbing,</a>
-                    </Link>
-                    <Link legacyBehavior href="/blog-details">
-                      <a>Electric</a>
-                    </Link>
-                  </div>
-                  <ul className="post-share">
-                    <li>
-                      <a href="https://www.facebook.com">
-                        <i className="fab fa-facebook-f" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://www.twitter.com">
-                        <i className="fab fa-twitter" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://www.pinterest.com">
-                        <i className="fab fa-pinterest-p" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://www.instagram.com">
-                        <i className="fab fa-instagram" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </div>
-              <div className="blog-details-comment">
-                <h4>(04) Comments</h4>
-                <div className="comments-item">
-                  <div className="single-comment">
-                    <div className="cmnt-author">
-                      <img src="assets/images/blog/comment-1.jpg" alt="" />
-                    </div>
-                    <div className="cmnt-content">
-                      <ul className="stars">
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                      </ul>
-                      <h4>Nakul Mehta</h4>
-                      <a href="#">
-                        <i className="bi bi-calendar-week" />
-                        25 January 2023
-                      </a>
-                      <p>
-                      "I love the 'What's Going On' page! It's such a great resource for staying updated on local events and getting helpful home service tips. The success stories and expert advice sections are my favorites. Keep up the fantastic work!"
-                      </p>
-                      <div className="reply">
-                        <a href="#">
-                          <i className="bi bi-reply" />
-                          Reply
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="single-comment">
-                    <div className="cmnt-author">
-                      <img src="assets/images/blog/comment-2.jpg" alt="" />
-                    </div>
-                    <div className="cmnt-content">
-                      <ul className="stars">
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                      </ul>
-                      <h4>Nima Shah</h4>
-                      <a href="#">
-                        <i className="bi bi-calendar-week" />
-                        25 January 2023
-                      </a>
-                      <p>
-                      "This 'What's Going On' page is exactly what I needed! It's so convenient to have a central place to find local events and get inspired by success stories. The tips and industry trends are a bonus. Thank you for providing such valuable content!"
-                      </p>
-                      <div className="reply">
-                        <a href="#">
-                          <i className="bi bi-reply" />
-                          Reply
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="single-comment">
-                    <div className="cmnt-author">
-                      <img src="assets/images/blog/comment-3.jpg" alt="" />
-                    </div>
-                    <div className="cmnt-content">
-                      <ul className="stars">
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                      </ul>
-                      <h4>Yaksh Sheth</h4>
-                      <a href="#">
-                        <i className="bi bi-calendar-week" />
-                        25 January 2023
-                      </a>
-                      <p>
-                      "I can't get enough of the 'What's Going On' page! It's a one-stop-shop for all things home services and beyond. The local event calendar keeps me updated, and the cleaning tips and expert advice are a valuable bonus. I highly recommend checking it out!"
-                      </p>
-                      <div className="reply">
-                        <a href="#">
-                          <i className="bi bi-reply" />
-                          Reply
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="comment-form">
-                  <h4>Leave A Comment's</h4>
-                  <p>Your email address will not be published.</p>
-                  <form action="#" method="post">
-                    <div className="row">
-                      <div className="col-lg-6">
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Your Name :"
-                        />
-                      </div>
-                      <div className="col-lg-6">
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Your Email :"
-                        />
-                      </div>
-                      <div className="col-12">
-                        <input
-                          type="text"
-                          name="subject"
-                          placeholder="Subject"
-                        />
-                        <textarea
-                          name="message"
-                          cols={30}
-                          rows={10}
-                          placeholder="Write Message :"
-                          defaultValue={""}
-                        />
-                        <input type="submit" defaultValue="submit now" />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
       </section>
-      <Brands />
     </Layout>
   );
 }

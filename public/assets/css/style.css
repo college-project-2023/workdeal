@@ -1738,7 +1738,7 @@ header {
   transition: all 0.5s ease-out 0s;
 }
 .creative-service .thumb img {
-  width: 100%;
+  min-height: 170px;
   transition: all 0.5s ease-out 0s;
 }
 .creative-service .thumb .cre-service-inner {

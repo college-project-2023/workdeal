@@ -60,11 +60,7 @@ export default function Home() {
       ) : (
         <>
           <Head>
-<<<<<<< HEAD
             <title>WorkDeal</title>
-=======
-            <title>WorkDeal - deal is just a step away</title>
->>>>>>> 8ee6afa492653c1dede2fab77f8ac94e2606e08a
             <meta charSet="UTF-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge"></meta>
             <meta

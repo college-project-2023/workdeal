@@ -1,16 +1,14 @@
 import Link from "next/link";
 import React, { useState,useEffect,useRef,useContext  } from "react";
-import Brands from "../components/common/Brands";
 import Breadcrumb from "../components/common/Breadcrumb";
 import ServiceFilter from "../components/service/ServiceFilter";
-//import serviceData from "../data/service/popular-Services.json";
 import Layout from "./../components/layout/Layout";
 import axios from "axios";
 
 
  function Servicepage() {
 
-  const filters = useRef({"location":"","category":"","pricerange":"","rating":""});
+  const filters = useRef({"location":"","category":"","pricerange":"","rating":""}); 
 
 
   const [serviceData,setServicedata]=useState([]);

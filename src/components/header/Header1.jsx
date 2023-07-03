@@ -151,13 +151,6 @@ function Header1() {
                 </a>
               </Link>
             </li>
-            <li>
-              <Link legacyBehavior href="/contact">
-                <a className={currentRoute === "/contact" ? "active" : ""}>
-                  Contact Us
-                </a>
-              </Link>
-            </li>
           </ul>
           <div className="my-account">
             <Link legacyBehavior href="/sign-up-type">
@@ -173,7 +166,7 @@ function Header1() {
           </div>
           <div className="phn-info">
             <span>Call Us Now</span>
-            <a href="tel:01701111000">+880 170 1111 000</a>
+            <a href="tel:01701111000">+91 7844932404</a>
           </div>
         </div>
         <div className="wishlist">

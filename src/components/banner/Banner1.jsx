@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { useState,useContext } from "react";
+import { useState,useContext, useEffect } from "react";
 import Select from "react-select";
 import { MyContext } from "../context";
 import Cookies from "universal-cookie";
-const allowedInputs = ["Salon", "Cook", "Cleaning","Ac repair","Spa & beauty","House Shift","Vehicle & Care","Plumbing","Electronics","Interior"]
+const allowedInputs = ["Salon", "Cook", "Home clean","Ac repair","Spa & beauty","House shift","Vehicle & care","Plumbing","Electronics","Interior"]
+const allowedInputslc = ["salon", "cook", "Home clean","ac repair","spa & beauty","house shift","vhicle & care","plumbing","electronics","interior"]
 
 
 function Banner1(props) {
@@ -13,6 +14,7 @@ function Banner1(props) {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);  
   const [selectedOption, setSelectedOption] = useState({ value: "", label: "select" });
+  const [error,setError] = useState(false);
   function handleSelectChange(event) {
     console.log(event);
     setSelectedOption(event);
@@ -23,7 +25,20 @@ function Banner1(props) {
     setInputValue(value);
     setSuggestions(getMatchingSuggestions(value));
   };
-
+  useEffect(()=>{
+    for(var i = 0;i<=10;i++){
+      if(inputValue===allowedInputs[i]||inputValue===""||inputValue===allowedInputslc[i]){
+        setError(false);
+        console.log(error);
+        break;
+      }
+      else{
+         setError(true);
+      }
+    }
+  },[inputValue]);
+  cookies.set('mycookie',selectedOption);
+  cookies.set('mycookie2',inputValue);
   const options = [
     { value: "Ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
@@ -50,7 +65,6 @@ function Banner1(props) {
       input.toLowerCase().includes(value)
     );
   };
-
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -117,7 +131,9 @@ function Banner1(props) {
             <p>
             We understand the importance of finding reliable workers who can provide exceptional service for your household tasks.Take the first step towards enhancing your home with the help of trusted experts.
             </p>
+            
             <div className="find-service">
+              {error && <div style={{color: 'red',marginLeft:'210px'}}>NOT VALID,Select from below list</div>}
               <div className="location-search">
                 <div className="location-btn">
                   <i>
@@ -148,6 +164,7 @@ function Banner1(props) {
                     instanceId="my-unique-id"
                   />
                 </div>
+                 
                 <div className="location-form">
                   <form method="post" onSubmit={handleSubmit}>
                     <input 
@@ -163,10 +180,12 @@ function Banner1(props) {
                         borderRadius: '10px',
                       }}
                     />
-                    <button  type="submit" >
-                    <Link legacyBehavior href="/service ">
-                      <i className="bi bi-search" />
-                   </Link>
+                    <button type="submit" >
+                    {error ? <Link legacyBehavior href="/">
+                      <i className="bi bi-search" />                     
+                   </Link>:<Link legacyBehavior href="/service ">
+                      <i className="bi bi-search" />                     
+                   </Link>} 
                     </button>
                     {suggestions.length > 0 && (
                     <ul className="suggestions"
@@ -178,12 +197,13 @@ function Banner1(props) {
                       borderRadius: '4px',
                       backgroundColor: 'white',
                       position: 'absolute',
-                    }}>
+                      maxHeight: '140px',
+                      overflowY: 'auto',}}>
                       {suggestions.map((suggestion, index) => (
                       <li key={index} onClick={() => handleSuggestionClick(suggestion)} 
                       style={{
-                        padding: '8px',
                         cursor: 'pointer',
+                        padding: '8px 220px 8px 8px',
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.backgroundColor = '#81d866';

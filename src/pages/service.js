@@ -145,32 +145,10 @@ import axios from "axios";
               
             ))}
           </div>
-          <div
-            className="paginatation wow animate fadeInUp"
-            data-wow-delay="400ms"
-            data-wow-duration="1500ms"
-          >
-            <ul className="paginate">
-              <li>
-                <a href="#">Previous</a>
-              </li>
-              <li>
-                <a href="#">01</a>
-              </li>
-              <li className="active">
-                <a href="#">02</a>
-              </li>
-              <li>
-                <a href="#">03</a>
-              </li>
-              <li>
-                <a href="#">Next</a>
-              </li>
-            </ul>
-          </div>
+          
         </div>
       </section>
-      <Brands />
+      
     </Layout>
   );
 }

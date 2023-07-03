@@ -6,11 +6,14 @@ import ServiceFilter from "../components/service/ServiceFilter";
 //import serviceData from "../data/service/popular-Services.json";
 import Layout from "./../components/layout/Layout";
 import axios from "axios";
-import Cookies from "universal-cookie";
+
+
  function Servicepage() {
- // const {param1,setParam1} = useContext(DataContext);
+
+  const filters = useRef({"location":"","category":"","pricerange":"","rating":""});
+
+
   const [serviceData,setServicedata]=useState([]);
-  const filters = useRef({"location":"","category":"sda","pricerange":"sda","rating":"sda"});
   const previousFliter = useRef({});
   const fetchData = async () => {    
     try{      

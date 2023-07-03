@@ -1,13 +1,16 @@
 import Link from "next/link";
 import React from "react";
-import Cookies from "universal-cookie";
+import { useContext } from "react";
+import { MyContext } from '../context';
 
-function Footer2() {
+const Footer2 =()=> {
 
-  const cookies= new Cookies();
+  const { serviceType, updateVariable } = useContext(MyContext);
+  
 
   const handleService = (input) => {
-    cookies.set('mycookie2',input);
+    console.log(input);
+    updateVariable({"location":"","category":input,"pricerange":"sda","rating":"sda"});
   }
 
   return (
@@ -64,29 +67,29 @@ function Footer2() {
               <div className="footer-widget">
                 <h4>Categories</h4>
                 <ul className="footer-menu">
-                  <li>
+                  <li  onClick={() => handleService("Electronic")}>
                     <Link legacyBehavior href="/service">
-                      <a onClick={handleService("Electronic")}>Electronics</a>
+                      <a>Electronics</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Cook")}>
                     <Link legacyBehavior href="/service">
-                      <a onClick={handleService("Cook")}>Cooking</a>
+                      <a>Cooking</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Ac Repair")}>
                     <Link legacyBehavior href="/service">
-                      <a onClick={handleService("Ac Repair")}>Ac Repair</a>
+                      <a>Ac Repair</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Plumbing")}>
                     <Link legacyBehavior href="/service">
-                      <a onClick={handleService("Plumbing")}>Plumbing</a>
+                      <a>Plumbing</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Cleaning")}>
                     <Link legacyBehavior href="/service">
-                      <a onClick={handleService("Cleaning")}>Cleaning</a>
+                      <a>Cleaning</a>
                     </Link>
                   </li>
                 </ul>

@@ -1394,7 +1394,7 @@ header {
 .hero-content h1 {
   font-family: "Teko", sans-serif;
   font-weight: 700;
-  font-size: 80px;
+  font-size: 70px;
   color: #142935;
   margin-bottom: 15px;
 }
@@ -1412,6 +1412,7 @@ header {
 
 .hero-banner {
   position: relative;
+  max-width: 460px;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
   .hero-banner {
@@ -1722,6 +1723,7 @@ header {
 .creative-service .thumb {
   position: relative;
   overflow: hidden;
+  height: 180px;
 }
 .creative-service .thumb:before {
   position: absolute;
@@ -1738,7 +1740,8 @@ header {
   transition: all 0.5s ease-out 0s;
 }
 .creative-service .thumb img {
-  min-height: 170px;
+  height: 100%;
+  width: 100%;
   transition: all 0.5s ease-out 0s;
 }
 .creative-service .thumb .cre-service-inner {
@@ -1780,6 +1783,7 @@ header {
      05.Popular services css 
 ===========================*/
 .single-service .thumb {
+  height: 180px;
   position: relative;
   overflow: hidden;
 }

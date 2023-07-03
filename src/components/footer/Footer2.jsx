@@ -101,8 +101,8 @@ function Footer2() {
                       <i className="fas fa-phone-alt" />
                     </div>
                     <div className="desc">
-                      <a href="tel:01761111456">+880 176 1111 456</a>
-                      <a href="tel:01761111555">+880 176 1111 555</a>
+                      <a href="tel:01761111456">+91 7833445323</a>
+                      <a href="tel:01761111555">+91 7833445323</a>
                     </div>
                   </div>
                   <div className="info">

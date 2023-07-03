@@ -67,7 +67,7 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Radhika Singh</h4>
-                    <span>CEO Founder</span>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>
@@ -95,7 +95,7 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Arpan Patel</h4>
-                    <span>CO Founder</span>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>

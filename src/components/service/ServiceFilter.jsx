@@ -1,16 +1,11 @@
 import React, { useState,useContext } from "react";
 import Select from "react-select";
-import Cookies from "universal-cookie";
 import { MyContext } from "../context";
 
 function ServiceFilter(props) {
 
   const {serviceType,updateVariable} = useContext(MyContext);
 
-  const cookies = new Cookies();
-  const l = cookies.get('mycookie');
-  const i = cookies.get('mycookie2');
-  console.log(l);
   const [selectedOption, setSelectedOption] = useState(serviceType.location);
   function handleSelectChange(event) {
     setSelectedOption(event.value);

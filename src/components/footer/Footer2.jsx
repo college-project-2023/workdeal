@@ -10,7 +10,7 @@ const Footer2 =()=> {
 
   const handleService = (input) => {
     console.log(input);
-    updateVariable({"location":"","category":input,"pricerange":"sda","rating":"sda"});
+    updateVariable({"location":"","category":input,"pricerange":"","rating":""});
   }
 
   return (

@@ -30,3 +30,5 @@ yarn-error.log*
 node_modules
 .next
 >>>>>>> 1f18ee878fd85212a33bf30d2a8d534e2695bfef
+
+/backend/Sercice-Account.json

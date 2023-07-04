@@ -2,11 +2,7 @@
   {
     "id": 1,
     "item_number": "100",
-<<<<<<< HEAD
-    "serVice_img_1": "assets/images/cre-service/Untitled-design-2-pwxm6b06dpx8ijly7lvofm5gutrmb73jclhhcng7b4 (1).jpg",
-=======
     "serVice_img_1": "assets/images/cre-service/house_shift.jpg",
->>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
     "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
     "service_img_3": "assets/images/icons/category-icon-1.png",
     "service_name": "House Shift",
@@ -15,11 +11,7 @@
   {
     "id": 2,
     "item_number": "80",
-<<<<<<< HEAD
-    "serVice_img_1": "assets/images/cre-service/88917891-joyful-mature-man-driving-isolated-on-white-background.jpg",
-=======
     "serVice_img_1": "assets/images/cre-service/cooking.jpg",
->>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
     "service_img_2": "assets/images/cre-service/home-2-cre-service-2.jpg",
     "service_img_3": "assets/images/icons/category-icon-2.png",
     "service_name": "Cook",

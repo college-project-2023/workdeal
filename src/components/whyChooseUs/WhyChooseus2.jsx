@@ -16,11 +16,7 @@ function WhyChooseus2() {
                   <span>Trust Agency</span>
                   <h2>Why Choose Us</h2>
                   <p>
-<<<<<<< HEAD
-                  WorkDeal provides service to all areas of the city with a large network of dedicated service providers. They offer both online and offline services, and are 24*7. They understand and value the customer's time, so they offer door-to-door services on just a single call.
-=======
                   WorkDeal provides service to all nearby areas of the city, with a large network of dedicated service providers. We offer our services 24*7. Our workers understand the value of customer's time, so they offer door-to-door services on just a single call.
->>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                   </p>
                 </div>
               </div>
@@ -34,7 +30,7 @@ function WhyChooseus2() {
                   <div className="choose-cnt">
                     <h4>Ensuring Masks</h4>
                     <p>
-                    Wearing a face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protecting our workers and clients health.
+                    Wearing Face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protect to our workers and clients health.
                     </p>
                   </div>
                 </div>
@@ -60,7 +56,7 @@ function WhyChooseus2() {
                   <div className="choose-cnt">
                     <h4>Sanitising Hands</h4>
                     <p>
-                    Germs are everywhere! Workers get on our hands and the items we touch during our daily activities. Cleaning hands at key times with soap and water or hand sanitizer that contains at least 60% alcohol is one of the most important steps you can take to avoid spreading germs to those around you.
+                    Germs are everywhere! Workers get onto hands when items we touch during daily activities. Cleaning hands at key times with soap and water or hand sanitizer is one of the most important steps you can take to avoid getting spreading germs to customers.
                     </p>
                   </div>
                 </div>

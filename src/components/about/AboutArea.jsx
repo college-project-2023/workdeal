@@ -37,7 +37,6 @@ function AboutArea() {
                 service needs. Explore our website today and take the first step
                 towards enhancing your home with the help of trusted experts.
               </p>
-              <p>Our confirmed & knowledgeable pros are forever ready to help you and are loyal to providing best choice aids that you need, so we uphold the feature that we promise to our valuable consumers.</p>
               <ul className="feature-list">
                 <li>
                   <i className="bi bi-check-all" />

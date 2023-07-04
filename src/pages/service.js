@@ -1,16 +1,17 @@
 import Link from "next/link";
 import React, { useState,useEffect,useRef,useContext  } from "react";
-import Brands from "../components/common/Brands";
 import Breadcrumb from "../components/common/Breadcrumb";
 import ServiceFilter from "../components/service/ServiceFilter";
-//import serviceData from "../data/service/popular-Services.json";
 import Layout from "./../components/layout/Layout";
 import axios from "axios";
-import Cookies from "universal-cookie";
+
+
  function Servicepage() {
- // const {param1,setParam1} = useContext(DataContext);
+
+  const filters = useRef({"location":"","category":"","pricerange":"","rating":""}); 
+
+
   const [serviceData,setServicedata]=useState([]);
-  const filters = useRef({"location":"","category":"sda","pricerange":"sda","rating":"sda"});
   const previousFliter = useRef({});
   const fetchData = async () => {    
     try{      
@@ -142,32 +143,10 @@ import Cookies from "universal-cookie";
               
             ))}
           </div>
-          <div
-            className="paginatation wow animate fadeInUp"
-            data-wow-delay="400ms"
-            data-wow-duration="1500ms"
-          >
-            <ul className="paginate">
-              <li>
-                <a href="#">Previous</a>
-              </li>
-              <li>
-                <a href="#">01</a>
-              </li>
-              <li className="active">
-                <a href="#">02</a>
-              </li>
-              <li>
-                <a href="#">03</a>
-              </li>
-              <li>
-                <a href="#">Next</a>
-              </li>
-            </ul>
-          </div>
+          
         </div>
       </section>
-      <Brands />
+      
     </Layout>
   );
 }

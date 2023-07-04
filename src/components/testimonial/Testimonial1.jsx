@@ -67,7 +67,11 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Radhika Singh</h4>
+<<<<<<< HEAD
                     <span>CUSTOMER</span>
+=======
+                    <span>Client</span>
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                   </div>
                 </div>
                 <p>
@@ -94,7 +98,11 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Arpan Patel</h4>
+<<<<<<< HEAD
                     <span>CUSTOMER</span>
+=======
+                    <span>Client</span>
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                   </div>
                 </div>
                 <p>

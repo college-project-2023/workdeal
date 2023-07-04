@@ -16,7 +16,11 @@ function WhyChooseus2() {
                   <span>Trust Agency</span>
                   <h2>Why Choose Us</h2>
                   <p>
+<<<<<<< HEAD
                   WorkDeal provides service to all areas of the city with a large network of dedicated service providers. They offer both online and offline services, and are 24*7. They understand and value the customer's time, so they offer door-to-door services on just a single call.
+=======
+                  WorkDeal provides service to all nearby areas of the city, with a large network of dedicated service providers. We offer our services 24*7. Our workers understand the value of customer's time, so they offer door-to-door services on just a single call.
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                   </p>
                 </div>
               </div>

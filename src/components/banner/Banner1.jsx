@@ -1,24 +1,42 @@
 import Link from "next/link";
-import { useState,useContext } from "react";
+import { useState,useContext, useEffect } from "react";
 import Select from "react-select";
-import axios from "axios";
+import { MyContext } from "../context";
 import Cookies from "universal-cookie";
-const allowedInputs = ["Saloon", "Cook", "Cleaning","Ac repair","Spa & beauty"];
+const allowedInputs = ["Salon", "Cook", "Home clean","Ac repair","Spa & beauty","House shift","Vehicle & care","Plumbing","Electronics","Interior"]
+const allowedInputslc = ["salon", "cook", "Home clean","ac repair","spa & beauty","house shift","vhicle & care","plumbing","electronics","interior"]
+
 
 function Banner1(props) {
-  //const { setParam1} = useContext(DataContext);
+  const { serviceType, updateVariable} = useContext(MyContext);
+
   const cookies = new Cookies();
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);  
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState({ value: "", label: "select" });
+  const [error,setError] = useState(false);
   function handleSelectChange(event) {
+    console.log(event);
     setSelectedOption(event);
+    updateVariable({"location":event.value,"category":inputValue,"pricerange":"","rating":""});
   }
   const handleInputChange = (event) => {
     const value = event.target.value.toLowerCase();
     setInputValue(value);
     setSuggestions(getMatchingSuggestions(value));
   };
+  useEffect(()=>{
+    for(var i = 0;i<=10;i++){
+      if(inputValue===allowedInputs[i]||inputValue===""||inputValue===allowedInputslc[i]){
+        setError(false);
+        console.log(error);
+        break;
+      }
+      else{
+         setError(true);
+      }
+    }
+  },[inputValue]);
   cookies.set('mycookie',selectedOption);
   cookies.set('mycookie2',inputValue);
   const options = [
@@ -39,6 +57,7 @@ function Banner1(props) {
   };
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
+    updateVariable({"location":selectedOption.value,"category":suggestion,"pricerange":"","rating":""});
     setSuggestions([]);
   };
   const getMatchingSuggestions = (value) => {
@@ -46,7 +65,6 @@ function Banner1(props) {
       input.toLowerCase().includes(value)
     );
   };
-
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -108,13 +126,14 @@ function Banner1(props) {
             data-wow-delay="200ms"
             data-wow-duration="1500ms"
           >
-            <span>Wellcome Our Service Sale</span>
-            <h1> With Workdeal, work smarter, not harder!</h1>
+            <span>Welcome to WorkDeal</span>
+            <h1>Your trusted destination for all household service needs!</h1>
             <p>
-            Client satisfaction is a top precedence for us.We go over and beyond to give excellent service and products.
-            Our good labor force, professional station and cooperation are essential rudiments in delivering good services.
+            We understand the importance of finding reliable workers who can provide exceptional service for your household tasks.Take the first step towards enhancing your home with the help of trusted experts.
             </p>
+            
             <div className="find-service">
+              {error && <div style={{color: 'red',marginLeft:'210px'}}>NOT VALID,Select from below list</div>}
               <div className="location-search">
                 <div className="location-btn">
                   <i>
@@ -145,6 +164,7 @@ function Banner1(props) {
                     instanceId="my-unique-id"
                   />
                 </div>
+                 
                 <div className="location-form">
                   <form method="post" onSubmit={handleSubmit}>
                     <input 
@@ -160,10 +180,12 @@ function Banner1(props) {
                         borderRadius: '10px',
                       }}
                     />
-                    <button  type="submit" >
-                    <Link legacyBehavior href="/service ">
-                      <i className="bi bi-search" />
-                   </Link>
+                    <button type="submit" >
+                    {error ? <Link legacyBehavior href="/">
+                      <i className="bi bi-search" />                     
+                   </Link>:<Link legacyBehavior href="/service ">
+                      <i className="bi bi-search" />                     
+                   </Link>} 
                     </button>
                     {suggestions.length > 0 && (
                     <ul className="suggestions"
@@ -175,12 +197,13 @@ function Banner1(props) {
                       borderRadius: '4px',
                       backgroundColor: 'white',
                       position: 'absolute',
-                    }}>
+                      maxHeight: '140px',
+                      overflowY: 'auto',}}>
                       {suggestions.map((suggestion, index) => (
                       <li key={index} onClick={() => handleSuggestionClick(suggestion)} 
                       style={{
-                        padding: '8px',
                         cursor: 'pointer',
+                        padding: '8px 220px 8px 8px',
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.backgroundColor = '#81d866';
@@ -201,12 +224,12 @@ function Banner1(props) {
                 <ul className="suggest-list">
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Beauty &amp; Salon</a>
+                      <a>Spa &amp; Beauty</a>
                     </Link>
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>Shifting</a>
+                      <a>House Shift</a>
                     </Link>
                   </li>
                   <li>
@@ -216,7 +239,7 @@ function Banner1(props) {
                   </li>
                   <li>
                     <Link legacyBehavior href="/service">
-                      <a>WallPainting</a>
+                      <a>Salon </a>
                     </Link>
                   </li>
                 </ul>
@@ -229,9 +252,10 @@ function Banner1(props) {
             data-wow-duration="1500ms"
           >
             <img
-              src="assets/images/home-1/istockphoto-508707319-612x612__2_-removebg-preview (2).png"
+              src="assets/images/home-1/hero-section-right-img.png"
               alt=""
               className="banner"
+              style = {{borderRadius:"20px"}}
             />
           </div>
         </div>

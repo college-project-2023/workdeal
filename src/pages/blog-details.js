@@ -1,15 +1,30 @@
 import Link from "next/link";
-import React from "react";
-import BlogSidebar from "../components/blog/BlogSidebar";
+import React, { useState, useEffect } from "react";
+//import BlogSidebar from "../components/blog/BlogSidebar";
 import Breadcrumb from "../components/common/Breadcrumb";
-import Brands from "./../components/common/Brands";
+import axios from "axios";
 import Layout from "./../components/layout/Layout";
+
 function BlogDetailsPage() {
+  const [data, setData] = useState("");
+
+  useEffect(async () => {
+    await axios
+      .get("http://localhost:5000/blog", {
+        withCredentials: true,
+      })
+      .then((data) => {
+        setData(data.data);
+        console.log(data.data);
+      });
+  }, []);
+
   return (
     <Layout>
       <Breadcrumb pageName="Blog Details" pageTitle="Blog Details" />
       <section id="down" className="blog-details-area sec-m-top">
         <div className="container">
+<<<<<<< HEAD
           <div className="row">
             <div className="col-lg-8">
               <div className="blog-details-content">
@@ -141,169 +156,77 @@ A rejuvenated home, where happiness sets sail!"
                       </a>
                     </li>
                   </ul>
+=======
+          {data && data.map(function (item, i) {
+            return (
+              <div className="row" key={i}>
+                <div className="col-lg-8">
+                  <div className="blog-details-content">
+                    <h3>{item.header1}</h3>
+
+                    <div className="date-cmnt">
+                      <a href="#">
+                        <i className="bi bi-calendar-week" />
+                        {item.date}
+                      </a>
+                      <a href="#">
+                        <i className="bi bi-person-circle" />
+                        Posted by WorkDeal
+                      </a>
+                    </div>
+                    <div className="thumbnail">
+                      {item && <img src={item.image1} alt="" />}
+                    </div>
+                    <p>{item.content1}</p>
+                    <blockquote>
+                      <i className="bi bi-quote" />
+                      <p>
+                        “If you are ordering service online for home cleaning,
+                        make sure to be safe. we are providing our best service
+                        to the customers. still it's worker's responsibility as
+                        well as client's to make safer deal”
+                      </p>
+                    </blockquote>
+                    <div className="details-wrapper">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <h4>
+                            Tips for preventing monsoone water from entering
+                            house
+                          </h4>
+                          <p>{item.content2}</p>
+                        </div>
+                        <div className="col-lg-6">
+                          <img src={item.image2} alt="" />
+                        </div>
+                      </div>
+                      <ul>
+                        <li>
+                          <i className="bi bi-circle-fill" />
+                          {item.li1}
+                        </li>
+                        <li>
+                          <i className="bi bi-circle-fill" />
+                          {item.li2}
+                        </li>
+                        <li>
+                          <i className="bi bi-circle-fill" />
+                          {item.li3}
+                        </li>
+                        <li>
+                          <i className="bi bi-circle-fill" />
+                          {item.li4}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                 </div>
               </div>
-              <div className="blog-details-comment">
-                <h4>(04) Comments</h4>
-                <div className="comments-item">
-                  <div className="single-comment">
-                    <div className="cmnt-author">
-                      <img src="assets/images/blog/comment-1.jpg" alt="" />
-                    </div>
-                    <div className="cmnt-content">
-                      <ul className="stars">
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                      </ul>
-                      <h4>Nakul Mehta</h4>
-                      <a href="#">
-                        <i className="bi bi-calendar-week" />
-                        25 January 2023
-                      </a>
-                      <p>
-                      "I love the 'What's Going On' page! It's such a great resource for staying updated on local events and getting helpful home service tips. The success stories and expert advice sections are my favorites. Keep up the fantastic work!"
-                      </p>
-                      <div className="reply">
-                        <a href="#">
-                          <i className="bi bi-reply" />
-                          Reply
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="single-comment">
-                    <div className="cmnt-author">
-                      <img src="assets/images/blog/comment-2.jpg" alt="" />
-                    </div>
-                    <div className="cmnt-content">
-                      <ul className="stars">
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                      </ul>
-                      <h4>Nima Shah</h4>
-                      <a href="#">
-                        <i className="bi bi-calendar-week" />
-                        25 January 2023
-                      </a>
-                      <p>
-                      "This 'What's Going On' page is exactly what I needed! It's so convenient to have a central place to find local events and get inspired by success stories. The tips and industry trends are a bonus. Thank you for providing such valuable content!"
-                      </p>
-                      <div className="reply">
-                        <a href="#">
-                          <i className="bi bi-reply" />
-                          Reply
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="single-comment">
-                    <div className="cmnt-author">
-                      <img src="assets/images/blog/comment-3.jpg" alt="" />
-                    </div>
-                    <div className="cmnt-content">
-                      <ul className="stars">
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                        <li>
-                          <i className="fas fa-star" />
-                        </li>
-                      </ul>
-                      <h4>Yaksh Sheth</h4>
-                      <a href="#">
-                        <i className="bi bi-calendar-week" />
-                        25 January 2023
-                      </a>
-                      <p>
-                      "I can't get enough of the 'What's Going On' page! It's a one-stop-shop for all things home services and beyond. The local event calendar keeps me updated, and the cleaning tips and expert advice are a valuable bonus. I highly recommend checking it out!"
-                      </p>
-                      <div className="reply">
-                        <a href="#">
-                          <i className="bi bi-reply" />
-                          Reply
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="comment-form">
-                  <h4>Leave A Comment's</h4>
-                  <p>Your email address will not be published.</p>
-                  <form action="#" method="post">
-                    <div className="row">
-                      <div className="col-lg-6">
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Your Name :"
-                        />
-                      </div>
-                      <div className="col-lg-6">
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Your Email :"
-                        />
-                      </div>
-                      <div className="col-12">
-                        <input
-                          type="text"
-                          name="subject"
-                          placeholder="Subject"
-                        />
-                        <textarea
-                          name="message"
-                          cols={30}
-                          rows={10}
-                          placeholder="Write Message :"
-                          defaultValue={""}
-                        />
-                        <input type="submit" defaultValue="submit now" />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
-      <Brands />
     </Layout>
   );
 }

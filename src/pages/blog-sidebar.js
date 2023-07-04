@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import BlogSidebar from "../components/blog/BlogSidebar";
+//import BlogSidebar from "../components/blog/BlogSidebar";
 import Breadcrumb from "../components/common/Breadcrumb";
 import blogData from "../data/blog/blog_data.json";
 import Brands from "./../components/common/Brands";
@@ -81,7 +81,6 @@ function BlogSidebarPage() {
                 </ul>
               </div>
             </div>
-            <BlogSidebar />
           </div>
         </div>
       </section>

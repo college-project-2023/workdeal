@@ -27,12 +27,20 @@ function WhyChooseUs() {
                   <span>Trust Agency</span>
                   <h2>Best Offered Services</h2>
                   <p>
+<<<<<<< HEAD
                   <b>WorkDeal</b>   provides service to all areas of the city, with a large network of dedicated service providers. They offer both online and offline services, and are 24*7. They understand and value the customer's time, so they offer door-to-door services on just a single call.
                 <p> <b>Expert Technician :</b> 
                 From switch relief to complete home addition, we give expert grasp to every home complication.</p>
  <b>Genuine Price</b>
  <p>We at WorkDeal are committed to offering transparent pricing for all of our home services. Our platform is intended to assure fairness and openness, enabling you to get precise and competitive quotations from reputable experts.</p>
                   </p>
+=======
+                  <b>WorkDeal</b>   provides service to all nearby areas of the city, with a large network of dedicated service providers. We offer our services 24*7. Our workers understand the value of customer's time, so they offer door-to-door services on just a single call.
+                <p> <b>Expert Technician : </b> 
+                We provide only high skilled professionals to make your work done on time.</p>
+ <b>Genuine Price : </b>here, we believe in providing genuine pricing for all our home services. Our platform is designed to ensure transparency and fairness, allowing you to receive accurate and competitive quotes from trusted professionals.</p>
+                  
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                 </div>
               </div>
               <div className="accordion" id="accordionExample">
@@ -56,7 +64,11 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
+<<<<<<< HEAD
                     Wearing a face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protecting our workers and clients health.
+=======
+                    Wearing Face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. We make sure that worker provided by us is taking care of this.
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                     </div>
                   </div>
                 </div>
@@ -104,7 +116,12 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
+<<<<<<< HEAD
                     Germs are everywhere! Workers get on our hands and the items we touch during our daily activities. Cleaning hands at key times with soap and water or hand sanitizer that contains at least 60% alcohol is one of the most important steps you can take to avoid spreading germs to those around you.
+=======
+                    Germs are everywhere! Workers get onto hands and items we touch during daily activities. 
+                    Cleaning hands at key times with soap and water or hand sanitizer that contains at least 60% alcohol is one of the most important steps we can take to avoid getting spreading germs around people.
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
                     </div>
                   </div>
                 </div>

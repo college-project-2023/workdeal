@@ -2,55 +2,99 @@
   {
     "id": 1,
     "item_number": "100",
+<<<<<<< HEAD
     "serVice_img_1": "assets/images/cre-service/Untitled-design-2-pwxm6b06dpx8ijly7lvofm5gutrmb73jclhhcng7b4 (1).jpg",
+=======
+    "serVice_img_1": "assets/images/cre-service/house_shift.jpg",
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
     "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
     "service_img_3": "assets/images/icons/category-icon-1.png",
-    "service_name": "House Sift",
+    "service_name": "House Shift",
     "bg_name": "yellow"
   },
   {
     "id": 2,
     "item_number": "80",
+<<<<<<< HEAD
     "serVice_img_1": "assets/images/cre-service/88917891-joyful-mature-man-driving-isolated-on-white-background.jpg",
+=======
+    "serVice_img_1": "assets/images/cre-service/cooking.jpg",
+>>>>>>> f65303781c23e1f0ef231148183bbf8a1230d38b
     "service_img_2": "assets/images/cre-service/home-2-cre-service-2.jpg",
     "service_img_3": "assets/images/icons/category-icon-2.png",
-    "service_name": "Driver",
+    "service_name": "Cook",
     "bg_name": "cyan"
   },
   {
     "id": 3,
     "item_number": "300+",
-    "serVice_img_1": "assets/images/cre-service/cre-service-3.jpg",
+    "serVice_img_1": "assets/images/cre-service/AC_repair.jpg",
     "service_img_2": "assets/images/cre-service/home-2-cre-service-3.jpg",
     "service_img_3": "assets/images/icons/category-icon-3.png",
-    "service_name": "Security",
+    "service_name": "Ac Repair",
     "bg_name": "pink"
   },
   {
     "id": 4,
     "item_number": "50",
-    "serVice_img_1": "assets/images/cre-service/cre-service-4.jpg",
+    "serVice_img_1": "assets/images/cre-service/vihcle_care.jpg",
     "service_img_2": "assets/images/cre-service/home-2-cre-service-4.jpg",
     "service_img_3": "assets/images/icons/category-icon-4.png",
-    "service_name": "Car & Care",
+    "service_name": "Vehicle & Care",
     "bg_name": "orange"
   },
   {
     "id": 5,
     "item_number": "150",
-    "serVice_img_1": "assets/images/cre-service/cre-service-5.jpg",
+    "serVice_img_1": "assets/images/cre-service/spa.jpg",
     "service_img_2": "assets/images/cre-service/home-2-cre-service-2.jpg",
     "service_img_3": "assets/images/icons/category-icon-5.png",
-    "service_name": "Gadgect Repaire",
+    "service_name": "Spa & Beauty",
     "bg_name": "green"
   },
   {
     "id": 6,
     "item_number": "150",
-    "serVice_img_1": "assets/images/cre-service/cre-service-6.jpg",
+    "serVice_img_1": "assets/images/cre-service/home_clean.jpg",
     "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
     "service_img_3": "assets/images/icons/category-icon-1.png",
     "service_name": "Home Clean",
     "bg_name": "black"
+  },
+  {
+    "id": 7,
+    "item_number": "150",
+    "serVice_img_1": "assets/images/cre-service/salon.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
+    "service_img_3": "assets/images/icons/category-icon-1.png",
+    "service_name": "Salon",
+    "bg_name": "red"
+  },
+  {
+    "id": 8,
+    "item_number": "150",
+    "serVice_img_1": "assets/images/cre-service/plumbing.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
+    "service_img_3": "assets/images/icons/category-icon-1.png",
+    "service_name": "Plumbing",
+    "bg_name": "red"
+  },
+  {
+    "id": 9,
+    "item_number": "150",
+    "serVice_img_1": "assets/images/cre-service/electrical.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
+    "service_img_3": "assets/images/icons/category-icon-1.png",
+    "service_name": "Electronics",
+    "bg_name": "red"
+  },
+  {
+    "id": 10,
+    "item_number": "150",
+    "serVice_img_1": "assets/images/cre-service/interior.jpg",
+    "service_img_2": "assets/images/cre-service/home-2-cre-service-1.jpg",
+    "service_img_3": "assets/images/icons/category-icon-1.png",
+    "service_name": "Interior",
+    "bg_name": "red"
   }
 ]

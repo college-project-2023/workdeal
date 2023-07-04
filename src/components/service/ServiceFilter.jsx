@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Select from "react-select";
-import Cookies from "universal-cookie";
+import { MyContext } from "../context";
 
 function ServiceFilter(props) {
-  const cookies = new Cookies();
-  const l = cookies.get('mycookie');
-  const i = cookies.get('mycookie2');
-  const [selectedOption, setSelectedOption] = useState(l.value);
+
+  const {serviceType,updateVariable} = useContext(MyContext);
+
+  const [selectedOption, setSelectedOption] = useState(serviceType.location);
   function handleSelectChange(event) {
     setSelectedOption(event.value);
   }
-  const [selectedcg, setSelectedcg] = useState(i);
+  const [selectedcg, setSelectedcg] = useState(serviceType.category);
   function handleSelectChangecg(event) {
     setSelectedcg(event.target.value);
   }
-  const [selectedpr, setSelectedpr] = useState();
+  const [selectedpr, setSelectedpr] = useState(serviceType.pricerange);
   function handleSelectChangepr(event) {
     setSelectedpr(event.target.value);
   }
-  const [selectedrt, setSelectedrt] = useState('');
+  const [selectedrt, setSelectedrt] = useState(serviceType.rating);
   function handleSelectChangert(event) {
     setSelectedrt(event.target.value);
   }
@@ -113,7 +113,7 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={{ value: selectedOption, label: l.label }}
+                defaultValue={{label:selectedOption, value: selectedOption }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
@@ -129,11 +129,16 @@ function ServiceFilter(props) {
                 value={selectedcg}
               >
                 <option value="">Select Category</option>
-                <option value="Saloon">Saloon</option>
-                <option value="Cook">Cooking</option>
-                <option value="Cleaning">Cleaning</option>
+                <option value="Salon">Salon</option>
+                <option value="Cook">Cook</option>
+                <option value="Cleaning">Home Clean</option>
                 <option value="Ac repair">Ac repair</option>
                 <option value="Spa & beauty">Spa & beauty</option>
+                <option value="House Shift">House Shift</option>
+                <option value="Vehicle & Care">Vehicle & Care</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Interior">Interior</option>
               </select>
               <select
                 className="srv-select"

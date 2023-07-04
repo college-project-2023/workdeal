@@ -47,20 +47,21 @@ function BlogDetailsPage() {
                 <blockquote>
                   <i className="bi bi-quote" />
                   <p>
-                    “If the delivery provider maintains all the standards then
-                    it is safe to have get products delivered to you. It is hard
-                    to maintain but still safer to get your products ordered If
-                    you’ve been following the crypto space”
+                  "Out with winter's mess, let cleanliness prevail,
+A rejuvenated home, where happiness sets sail!"
                   </p>
                 </blockquote>
                 <div className="details-wrapper">
                   <div className="row">
                     <div className="col-lg-6">
-                      <h4>Tips for Creating a Comfortable and Safe Home Office Setup</h4>
+                      <h4>Tips for how to set up a garden in the monsoon</h4>
                       <p>
                        
-Creating a comfortable and safe home office setup is crucial for productivity and overall well-being. Start by investing in ergonomic furniture such as a supportive chair and an adjustable desk. Optimize lighting to reduce eye strain, whether through natural light or well-placed lamps. Designate a specific area in your home as your dedicated workspace to establish boundaries and minimize distractions. Keep your equipment properly positioned and organized, and ensure adequate ventilation for a fresh and healthy environment. Take regular breaks to stretch and rest your eyes, and implement fire safety measures such as smoke detectors and fire extinguishers. Lastly, maintain a clutter-free space to promote focus and reduce potential hazards. By following these tips, you can create a comfortable and safe home office that enhances your productivity and well-being.
+                      <b>Choose the Right Plants:</b> Select plants that are well-suited for the monsoon climate. Opt for varieties that can tolerate excessive moisture, such as tropical plants, ferns, and certain types of flowers like marigolds or impatiens. Avoid plants that are prone to waterlogging or root rot.
                       </p>
+                      <p><b>Provide Adequate Drainage:</b> Ensure proper drainage in your garden to prevent waterlogging. Incorporate raised beds or add organic matter to improve soil drainage. Avoid planting in low-lying areas where water tends to accumulate.</p>
+                      <p><b>Create Proper Sloping and Grading:</b> Grade your garden area to allow water to flow away from your plants and prevent water pooling. Construct gentle slopes or install drainage channels to divert excess water away from the garden.</p>
+                      <p><b>Provide Shelter for Delicate Plants:</b> If you have delicate or potted plants that are susceptible to excessive rainfall, consider providing them with temporary shelter, such as a canopy or placing them under a covered area. This will protect them from heavy rain and prevent waterlogging.</p>
                     </div>
                     <div className="col-lg-6">
                       <img src="assets/images/blog/blog-inner.jpg" alt="" />
@@ -69,36 +70,26 @@ Creating a comfortable and safe home office setup is crucial for productivity an
                   <ul>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Choose ergonomic furniture.
+                      Choose plants that can tolerate excessive moisture.
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Optimize lighting for reduced eye strain.
+                      Ensure proper drainage to prevent waterlogging.
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Set up a dedicated workspace.
+                      Grade your garden area for proper sloping and grading.
+                    </li>
+                   
+                    <li>
+                      <i className="bi bi-circle-fill" />
+                      Provide shelter for delicate plants during heavy rain.
                     </li>
                     <li>
                       <i className="bi bi-circle-fill" />
-                      Ensure adequate ventilation.
+                      Regularly inspect and prune for disease prevention.
                     </li>
-                    <li>
-                      <i className="bi bi-circle-fill" />
-                      Organize cables and wires.
-                    </li>
-                    <li>
-                      <i className="bi bi-circle-fill" />
-                      Place equipment for optimal ergonomics.
-                    </li>
-                    <li>
-                      <i className="bi bi-circle-fill" />
-                      Take regular breaks and stretch.
-                    </li>
-                    <li>
-                      <i className="bi bi-circle-fill" />
-                      Maintain a clutter-free environment.
-                    </li>
+                   
                     
                   </ul>
                 </div>

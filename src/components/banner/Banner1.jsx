@@ -111,7 +111,7 @@ function Banner1(props) {
             <span>Wellcome Our Service Sale</span>
             <h1> With Workdeal, work smarter, not harder!</h1>
             <p>
-            Client satisfaction is a top precedence forus.We go over and beyond to give excellent service and products.
+            Client satisfaction is a top precedence for us.We go over and beyond to give excellent service and products.
             Our good labor force, professional station and cooperation are essential rudiments in delivering good services.
             </p>
             <div className="find-service">
@@ -229,7 +229,7 @@ function Banner1(props) {
             data-wow-duration="1500ms"
           >
             <img
-              src="assets/images/home-1/hero-section-right-img.png"
+              src="assets/images/home-1/istockphoto-508707319-612x612__2_-removebg-preview (2).png"
               alt=""
               className="banner"
             />

@@ -31,7 +31,7 @@ function WhyChooseUs() {
                 <p> <b>Expert Technician :</b> 
                 From switch relief to complete home addition, we give expert grasp to every home complication.</p>
  <b>Genuine Price</b>
- <p>At WorkDeal, we believe in providing genuine pricing for all our home services. Our platform is designed to ensure transparency and fairness, allowing you to receive accurate and competitive quotes from trusted professionals.</p>
+ <p>We at WorkDeal are committed to offering transparent pricing for all of our home services. Our platform is intended to assure fairness and openness, enabling you to get precise and competitive quotations from reputable experts.</p>
                   </p>
                 </div>
               </div>
@@ -56,7 +56,7 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                    Wearing Face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protect to our workers and clients health.
+                    Wearing a face mask is recommended as part of personal protective equipment and as a public health measure to prevent the spread of viruses. And it's also protecting our workers and clients health.
                     </div>
                   </div>
                 </div>
@@ -104,8 +104,7 @@ function WhyChooseUs() {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                    Germs are everywhere! Workers get onto hands and items we touch during daily activities. 
-                    Cleaning hands at key times with soap and water or hand sanitizer that contains at least 60% alcohol is one of the most important steps you can take to avoid getting spreading germs to those around customers.
+                    Germs are everywhere! Workers get on our hands and the items we touch during our daily activities. Cleaning hands at key times with soap and water or hand sanitizer that contains at least 60% alcohol is one of the most important steps you can take to avoid spreading germs to those around you.
                     </div>
                   </div>
                 </div>

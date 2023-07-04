@@ -67,12 +67,11 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Radhika Singh</h4>
-                    <span>CEO Founder</span>
+                    <span>CUSTOMER</span>
                   </div>
                 </div>
                 <p>
-                "I recently used the workdeal app to find a plumber to fix a leaky faucet in my kitchen.The app is user-friendly and the booking process was a breeze. The plumber arrived on time,
-                was professional,and fixed the issue promptly. I highly recommend the workdeal app for anyone looking for quick and efficient home services!"{" "}
+                "I recently used the Workdeal app to find a plumber to fix a leaky faucet in my kitchen. The app is user-friendly, and the booking process was a breeze. The plumber arrived on time, was professional,and fixed the issue promptly. I highly recommend the Workdeal app for anyone looking for quick and efficient home services!"{" "}
                 </p>
               </div>
             </SwiperSlide>
@@ -95,11 +94,11 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Arpan Patel</h4>
-                    <span>CO Founder</span>
+                    <span>CUSTOMER</span>
                   </div>
                 </div>
                 <p>
-                  "The workdeal app is a great platform to find various services for household needs. I used it to hire an electrician to fix some wiring issues in my house. The app provided a wide range of options, and I was able to choose a skilled electrician at a reasonable price.The service was satisfactory,but the interface could be improved for smoother navigation. I would use the app again."{" "}
+                "The Workdeal app is a great platform to find various services for household needs. I used it to hire an electrician to fix some wiring issues in my house. The app provided a wide range of options, and I was able to choose a skilled electrician at a reasonable price. The service was satisfactory,but the interface could be improved for smoother navigation. I would use the app again."{" "}
                 </p>
               </div>
             </SwiperSlide>

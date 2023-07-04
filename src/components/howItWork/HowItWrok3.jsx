@@ -35,8 +35,7 @@ function HowItWrok3() {
                 <div className="step-cnt">
                   <h4>Select the Service</h4>
                   <p>
-                    Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                    metusil Vonean hrmentum sapien ac aliquet gravida.
+                  "Select The Service That Shines!"
                   </p>
                 </div>
               </div>
@@ -54,8 +53,7 @@ function HowItWrok3() {
                 <div className="step-cnt">
                   <h4>Pick your schedule</h4>
                   <p>
-                    Aenean fermentum sapien ac aliquet gravida. Fusce a ipsum
-                    metusil Vonean hrmentum sapien ac aliquet gravida.
+                  Pick Your Schedule, We'll Deliver!"
                   </p>
                 </div>
               </div>

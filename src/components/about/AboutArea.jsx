@@ -31,19 +31,17 @@ function AboutArea() {
               <p>
              <b>Welcome to WorkDeal!</b>
 
-             <p> At WorkDeal, we understand the importance of having reliable and skilled professionals when it comes to home services.
-              We know how challenging it can be to find the right plumber, AC repair technician, electrician, or any other service provider for your specific needs.
-              That's why we created WorkDeal – to simplify the process and connect you with trustworthy professionals in your area.</p>
+             <p> At WorkDeal, we understand the importance of having reliable and skilled professionals when it comes to home services. We know how challenging it can be to find the right plumber, AC repair technician, electrician, or any other service provider for your specific needs. That's why we created WorkDeal  to simplify the process and connect you with trustworthy professionals in your area.</p>
               </p>
-              <p>Our confirmed & knowledgeable pros are forever ready to help you and are loyal to providing best choice aids that you need, so we uphold the feature that we promise to our valuable consumers.</p>
+              <p>Our confirmed and knowledgeable pros are forever ready to help you and are loyal to providing the best choice of aids that you need, so we uphold the feature that we promise to our valuable consumers.</p>
               <ul className="feature-list">
                 <li>
                   <i className="bi bi-check-all" />
-                  Page Load (time, size, number of requests).
+                  Secure services.
                 </li>
                 <li>
                   <i className="bi bi-check-all" />
-                  Adance Data analysis operation.
+                  Timely Delivery.
                 </li>
               </ul>
               <div className="cmn-btn">

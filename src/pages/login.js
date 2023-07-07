@@ -103,6 +103,7 @@ function LoginPage() {
                   type="email"
                   name="email"
                   id="email"
+                  autoComplete="off"
                   placeholder="Your Email Here"
                   onChange={(e) => {
                     setEmail(e.target.value);

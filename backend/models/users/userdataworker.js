@@ -6,6 +6,10 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    idtoken: {
+      type: String,
+      required: false,
+    },
     email: {
       type: String,
       required: true,

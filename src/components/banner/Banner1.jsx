@@ -171,6 +171,7 @@ function Banner1(props) {
                       type="text"
                       name="location"
                       value={inputValue}
+                      autoComplete="off"
                       onChange={handleInputChange}
                       placeholder="Find Your Services Here"
                       style={{

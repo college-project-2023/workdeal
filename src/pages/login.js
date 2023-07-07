@@ -103,6 +103,7 @@ function LoginPage() {
                   type="email"
                   name="email"
                   id="email"
+                  autoComplete="off"
                   placeholder="Your Email Here"
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -146,17 +147,17 @@ function LoginPage() {
               />
             </form>
             <div className="other-signup">
-              <h4>or Sign up WITH</h4>
+              <h4>or log in WITH</h4>
               <div className="others-account">
                 <a className="google" onClick={loginWithGoogle}>
                   <i className="fab fa-google" />
-                  Signup with google
+                  google
                 </a>
               </div>
             </div>
             <p>
-              By clicking the "Sign up" button, you create a Cobiro account, and
-              you agree to Cobiro's <a href="#">Terms &amp; Conditions</a> &amp;
+              By clicking the "Log In" button, you create a WorkDeal account, and
+              you agree to WorkDeal's <a href="#">Terms &amp; Conditions</a> &amp;
               <a href="#">Privacy Policy.</a>
             </p>
           </div>

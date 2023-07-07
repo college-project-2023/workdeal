@@ -1,3 +1,20 @@
+.btn_login_other_account {
+  background-color: #000000;
+  border-radius: 5px;
+  border: none;
+  height: 50px;
+  width: 40%;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+  transition: all 0.3s;
+}
+
+#txt_head_sign_up_form{
+  font-size: 22px;
+  margin-bottom: 45px;
+}
 
 
 .maindiv{
@@ -5805,9 +5822,10 @@ footer .line-shape {
   border-radius: 5px;
   border: none;
   height: 50px;
-  width: 100%;
+  width: 40%;
+  margin-right: 10px;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
   text-align: center;
   color: #ffffff;
   transition: all 0.3s;

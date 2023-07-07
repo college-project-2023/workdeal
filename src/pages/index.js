@@ -24,34 +24,8 @@ export default function Home() {
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
-    }, 3000);
+    }, 1500);
   }, []);
-
-  useEffect(() => {
-    const cookie = new Cookies();
-    if (auth.currentUser) {
-      auth.currentUser.getIdToken().then((tkn) => {
-        const data = CryptoJS.AES.encrypt(
-          JSON.stringify(tkn),
-          "getlost"
-        ).toString();
-
-        cookie.set("loggedin", data);
-      });
-    } 
-    axios
-      .get("http://localhost:5000/checkuser", {
-        withCredentials: true,
-      }).then(async(res)=>{
-            if (res=="login"){
-              await auth.signOut().then(() => {
-                cookie.set("loggedin", "false");
-                window.location = "/";
-                window.alert("Last session expired, Logged out!!")
-              });
-            }
-      });
-  }, [auth]);
 
   return (
     <>

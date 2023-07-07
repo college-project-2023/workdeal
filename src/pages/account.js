@@ -5,7 +5,6 @@ import UserProfile from "../components/acount/UserProfile";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
-import Cookies from "universal-cookie";
 import axios from "axios";
 import OrderClient from "../components/acount/OrderClient";
 
@@ -26,44 +25,41 @@ function Accountpage() {
         setAuthentication(user);
       }
     });
-    axios
-      .get("http://localhost:5000/checkuser", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data == "login") {
-          window.location = "/login";
-        } else {
-          if (auth.currentUser) {
-            const useruid = auth.currentUser.uid;
-            axios
-              .get(`http://localhost:5000/get-user-data/${useruid}`, {
-                withCredentials: true,
-              })
-              .then((data) => {
-                if (data.status == 200) {
-                  setUserdata(data.data);
-                  setTypeOfAcc(data.data.typeofacc);
-                  setAddress1(data.data.address);
-                  setAddress2(data.data.address2);
-                } else {
-                  window.alert("something went wrong");
-                }
-              })
-              .catch((error) => {
-                if (error.response.status == 404) {
-                  window.location = "/login-google-required";
-                } else {
-                  window.alert("something went wrong");
-                }
-              });
-          }
-        }
-      });
+    const getData = async () => {
+      console.log("asj");
+      if (auth.currentUser) {
+        const useruid = auth.currentUser.uid;
+        const idtoken = await auth.currentUser.getIdToken();
+        axios
+          .post(`http://localhost:5000/get-user-data/`, {
+            uid: useruid,
+            idtoken: idtoken,
+          })
+          .then((data) => {
+            if (data.status == 200) {
+              setUserdata(data.data);
+              setTypeOfAcc(data.data.typeofacc);
+              setAddress1(data.data.address);
+              setAddress2(data.data.address2);
+            } else {
+              window.alert("something went wrong");
+            }
+          })
+          .catch((error) => {
+            if (error.response.status == 404) {
+              window.location = "/login-google-required";
+            } else {
+              window.alert(error.message);
+            }
+          });
+      }
+    };
+
+    getData();
   }, [authentication]);
 
   function updateAddress() {
-    console.log(userdata.city)
+    console.log(userdata.city);
     axios
       .post(`http://localhost:5000/update-user-client/`, {
         fname: userdata.fname,
@@ -83,21 +79,14 @@ function Accountpage() {
           window.alert("Address updated successfully");
           window.location = "/account";
         } else {
+          console.log(res);
           window, alert("Something went wrong");
         }
       })
       .catch((error) => {
+
         window.alert(error);
       });
-  }
-
-  function setCookie() {
-    const cookie = new Cookies();
-    if (auth.currentUser) {
-      cookie.set("loggedin", auth.currentUser.getIdToken);
-    } else {
-      cookie.set("loggedin", "false");
-    }
   }
 
   const togglePasswordVisibility = () => {
@@ -106,7 +95,6 @@ function Accountpage() {
 
   async function logout() {
     await auth.signOut().then(() => {
-      setCookie();
       window.location = "/";
     });
   }

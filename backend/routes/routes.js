@@ -20,29 +20,26 @@ app.use(express.json());
 var loggedin = false;
 
 async function middleware(request, response, next) {
-  loggedin = request.cookies["loggedin"];
+  loggedin = request.body.idtoken;
   if (loggedin != "false" && loggedin != undefined) {
-    var bytes = crypto.AES.decrypt(loggedin, "getlost");
-    var decryptedData = JSON.parse(bytes.toString(crypto.enc.Utf8));
     try {
-      const verified = await admin.auth().verifyIdToken(decryptedData);
+      const verified = await admin.auth().verifyIdToken(loggedin);
       if (verified) {
-        console.log("logged in");
-        response.send("loggedin");
         next();
       } else {
-        response.send("login");
-        console.log("not logged in");
+        response.status(400).send({message:'expired1'});
+        console.log('1')
       }
-    } catch (Exception) {
-      response.send("login");
+    } catch (error) {
+      response.status(400).send({message:'expired2'});
+      console.log(error)
     }
   } else {
-    response.send("login");
+    response.status(400).send({message:'expired3'});
+    console.log('3')
   }
 }
 
-app.get("/checkuser", middleware, async (request, response) => {});
 
 app.post("/create-user-client", async (request, response) => {
   const signup = new userClientModel(request.body);
@@ -134,15 +131,15 @@ app.post("/create-user-worker", async (request, response) => {
   }
 });
 
-app.get(`/get-user-data/:uid`, async (req, res) => {
+app.post(`/get-user-data/`, middleware,async (req, res) => {
   const worker = new userWorkerModel(req.body);
   const client = new userClientModel(req.body);
-  const userid = req.params.uid;
+  const userid = req.body.uid;
   worker.collection.findOne({ uid: userid }, function (error, data) {
     if (error) {
       client.collection.findOne({ uid: userid }, function (error, data) {
         if (error) {
-          res.sendStatus(404);
+          res.status(404).send({message:'user not found'});
         } else {
           res.send(data);
         }
@@ -151,12 +148,12 @@ app.get(`/get-user-data/:uid`, async (req, res) => {
       if (data == null) {
         client.collection.findOne({ uid: userid }, function (error, data) {
           if (error) {
-            res.sendStatus(404);
+            res.status(404).send({message:'user not found'});
           } else {
             if (data != null) {
               res.send(data);
             } else {
-              res.sendStatus(404);
+              res.status(404).send({message:'user not found'});
             }
           }
         });

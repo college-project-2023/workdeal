@@ -13,7 +13,7 @@ function gotoaccount() {
   if (auth.currentUser != null) {
     window.location = "/account";
   } else {
-    window.location = "/login";
+    window.location = "/sign-up";
   }
 }
 

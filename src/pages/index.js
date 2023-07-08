@@ -6,9 +6,9 @@ import Preloader from "../components/common/Preloader ";
 import Footer from "../components/footer/Footer";
 import HowItwork1 from "../components/howItWork/HowItwork1";
 import CreativeService from "../components/service/CreativeService";
-import HomeService from "../components/service/HomeService";
-import OfferService from "../components/service/OfferService";
-import PopularService from "../components/service/PopularService";
+//import HomeService from "../components/service/HomeService";
+//import OfferService from "../components/service/OfferService";
+//import PopularService from "../components/service/PopularService";
 //import FeaturesShop from "../components/shop/FeaturesShop";
 import Testimonial1 from "../components/testimonial/Testimonial1";
 import WhyChooseUs from "../components/whyChooseUs/WhyChooseUs";
@@ -52,9 +52,6 @@ export default function Home() {
           <Header1 />
           <Banner1 />
           <CreativeService />
-          <PopularService />
-          <HomeService />
-          <OfferService />
           <WhyChooseUs />
           <Testimonial1 />
           <Footer />

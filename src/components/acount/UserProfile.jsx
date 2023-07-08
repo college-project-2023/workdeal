@@ -232,6 +232,7 @@ function UserProfile(props) {
                 <input
                   type={!passwordVisible ? "password" : "text"}
                   name="email"
+                  autoComplete="new-password"
                   id="passwordTwo"
                   placeholder="******"
                   value={password}

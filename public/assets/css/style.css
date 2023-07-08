@@ -17,23 +17,15 @@
 }
 
 
-.maindiv{
-  border: 0px;
-  padding: 25px;
-  border-style: solid;
-  border-color:#5bb543;
-  margin: 20px;
-  border-radius: 10px;
-  box-shadow:  0 0 3px #5bb543;
-  height: fit-content;
-  width: fit-content;
-}
-
 #txt_sign_up{
   font-size: small;
 }
 
 .typecontainer{
+  height: fit-content;
+  width: fit-content;
+  padding: 20px;
+  margin-bottom: 20px;
   display: flex;
   flex-shrink: inherit;
   flex-wrap: wrap;
@@ -100,7 +92,7 @@
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  
+  background-color: white;
 }
 
 .btn-current-task{

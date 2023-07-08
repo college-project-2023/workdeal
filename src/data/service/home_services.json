@@ -2,7 +2,7 @@
   {
     "id": 1,
     "tag": "Saloon",
-    "thumb": "assets/images/services/service-4.jpg",
+    "thumb": "assets/images/services/service-1.jpg",
     "author_thumb": "assets/images/services/service-author-4.png",
     "author_name": "Egens Lab",
     "title": "Aliquam Commodo Suscipit Vola Neque. Aliquam Erat Utpat.",
@@ -11,7 +11,7 @@
   {
     "id": 2,
     "tag": "Cleaning",
-    "thumb": "assets/images/services/service-5.jpg",
+    "thumb": "assets/images/services/service-2.jpg",
     "author_thumb": "assets/images/services/service-author-5.png",
     "author_name": "Finibus",
     "title": "Proin Eget Elit Elit. Sed Congueb Neque Vel Nulla Efficitur.",
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "tag": "Ac Repair",
-    "thumb": "assets/images/services/service-6.jpg",
+    "thumb": "assets/images/services/service-3.jpg",
     "author_thumb": "assets/images/services/service-author-6.png",
     "author_name": "Creasoft",
     "title": "Mauris Elit Lectus, Hendrerit Eui Quam At Lobortisi.",

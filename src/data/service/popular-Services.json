@@ -36,7 +36,7 @@
     "id": 4,
     "tag": "Spa & Beuty",
     "thumb": "assets/images/services/service-4.jpg",
-    "author_thumb": "assets/images/services/service-author-4.png",
+    "author_thumb": "assets/images/services/service-1.jpg",
     "author_name": "Isoteclin",
     "title": "Aliquam Commodo Suscipit Vola Neque. Aliquam Erat Utpat.",
     "price": "250",
@@ -57,7 +57,7 @@
   {
     "id": 6,
     "tag": "Electrician",
-    "thumb": "assets/images/services/service-3.jpg",
+    "thumb": "assets/images/services/service-6.jpg",
     "author_thumb": "assets/images/services/service-author-6.png",
     "author_name": "Nowonder",
     "title": "Mauris Elit Lectus, Hendrerit Eui Quam At Lobortisi.",
@@ -100,7 +100,7 @@
   },
   {
     "id": 10,
-    "tag": "Cleaning",
+    "tag": "Painter",
     "thumb": "assets/images/services/service-10.jpg",
     "author_thumb": "assets/images/services/service-author6.png",
     "author_name": "Nowonder",
@@ -111,7 +111,7 @@
   },
   {
     "id": 11,
-    "tag": "Cook",
+    "tag": "CarPainter",
     "thumb": "assets/images/services/service-11.jpg",
     "author_thumb": "assets/images/services/service-author1.png",
     "author_name": "Inflazyme",

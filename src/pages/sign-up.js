@@ -4,12 +4,13 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { googleProvider } from "../firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
 import axios from "axios";
 import Signuptype from "./sign-up-type";
 
 function SignUpPage() {
-
-
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
@@ -18,7 +19,7 @@ function SignUpPage() {
   const [password, setPassword] = useState();
   const [fname, setFname] = useState();
   const [lname, setLname] = useState();
-  const [typeofacc ,setTypeOfAcc] = useState("worker");
+  const [typeofacc, setTypeOfAcc] = useState("worker");
 
   const register = async () => {
     if (
@@ -37,34 +38,50 @@ function SignUpPage() {
           .then(async (res) => {
             console.log(res.user);
             var linkfordb = null;
-            if(typeofacc=="worker"){
-              linkfordb="http://localhost:5000/create-user-worker"
-            }else{
-              linkfordb="http://localhost:5000/create-user-client"
+            if (typeofacc == "worker") {
+              linkfordb = "http://localhost:5000/create-user-worker";
+            } else {
+              linkfordb = "http://localhost:5000/create-user-client";
             }
             await axios
               .post(linkfordb, {
                 uid: res.user.uid,
                 email: email,
                 fname: fname,
-                lname:lname,
-                typeofacc:typeofacc
+                lname: lname,
+                typeofacc: typeofacc,
               })
               .then((res) => {
                 if (res.status == 200) {
-                  window.location="/login"
+                  window.location = "/login";
                 }
               });
           })
           .catch((err) => window.alert(err));
       } else {
-
         window.alert("please accept the terms");
       }
     } else {
       window.alert("enter all fields");
     }
   };
+
+  async function loginWithGoogle() {
+    const result = await signInWithPopup(auth, googleProvider)
+      .then((res) => {
+        if (
+          auth.currentUser.metadata.creationTime ===
+          auth.currentUser.metadata.lastSignInTime
+        ) {
+          window.location = "/login-google-required";
+        } else {
+          window.location = "/account";
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 
   return (
     <Layout>
@@ -151,7 +168,7 @@ function SignUpPage() {
                   I agree to the <a href="#">Terms &amp; Policy</a>
                 </p>
               </div>
-              <Signuptype value={typeofacc} setvalue={setTypeOfAcc}/>
+              <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
               <input
                 type="button"
                 defaultValue="Create Account"
@@ -162,7 +179,7 @@ function SignUpPage() {
             <div className="other-signup">
               <h4>or Sign up WITH</h4>
               <div className="others-account">
-                <a href="#" className="google">
+                <a href="#" className="google" onClick={loginWithGoogle}>
                   <i className="fab fa-google" />
                   Signup with google
                 </a>

@@ -53,7 +53,7 @@ function Banner1(props) {
       console.log('Valid input:', inputValue);
     } else {
       console.log('Invalid input:', inputValue);
-    }
+    }    
   };
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
@@ -130,10 +130,9 @@ function Banner1(props) {
             <h1>Your trusted destination for all household service needs!</h1>
             <p>
             We understand the importance of finding reliable workers who can provide exceptional service for your household tasks.Take the first step towards enhancing your home with the help of trusted experts.
-            </p>
-            
+            </p>           
             <div className="find-service">
-              {error && <div style={{color: 'red',marginLeft:'210px'}}>NOT VALID,Select from below list</div>}
+              
               <div className="location-search">
                 <div className="location-btn">
                   <i>
@@ -171,21 +170,22 @@ function Banner1(props) {
                       type="text"
                       name="location"
                       value={inputValue}
+                      autoComplete="off"
                       onChange={handleInputChange}
                       placeholder="Find Your Services Here"
                       style={{
                         padding: '8px',
                         fontSize: '16px',
                         border: '1px solid #ccc',
+                        boxShadow: error ? '0px 1px 10px 0px rgb(255 0 0 / 50%)': 'none',
                         borderRadius: '10px',
+                        transition: 'box-shadow 1s',
                       }}
                     />
-                    <button type="submit" >
-                    {error ? <Link legacyBehavior href="/">
+                    <button type="submit"  style={{ backgroundColor: error ? '#6c757dcc':'#5bb543'}}>                                 
+                   <Link legacyBehavior href={error ? "/":"/service "}>
                       <i className="bi bi-search" />                     
-                   </Link>:<Link legacyBehavior href="/service ">
-                      <i className="bi bi-search" />                     
-                   </Link>} 
+                   </Link>
                     </button>
                     {suggestions.length > 0 && (
                     <ul className="suggestions"

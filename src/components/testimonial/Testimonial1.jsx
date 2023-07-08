@@ -88,7 +88,7 @@ function Testimonial1() {
                 <div className="reviewer">
                   <div className="thumb">
                     <img
-                      src="assets/images/testimonial/testimonial-2.jpg"
+                      src="assets/images/testimonial/testiminial-2.jpg"
                       alt=""
                     />
                     <i className="fas fa-quote-left" />

@@ -43,7 +43,7 @@ const signupdata = () => {
                   fname: fname,
                   lname: lname,
                   typeofacc: typeofacc,
-                  service:service
+                  service: service,
                 })
                 .then((res) => {
                   if (res.status == 200) {
@@ -70,8 +70,13 @@ const signupdata = () => {
     }
   };
 
+  const switchaccount = () => {
+    window.location="/login"; 
+  }
+
   return (
-    <form className="form">
+    <div className="form">
+      <p id="txt_head_sign_up_form">let's complete the profile</p>
       <div className="row">
         <div className="col-md-6">
           <label htmlFor="fname">
@@ -122,11 +127,8 @@ const signupdata = () => {
             />
           </label>
         </div>
-
-        
-
       </div>
-              
+
       <div className="terms-forgot">
         <p>
           <input type="checkbox" name="agree" id="check_terms_signup" />I agree
@@ -134,25 +136,35 @@ const signupdata = () => {
         </p>
       </div>
       <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
-      {typeofacc=="worker" &&
+      {typeofacc == "worker" && (
         <div className="col-12">
           <label htmlFor="password">
             Service*
-            <select className="service-selection-signup" onChange={(e)=>{
-              setServiceType(e.target.value)
-            }}>
+            <select
+              className="service-selection-signup"
+              onChange={(e) => {
+                setServiceType(e.target.value);
+              }}
+            >
               <option value="Cleaning">Cleaning</option>
               <option value="Electrician">Electrician</option>
             </select>
           </label>
-        </div>}
-      <input
-        type="button"
-        onClick={register}
-        defaultValue="Create Account"
-        className="btn_create_account"
-      />
-    </form>
+        </div>
+      )}
+      <div className="row">
+        <input
+          type="button"
+          onClick={register}
+          defaultValue="Create Account"
+          className="btn_create_account"
+        />
+        <button
+          onClick={switchaccount}
+          className="btn_login_other_account"
+        >Switch Account</button>
+      </div>
+    </div>
   );
 };
 

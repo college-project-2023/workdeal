@@ -252,7 +252,7 @@ function Banner1(props) {
             data-wow-duration="1500ms"
           >
             <img
-              src="assets/images/home-1/fp_wd_1.png"
+              src="assets/images/home-1/fp_wd_1.jpg"
               alt=""
               className="banner"
               style = {{borderRadius:"20px"}}

@@ -129,16 +129,16 @@ function ServiceFilter(props) {
                 value={selectedcg}
               >
                 <option value="">Select Category</option>
-                <option value="Salon">Salon</option>
-                <option value="Cook">Cook</option>
-                <option value="Cleaning">Home Clean</option>
-                <option value="Ac repair">Ac repair</option>
-                <option value="Spa & beauty">Spa & beauty</option>
-                <option value="House Shift">House Shift</option>
-                <option value="Vehicle & Care">Vehicle & Care</option>
-                <option value="Plumbing">Plumbing</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Interior">Interior</option>
+                <option value="salon">Salon</option>
+                <option value="cook">Cook</option>
+                <option value="cleaning">Home Clean</option>
+                <option value="ac repair">Ac repair</option>
+                <option value="spa & beauty">Spa & beauty</option>
+                <option value="house shift">House Shift</option>
+                <option value="vehicle & care">Vehicle & Care</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="electronics">Electronics</option>
+                <option value="interior">Interior</option>
               </select>
               <select
                 className="srv-select"

@@ -147,7 +147,7 @@ function Header1() {
             <li>
               <Link legacyBehavior href="/blog-details">
                 <a className={currentRoute === "/blog-details" ? "active" : ""}>
-                  What's going on
+                  News Feed
                 </a>
               </Link>
             </li>

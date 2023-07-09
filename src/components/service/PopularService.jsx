@@ -92,7 +92,7 @@ function PopularService() {
                       <span>
                         Started At :
                         <strong>
-                          <small>$</small>250
+                          <small>₹</small>250
                         </strong>
                       </span>
                       <Link legacyBehavior href="/service-details">

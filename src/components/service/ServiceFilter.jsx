@@ -1,6 +1,7 @@
 import React, { useState,useContext } from "react";
 import Select from "react-select";
 import { MyContext } from "../context";
+import services from "../../data/service/creative_services.json"
 
 function ServiceFilter(props) {
 
@@ -113,7 +114,7 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={{label:selectedOption, value: selectedOption }}
+                defaultValue={{label:selectedOption!=""?selectedOption:"Location", value: selectedOption }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
@@ -128,17 +129,10 @@ function ServiceFilter(props) {
                 onChange={handleSelectChangecg}
                 value={selectedcg}
               >
-                <option value="">Select Category</option>
-                <option value="salon">Salon</option>
-                <option value="cook">Cook</option>
-                <option value="cleaning">Home Clean</option>
-                <option value="ac repair">Ac repair</option>
-                <option value="spa & beauty">Spa & beauty</option>
-                <option value="house shift">House Shift</option>
-                <option value="vehicle & care">Vehicle & Care</option>
-                <option value="plumbing">Plumbing</option>
-                <option value="electronics">Electronics</option>
-                <option value="interior">Interior</option>
+              <option value="">Select Category</option>
+                {services.map((service)=>{
+                  return <option value={service.service_name}>{service.service_name}</option>
+                })}
               </select>
               <select
                 className="srv-select"

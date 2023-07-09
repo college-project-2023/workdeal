@@ -67,9 +67,9 @@ const Footer2 =()=> {
               <div className="footer-widget">
                 <h4>Categories</h4>
                 <ul className="footer-menu">
-                  <li  onClick={() => handleService("Electronic")}>
+                  <li  onClick={() => handleService("Electrician")}>
                     <Link legacyBehavior href="/service">
-                      <a>Electronics</a>
+                      <a>Electrician</a>
                     </Link>
                   </li>
                   <li onClick={() => handleService("Cook")}>
@@ -87,9 +87,9 @@ const Footer2 =()=> {
                       <a>Plumbing</a>
                     </Link>
                   </li>
-                  <li onClick={() => handleService("Cleaning")}>
+                  <li onClick={() => handleService("Home Clean")}>
                     <Link legacyBehavior href="/service">
-                      <a>Cleaning</a>
+                      <a>Home Clean</a>
                     </Link>
                   </li>
                 </ul>
@@ -135,8 +135,8 @@ const Footer2 =()=> {
             <div className="col-lg-6">
               <div className="copy-right">
                 <span>
-                  Copyright 2023 Serve | Design By
-                  <a href="https://www.egenslab.com/">Egens Lab</a>
+                  Copyright 2023 WorkDeal | Design By{" "}
+                  <a href="https://www.egenslab.com/">141</a>
                 </span>
               </div>
             </div>

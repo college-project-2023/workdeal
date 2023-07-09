@@ -84,7 +84,6 @@ function Accountpage() {
         }
       })
       .catch((error) => {
-
         window.alert(error);
       });
   }
@@ -403,6 +402,7 @@ function Accountpage() {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
                 <div
                   className="tab-pane fade"

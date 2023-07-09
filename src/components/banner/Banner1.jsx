@@ -3,17 +3,18 @@ import { useState, useContext, useEffect } from "react";
 import Select from "react-select";
 import { MyContext } from "../context";
 import Cookies from "universal-cookie";
+
 const allowedInputs = [
-  "salon",
-  "cook",
-  "Home clean",
-  "ac repair",
-  "spa & beauty",
-  "house shift",
-  "vhicle & care",
-  "plumbing",
-  "electronics",
-  "interior",
+  "Salon",
+  "Cook",
+  "Home Clean",
+  "Ac Repair",
+  "Beauty",
+  "House Shift",
+  "Vehicle & Care",
+  "Plumbing",
+  "Electrician",
+  "Interior",
 ];
 
 function Banner1(props) {

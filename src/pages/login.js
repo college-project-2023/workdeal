@@ -6,9 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
 import { googleProvider } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
-import Cookies from "universal-cookie";
-import axios from "axios";
-import CryptoJS from "crypto-js";
+import { Dialog, DialogTitle } from "@mui/material";
 
 function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -25,23 +23,6 @@ function LoginPage() {
         signInWithEmailAndPassword(auth, email, password)
           .then(async (res) => {
             window.location = "/account";
-            const cookie = new Cookies();
-            if (auth.currentUser != null) {
-              auth.currentUser.getIdToken().then((tkn) => {
-                const data = CryptoJS.AES.encrypt(
-                  JSON.stringify(tkn),
-                  "getlost"
-                ).toString();
-
-                cookie.set("loggedin", data);
-              });
-            } else {
-              cookie.set("loggedin", "false");
-            }
-
-            axios.get("http://localhost:5000/checkuser", {
-              withCredentials: true,
-            });
           })
           .catch((err) => window.alert(err));
       } else {
@@ -59,23 +40,6 @@ function LoginPage() {
           window.location="/login-google-required"
         } else {
           window.location = "/account";
-          const cookie = new Cookies();
-          if (auth.currentUser != null) {
-            auth.currentUser.getIdToken().then((tkn) => {
-              const data = CryptoJS.AES.encrypt(
-                JSON.stringify(tkn),
-                "getlost"
-              ).toString();
-
-              cookie.set("loggedin", data);
-            });
-          } else {
-            cookie.set("loggedin", "false");
-          }
-
-          axios.get("http://localhost:5000/checkuser", {
-            withCredentials: true,
-          })
         }
       })
       .catch((error) => {
@@ -83,8 +47,23 @@ function LoginPage() {
       });
   }
 
+  const [showDialog, setShowDialog] = useState(false);
+  const handleDialogClose = () => {
+    setShowDialog(false);
+  };
+
+  const dialogstyle = {
+    paddingLeft: "30px",
+    paddingRight: "30px",
+    paddingBottom: "30px",
+  };
+
   return (
     <Layout>
+      <Dialog open={showDialog} onClose={handleDialogClose}>
+        <DialogTitle>Terms & Conditions</DialogTitle>
+        <p style={dialogstyle}>these are some terms you have to follow</p>
+      </Dialog>
       <Breadcrumb pageName="Log In" pageTitle="Log In" />
       <section id="down" className="login-area sec-p">
         <div className="container">
@@ -96,7 +75,7 @@ function LoginPage() {
                 <a>SignUp here</a>
               </Link>
             </span>
-            <form>
+            <form autoComplete="false">
               <label htmlFor="email">
                 Email*
                 <input
@@ -122,6 +101,7 @@ function LoginPage() {
                   id="togglePassword"
                 />
                 <input
+                autoComplete="new-password"
                   type={!passwordVisible ? "password" : "text"}
                   name="password"
                   id="password"
@@ -134,9 +114,9 @@ function LoginPage() {
               <div className="terms-forgot">
                 <p>
                   <input type="checkbox" name="agree" id="check_terms_signup" />
-                  I agree to the <a href="#">Terms &amp; Policy</a>
+                  I agree to the <a onClick={()=>setShowDialog(true)}>Terms &amp; Conditions</a>
                 </p>
-                <a href="#">Forgot Your Password</a>
+                <a href="/login-reset-pass">Forgot Your Password</a>
               </div>
               <input
                 type="button"
@@ -157,8 +137,7 @@ function LoginPage() {
             </div>
             <p>
               By clicking the "Log In" button, you create a WorkDeal account, and
-              you agree to WorkDeal's <a href="#">Terms &amp; Conditions</a> &amp;
-              <a href="#">Privacy Policy.</a>
+              you agree to WorkDeal's <a onClick={()=>setShowDialog(true)}>Terms &amp; Conditions</a>
             </p>
           </div>
         </div>

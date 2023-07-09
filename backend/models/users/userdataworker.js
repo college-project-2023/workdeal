@@ -6,6 +6,10 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    aadhar: {
+      type: String,
+      required: true,
+    },
     idtoken: {
       type: String,
       required: false,

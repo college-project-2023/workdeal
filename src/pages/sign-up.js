@@ -5,7 +5,7 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { googleProvider } from "../firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { Dialog, DialogTitle } from "@mui/material";
 import { signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
 import axios from "axios";
 import Signuptype from "./sign-up-type";
@@ -66,6 +66,11 @@ function SignUpPage() {
     }
   };
 
+  const [showDialog, setShowDialog] = useState(false);
+  const handleDialogClose = () => {
+    setShowDialog(false);
+  };
+
   async function loginWithGoogle() {
     const result = await signInWithPopup(auth, googleProvider)
       .then((res) => {
@@ -83,8 +88,18 @@ function SignUpPage() {
       });
   }
 
+  const dialogstyle = {
+    paddingLeft: "30px",
+    paddingRight: "30px",
+    paddingBottom: "30px",
+  };
+
   return (
     <Layout>
+      <Dialog open={showDialog} onClose={handleDialogClose}>
+        <DialogTitle>Terms & Conditions</DialogTitle>
+        <p style={dialogstyle}>these are some terms you have to follow</p>
+      </Dialog>
       <Breadcrumb pageName="Sign Up" pageTitle="Sign Up" />
       <section id="down" className="login-area sec-p">
         <div className="container">
@@ -151,6 +166,7 @@ function SignUpPage() {
                       id="togglePassword"
                     />
                     <input
+                      autoComplete="new-password"
                       type={!passwordVisible ? "password" : "text"}
                       name="email"
                       id="password"
@@ -165,7 +181,10 @@ function SignUpPage() {
               <div className="terms-forgot">
                 <p>
                   <input type="checkbox" name="agree" id="check_terms_signup" />
-                  I agree to the <a href="#">Terms &amp; Policy</a>
+                  I agree to the{" "}
+                  <a onClick={() => setShowDialog(true)}>
+                    Terms &amp; Conditions
+                  </a>
                 </p>
               </div>
               <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
@@ -186,9 +205,8 @@ function SignUpPage() {
               </div>
             </div>
             <p>
-              By clicking the "Sign up" button, you create a Cobiro account, and
-              you agree to Cobiro's <a href="#">Terms &amp; Conditions</a> &amp;{" "}
-              <a href="#">Privacy Policy.</a>
+              By clicking the "Sign up" button, you create a WorkDeal account, and
+              you agree to WorkDeal's <a onClick={() => setShowDialog(true)}>Terms &amp; Conditions</a>
             </p>
           </div>
         </div>

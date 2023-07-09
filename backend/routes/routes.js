@@ -68,7 +68,8 @@ app.get('/data', async (req, res) => {
    const {tag, location , price, rating} = req.query;
    const filter = {};
    if(tag!=""){
-    filter.tag = tag;
+    filter.tag = tag.toLowerCase();
+    console.log(tag);
    }
    if(location){
     filter.location = location;

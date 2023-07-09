@@ -1,44 +1,78 @@
 import Link from "next/link";
-import { useState,useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import Select from "react-select";
 import { MyContext } from "../context";
 import Cookies from "universal-cookie";
-const allowedInputs = ["Salon", "Cook", "Home clean","Ac repair","Spa & beauty","House shift","Vehicle & care","Plumbing","Electronics","Interior"]
-const allowedInputslc = ["salon", "cook", "Home clean","ac repair","spa & beauty","house shift","vhicle & care","plumbing","electronics","interior"]
-
+const allowedInputs = [
+  "salon",
+  "cook",
+  "Home clean",
+  "ac repair",
+  "spa & beauty",
+  "house shift",
+  "vhicle & care",
+  "plumbing",
+  "electronics",
+  "interior",
+];
 
 function Banner1(props) {
-  const { serviceType, updateVariable} = useContext(MyContext);
+  const { serviceType, updateVariable } = useContext(MyContext);
 
   const cookies = new Cookies();
-  const [inputValue, setInputValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);  
-  const [selectedOption, setSelectedOption] = useState({ value: "", label: "select" });
-  const [error,setError] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState({
+    value: "",
+    label: "select",
+  });
+  const [error, setError] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
   function handleSelectChange(event) {
     console.log(event);
     setSelectedOption(event);
-    updateVariable({"location":event.value,"category":inputValue,"pricerange":"","rating":""});
+    updateVariable({
+      location: event.value,
+      category: inputValue,
+      pricerange: "",
+      rating: "",
+    });
   }
   const handleInputChange = (event) => {
     const value = event.target.value.toLowerCase();
+    updateVariable({
+      location: selectedOption.value,
+      category: inputValue,
+      pricerange: "",
+      rating: "",
+    });
     setInputValue(value);
     setSuggestions(getMatchingSuggestions(value));
   };
-  useEffect(()=>{
-    for(var i = 0;i<=10;i++){
-      if(inputValue===allowedInputs[i]||inputValue===""||inputValue===allowedInputslc[i]){
+  useEffect(() => {
+    for (var i = 0; i <= 10; i++) {
+      if (
+        inputValue === allowedInputs[i] ||
+        inputValue === ""
+      ) {
         setError(false);
         console.log(error);
         break;
-      }
-      else{
-         setError(true);
+      } else {
+        setError(true);
       }
     }
-  },[inputValue]);
-  cookies.set('mycookie',selectedOption);
-  cookies.set('mycookie2',inputValue);
+  }, [inputValue]);
+  cookies.set("mycookie", selectedOption);
+  cookies.set("mycookie2", inputValue);
   const options = [
     { value: "Ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
@@ -49,23 +83,33 @@ function Banner1(props) {
   ];
   const handleSubmit = (event) => {
     event.preventDefault();
+   
     if (allowedInputs.includes(inputValue)) {
-      console.log('Valid input:', inputValue);
+      console.log("Valid input:", inputValue);
     } else {
-      console.log('Invalid input:', inputValue);
-    }    
+      console.log("Invalid input:", inputValue);
+    }
+    updateVariable({
+      location: selectedOption.value,
+      category: inputValue,
+      pricerange: "",
+      rating: "",
+    });
   };
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
-    updateVariable({"location":selectedOption.value,"category":suggestion,"pricerange":"","rating":""});
+    updateVariable({
+      location: selectedOption.value,
+      category: suggestion,
+      pricerange: "",
+      rating: "",
+    });
     setSuggestions([]);
   };
   const getMatchingSuggestions = (value) => {
-    return allowedInputs.filter(input =>
-      input.toLowerCase().includes(value)
-    );
+    return allowedInputs.filter((input) => input.toLowerCase().includes(value));
   };
-
+  
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
@@ -129,11 +173,30 @@ function Banner1(props) {
             <span>Welcome to WorkDeal</span>
             <h1>Your trusted destination for all household service needs!</h1>
             <p>
-            We understand the importance of finding reliable workers who can provide exceptional service for your household tasks.Take the first step towards enhancing your home with the help of trusted experts.
-            </p>           
+              We understand the importance of finding reliable workers who can
+              provide exceptional service for your household tasks.Take the
+              first step towards enhancing your home with the help of trusted
+              experts.
+            </p>
+            {error && showTooltip && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          backgroundColor: "white",
+                          color: "#5bb543",
+                          marginLeft:"460px",
+
+                          borderRadius: "5px",
+                          padding:"5px",
+                          width:"172px",
+                          transform: "translateX(-50%)",
+                        }}
+                      >
+                        select from below list.
+                      </div>
+                    )}
             <div className="find-service">
-              
-              <div className="location-search">
+              <div className="location-search"  style={{marginTop: '35px'}}>
                 <div className="location-btn">
                   <i>
                     <img src="assets/images/icons/location.svg" alt="" />
@@ -163,10 +226,10 @@ function Banner1(props) {
                     instanceId="my-unique-id"
                   />
                 </div>
-                 
+
                 <div className="location-form">
                   <form method="post" onSubmit={handleSubmit}>
-                    <input 
+                    <input
                       type="text"
                       name="location"
                       value={inputValue}
@@ -174,48 +237,63 @@ function Banner1(props) {
                       onChange={handleInputChange}
                       placeholder="Find Your Services Here"
                       style={{
-                        padding: '8px',
-                        fontSize: '16px',
-                        border: '1px solid #ccc',
-                        boxShadow: error ? '0px 1px 10px 0px rgb(255 0 0 / 50%)': 'none',
-                        borderRadius: '10px',
-                        transition: 'box-shadow 1s',
+                        padding: "8px",
+                        fontSize: "16px",
+                        border: "1px solid #ccc",
+                        boxShadow: error
+                          ? "0px 1px 10px 0px rgb(255 0 0 / 50%)"
+                          : "none",
+                        borderRadius: "10px",
+                        transition: "box-shadow 1s",
                       }}
-                    />
-                    <button type="submit"  style={{ backgroundColor: error ? '#6c757dcc':'#5bb543'}}>                                 
-                   <Link legacyBehavior href={error ? "/":"/service "}>
-                      <i className="bi bi-search" />                     
-                   </Link>
+                    />                                        
+                    <button
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      type="submit"
+                      style={{
+                        backgroundColor: error ? "#6c757dcc" : "#5bb543",
+                      }}
+                    >
+                      <Link legacyBehavior href={error ? "/" : "/service "}>
+                        <i className="bi bi-search" />
+                      </Link>
                     </button>
                     {suggestions.length > 0 && (
-                    <ul className="suggestions"
-                    style={{
-                      listStyleType: 'none',
-                      padding: '0',
-                      margin: '4px 0',
-                      border: '1px solid #ccc',
-                      borderRadius: '4px',
-                      backgroundColor: 'white',
-                      position: 'absolute',
-                      maxHeight: '140px',
-                      overflowY: 'auto',}}>
-                      {suggestions.map((suggestion, index) => (
-                      <li key={index} onClick={() => handleSuggestionClick(suggestion)} 
-                      style={{
-                        cursor: 'pointer',
-                        padding: '8px 220px 8px 8px',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = '#81d866';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'white';
-                      }}>
-                        {suggestion}
-                        </li>
+                      <ul
+                        className="suggestions"
+                        style={{
+                          listStyleType: "none",
+                          padding: "0",
+                          margin: "4px 0",
+                          border: "1px solid #ccc",
+                          borderRadius: "4px",
+                          backgroundColor: "white",
+                          position: "absolute",
+                          maxHeight: "140px",
+                          overflowY: "auto",
+                        }}
+                      >
+                        {suggestions.map((suggestion, index) => (
+                          <li
+                            key={index}
+                            onClick={() => handleSuggestionClick(suggestion)}
+                            style={{
+                              cursor: "pointer",
+                              padding: "8px 220px 8px 8px",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.backgroundColor = "#81d866";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.backgroundColor = "white";
+                            }}
+                          >
+                            {suggestion}
+                          </li>
                         ))}
-                        </ul>
-                        )}
+                      </ul>
+                    )}
                   </form>
                 </div>
               </div>
@@ -255,7 +333,7 @@ function Banner1(props) {
               src="assets/images/home-1/fp_wd_1.jpg"
               alt=""
               className="banner"
-              style = {{borderRadius:"20px"}}
+              style={{ borderRadius: "20px" }}
             />
           </div>
         </div>

@@ -48,24 +48,22 @@ function Banner1(props) {
     });
   }
   const handleInputChange = (event) => {
-    const value = event.target.value.toLowerCase();
-    updateVariable({
-      location: selectedOption.value,
-      category: inputValue,
-      pricerange: "",
-      rating: "",
-    });
+    const value = event.target.value;
     setInputValue(value);
     setSuggestions(getMatchingSuggestions(value));
   };
   useEffect(() => {
     for (var i = 0; i <= 10; i++) {
-      if (
-        inputValue === allowedInputs[i] ||
-        inputValue === ""
-      ) {
+      var s = allowedInputs[i];
+      if (s && inputValue.toLowerCase() == s.toLowerCase() || inputValue == "") {
         setError(false);
-        console.log(error);
+
+        updateVariable({
+          location: selectedOption.value,
+          category: s,
+          pricerange: "",
+          rating: "",
+        });
         break;
       } else {
         setError(true);
@@ -84,19 +82,8 @@ function Banner1(props) {
   ];
   const handleSubmit = (event) => {
     event.preventDefault();
-   
-    if (allowedInputs.includes(inputValue)) {
-      console.log("Valid input:", inputValue);
-    } else {
-      console.log("Invalid input:", inputValue);
-    }
-    updateVariable({
-      location: selectedOption.value,
-      category: inputValue,
-      pricerange: "",
-      rating: "",
-    });
   };
+
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
     updateVariable({
@@ -108,9 +95,11 @@ function Banner1(props) {
     setSuggestions([]);
   };
   const getMatchingSuggestions = (value) => {
-    return allowedInputs.filter((input) => input.toLowerCase().includes(value));
+    return allowedInputs.filter((input) =>
+      input.toLowerCase().includes(value.toLowerCase())
+    );
   };
-  
+
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
@@ -180,24 +169,24 @@ function Banner1(props) {
               experts.
             </p>
             {error && showTooltip && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          backgroundColor: "white",
-                          color: "#5bb543",
-                          marginLeft:"460px",
+              <div
+                style={{
+                  position: "absolute",
+                  backgroundColor: "white",
+                  color: "#5bb543",
+                  marginLeft: "460px",
 
-                          borderRadius: "5px",
-                          padding:"5px",
-                          width:"172px",
-                          transform: "translateX(-50%)",
-                        }}
-                      >
-                        select from below list.
-                      </div>
-                    )}
+                  borderRadius: "5px",
+                  padding: "5px",
+                  width: "172px",
+                  transform: "translateX(-50%)",
+                }}
+              >
+                select from below list.
+              </div>
+            )}
             <div className="find-service">
-              <div className="location-search"  style={{marginTop: '35px'}}>
+              <div className="location-search" style={{ marginTop: "35px" }}>
                 <div className="location-btn">
                   <i>
                     <img src="assets/images/icons/location.svg" alt="" />
@@ -247,7 +236,7 @@ function Banner1(props) {
                         borderRadius: "10px",
                         transition: "box-shadow 1s",
                       }}
-                    />                                        
+                    />
                     <button
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}

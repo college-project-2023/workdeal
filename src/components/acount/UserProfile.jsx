@@ -17,7 +17,7 @@ function UserProfile(props) {
   const [password, setPass] = useState("");
 
   useEffect(() => {
-    if (zipcode.length == 6) {
+    if (zipcode && zipcode.length == 6) {
       fetch("https://api.postalpincode.in/pincode/" + zipcode)
         .then((response) => response.json())
         .then((responseJson) => {

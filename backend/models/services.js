@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const ServiceSchema = new mongoose.Schema({
-  _id: {
+  uid:{
     type: String,
-    required: true,
+    required: false
   },
   tag: {
     type: String,

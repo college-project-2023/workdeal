@@ -1792,13 +1792,15 @@ header {
      05.Popular services css 
 ===========================*/
 .single-service .thumb {
-  height: 180px;
+  height: 230px;
   position: relative;
   overflow: hidden;
 }
 .single-service .thumb a img {
   border-radius: 10px 10px 0px 0px;
+  height: 100%;
   width: 100%;
+  object-fit: cover;
   transition: all 0.5s ease-out 0s;
 }
 .single-service .thumb .tag {
@@ -1835,7 +1837,7 @@ header {
 .single-service .single-inner h4 a {
   font-family: "Rubik", sans-serif;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 19px;
   line-height: 30px;
   text-transform: capitalize;
   color: #142935;
@@ -5858,7 +5860,7 @@ footer .line-shape {
 }
 .login-form span a {
   display: inline-block;
-  color: #6c6c6c;
+  color: #35ae14;
   font-weight: 600;
 }
 .login-form > p {

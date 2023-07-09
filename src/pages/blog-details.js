@@ -8,8 +8,8 @@ import Layout from "./../components/layout/Layout";
 function BlogDetailsPage() {
   const [data, setData] = useState("");
 
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    axios
       .get("http://localhost:5000/blog", {
         withCredentials: true,
       })
@@ -21,7 +21,7 @@ function BlogDetailsPage() {
 
   return (
     <Layout>
-      <Breadcrumb pageName="Blog Details" pageTitle="Blog Details" />
+      <Breadcrumb pageName="News Feed" pageTitle="News Feed" />
       <section id="down" className="blog-details-area sec-m-top">
         <div className="container">
           {data && data.map(function (item, i) {

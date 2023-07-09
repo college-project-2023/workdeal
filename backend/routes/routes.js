@@ -63,6 +63,51 @@ app.post("/create-user-client", async (request, response) => {
 
 // ...
 
+app.post("/checkworkeractive",(req,res)=>{
+  const workeractive = new servicesModel(req.body);
+  workeractive.collection.findOne({uid:req.body.uid},async function(error,data){
+    if(data){
+      res.send("online")
+    }else{
+      res.send("offline")
+    }
+    if(error){
+      console.log(error)
+    }
+  })  
+})
+
+app.post("/setworkeractive",(req,res)=>{
+  const workeractive = new servicesModel(req.body);
+  console.log(req.body.uid)
+  workeractive.collection.findOne({uid:req.body.uid},async function(error,data){
+    if(data){
+      res.send("alreadyactive")
+    }else{
+      try {
+        await workeractive.save();
+        res.send("done");
+      } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+      }
+    }
+    if(error){
+      console.log(error)
+    }
+  })  
+})
+
+app.post("/setworkeroffline",(req,res)=>{
+  servicesModel.deleteOne({ uid: req.body.uid })
+    .then(() => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+})
+
 app.get('/data', async (req, res) => {
   try {
    const {tag, location , price, rating} = req.query;

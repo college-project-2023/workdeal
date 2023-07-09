@@ -7,8 +7,10 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import axios from "axios";
 import OrderClient from "../components/acount/OrderClient";
+import { Switch } from "@mui/material";
 
 function Accountpage() {
+  const [workeractive, setWorkerActive] = useState();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [authentication, setAuthentication] = useState(null);
   const [typeofacc, setTypeOfAcc] = useState("worker");
@@ -18,6 +20,63 @@ function Accountpage() {
 
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
+
+  const handleWorkerActive = () => {
+    var checkBox = document.getElementById("checkbox_worker_active");
+    if (checkBox && checkBox.checked) {
+      if (userdata) {
+        axios
+          .post("http://localhost:5000/setworkeractive", {
+            uid: auth.currentUser.uid,
+            tag: userdata.service.toLowerCase(),
+            thumb: "assets/images/cre-service/" + userdata.service + ".png",
+            author_thumb: "assets/images/acc.png",
+            author_name: userdata.fname + " " + userdata.lname,
+            title: userdata.service,
+            price: 100,
+          })
+          .catch((error) => {
+            checkBox.checked = false;
+            window.alert(error);
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (res == "online") {
+              checkBox.checked = true;
+            }
+          });
+      }
+    } else {
+      if(userdata){
+        axios.post("http://localhost:5000/setworkeroffline",{
+          uid:auth.currentUser.uid
+        }).then((res)=>{
+          if(res.data=="success"){
+            checkBox.checked=false;
+          }
+        }).catch((error)=>{
+          window.alert(error);
+        })
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      var checkBox = document.getElementById("checkbox_worker_active");
+      axios
+        .post("http://localhost:5000/checkworkeractive", {
+          uid: auth.currentUser.uid,
+        })
+        .then((res) => {
+          if (res.data == "online") {
+            checkBox.checked = true;
+          } else {
+            checkBox.checked = false;
+          }
+        });
+    }
+  }, [auth.currentUser]);
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
@@ -111,21 +170,6 @@ function Accountpage() {
                 role="tablist"
                 aria-orientation="vertical"
               >
-                <button
-                  className="nav-link active"
-                  id="v-pills-profile-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-profile"
-                  type="button"
-                  role="tab"
-                  aria-current="page"
-                  aria-controls="v-pills-profile"
-                  aria-selected="true"
-                >
-                  <i className="bi bi-person" />
-                  My Profile
-                </button>
-
                 {typeofacc == "worker" && (
                   <button
                     className="nav-link"
@@ -141,6 +185,20 @@ function Accountpage() {
                     Dashboard
                   </button>
                 )}
+                <button
+                  className="nav-link active"
+                  id="v-pills-profile-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#v-pills-profile"
+                  type="button"
+                  role="tab"
+                  aria-current="page"
+                  aria-controls="v-pills-profile"
+                  aria-selected="true"
+                >
+                  <i className="bi bi-person" />
+                  My Profile
+                </button>
 
                 <button
                   className="nav-link"
@@ -184,6 +242,25 @@ function Accountpage() {
                   Logout
                 </button>
               </div>
+              {typeofacc == "worker" && (
+                <div className="tab-active">
+                  <center>
+                    <div className="profile-logout">
+                      <center>
+                        <h3>Let's get to work?</h3>
+                        <label class="switch">
+                          <input
+                            id="checkbox_worker_active"
+                            type="checkbox"
+                            onClick={handleWorkerActive}
+                          />
+                          <span class="slider round"></span>
+                        </label>
+                      </center>
+                    </div>
+                  </center>
+                </div>
+              )}
               <div className="tab-content" id="v-pills-tabContent">
                 <div
                   className="tab-pane fade"
@@ -267,11 +344,14 @@ function Accountpage() {
                   <div className="user-profile">
                     <div className="user-info">
                       <div className="thumb">
-                        <img
-                          id="img-profile-pic"
-                          src="assets/images/acc.png"
-                          alt=""
-                        />
+                        <center>
+                          {userdata && (
+                            <p>
+                              {userdata.fname.slice(0, 1).toUpperCase()}
+                              {userdata.lname.slice(0, 1).toUpperCase()}
+                            </p>
+                          )}
+                        </center>
                       </div>
                       {userdata != null && (
                         <div>
@@ -402,7 +482,6 @@ function Accountpage() {
                       </div>
                     </div>
                   </div>
-                  
                 </div>
                 <div
                   className="tab-pane fade"

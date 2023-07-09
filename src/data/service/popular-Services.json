@@ -34,7 +34,7 @@
   },
   {
     "id": 4,
-    "tag": "Spa & Beuty",
+    "tag": "Beuty",
     "thumb": "assets/images/services/service-4.jpg",
     "author_thumb": "assets/images/services/service-1.jpg",
     "author_name": "Isoteclin",
@@ -45,7 +45,7 @@
   },
   {
     "id": 5,
-    "tag": "House Sift",
+    "tag": "House Shift",
     "thumb": "assets/images/services/service-5.jpg",
     "author_thumb": "assets/images/services/service-author-5.png",
     "author_name": "Inflazyme",

@@ -8059,7 +8059,7 @@ footer .line-shape {
   flex-wrap: wrap;
 }
 
-.user-form .nice-select {
+.user-form form select {
   width: 100%;
   border: 1px solid #eeeeee;
   box-sizing: border-box;
@@ -8067,8 +8067,9 @@ footer .line-shape {
   height: 45px;
   margin-bottom: 25px;
   margin-top: 10px;
+  background-color: white;
   padding: 0 15px;
-  color: #6c6c6c;
+  color: black;
   font-size: 13px;
 }
 .user-form form label {
@@ -8097,7 +8098,7 @@ footer .line-shape {
   margin-bottom: 25px;
   margin-top: 10px;
   padding: 0 15px;
-  color: #6c6c6c;
+  color: black;
   font-size: 13px;
 }
 .user-form form button {

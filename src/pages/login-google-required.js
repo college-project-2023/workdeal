@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Signuptype from "./sign-up-type";
 import { auth } from "../firebase/firebase";
 import { updatePassword } from "firebase/auth";
@@ -24,6 +24,15 @@ const signupdata = () => {
   const [aadhar, setAadhar] = useState();
   const [service, setServiceType] = useState(null);
 
+  const handleServiceChange = (e) =>{
+    setServiceType(e.target.value)
+  }
+
+  useEffect(()=>{
+    setServiceType(service)
+    console.log(service)
+  },[service])
+
   const register = async () => {
     if (
       password != null &&
@@ -36,7 +45,7 @@ const signupdata = () => {
       if (document.getElementById("check_terms_signup").checked) {
         var linkfordb;
         var waadhar = false;
-        if (typeofacc == "worker" && aadhar != null && aadhar != "") {
+        if (typeofacc == "worker" && aadhar != null && aadhar != "" && service!=null && service!="" && aadhar.length==12) {
           linkfordb = "http://localhost:5000/create-user-worker";
           waadhar = true;
         } else if(typeofacc == "client"){
@@ -68,7 +77,7 @@ const signupdata = () => {
                 window.alert("Session expired");
                 window.location = "/login";
               } else {
-                window.alert("can't update profile" + error);
+                window.alert("can't create profile" + error);
               }
             });
         } else {
@@ -176,10 +185,12 @@ const signupdata = () => {
               Service*
               <select
                 className="service-selection-signup"
-                onChange={(e) => {
-                  setServiceType(e.target.value);
+                defaultValue={service}
+                onChange={(e) =>  {
+                  handleServiceChange(e)
                 }}
               >
+              <option value={""}>select</option>
                 {services.map((s) => {
                   return (
                     <option key={s.id} value={s.service_name}>
@@ -198,6 +209,7 @@ const signupdata = () => {
                 type="text"
                 name="aadhar"
                 id="aadhar"
+                style={{boxShadow: aadhar && aadhar.length!=12 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 placeholder="Type Your Aadhar Number"
                 onChange={(e) => {
                   setAadhar(e.target.value);

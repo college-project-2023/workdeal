@@ -5,8 +5,10 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { googleProvider } from "../firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Dialog, DialogTitle } from "@mui/material";
 import { signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
+import services from "../data/service/creative_services.json";
 import axios from "axios";
 import Signuptype from "./sign-up-type";
 
@@ -20,6 +22,8 @@ function SignUpPage() {
   const [fname, setFname] = useState();
   const [lname, setLname] = useState();
   const [typeofacc, setTypeOfAcc] = useState("worker");
+  const [aadhar, setAadhar] = useState();
+  const [service, setServiceType] = useState("Home Clean");
 
   const register = async () => {
     if (
@@ -33,29 +37,48 @@ function SignUpPage() {
       lname != ""
     ) {
       if (document.getElementById("check_terms_signup").checked) {
-        // Create a new user with email and password using firebase
         createUserWithEmailAndPassword(auth, email, password)
           .then(async (res) => {
             console.log(res.user);
             var linkfordb = null;
-            if (typeofacc == "worker") {
+            var waadhar = false;
+            if (
+              typeofacc == "worker" &&
+              service != null &&
+              service != "" &&
+              aadhar != null &&
+              aadhar != "" &&
+              aadhar.length==12
+            ) {
               linkfordb = "http://localhost:5000/create-user-worker";
-            } else {
+              waadhar = true;
+            } else if (typeofacc == "client") {
               linkfordb = "http://localhost:5000/create-user-client";
+              waadhar = true;
             }
-            await axios
-              .post(linkfordb, {
-                uid: res.user.uid,
-                email: email,
-                fname: fname,
-                lname: lname,
-                typeofacc: typeofacc,
-              })
-              .then((res) => {
-                if (res.status == 200) {
-                  window.location = "/login";
-                }
-              });
+            if (waadhar) {
+              await axios
+                .post(linkfordb, {
+                  uid: res.user.uid,
+                  email: email,
+                  fname: fname,
+                  lname: lname,
+                  typeofacc: typeofacc,
+                  service: service,
+                  aadhar: aadhar,
+                })
+                .then((res) => {
+                  if (res.status == 200) {
+                    signInWithEmailAndPassword(auth, email, password)
+                      .then(async (res) => {
+                        window.location = "/account";
+                      })
+                      .catch((err) => window.alert(err));
+                  }
+                });
+            } else {
+              window.alert("Please checkout filled details");
+            }
           })
           .catch((err) => window.alert(err));
       } else {
@@ -188,6 +211,46 @@ function SignUpPage() {
                 </p>
               </div>
               <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
+              {typeofacc == "worker" && (
+                <div>
+                  <div className="col-12">
+                    <label htmlFor="password">
+                      Service*
+                      <select
+                        className="service-selection-signup"
+                        onChange={(e) => {
+                          setServiceType(e.target.value);
+                        }}
+                      >
+                        <option value={""}>select</option>
+                        {services.map((s) => {
+                          return (
+                            <option key={s.id} value={s.service_name}>
+                              {" "}
+                              {s.service_name}{" "}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </label>
+                  </div>
+                  <div className="col-12">
+                    <label htmlFor="aadhar">
+                      Aadhar Number*
+                      <input
+                        type="text"
+                        name="aadhar"
+                        id="aadhar"
+                        style={{boxShadow: aadhar && aadhar.length!=12 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
+                        placeholder="Type Your Aadhar Number"
+                        onChange={(e) => {
+                          setAadhar(e.target.value);
+                        }}
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
               <input
                 type="button"
                 defaultValue="Create Account"
@@ -205,8 +268,9 @@ function SignUpPage() {
               </div>
             </div>
             <p>
-              By clicking the "Sign up" button, you create a WorkDeal account, and
-              you agree to WorkDeal's <a onClick={() => setShowDialog(true)}>Terms &amp; Conditions</a>
+              By clicking the "Sign up" button, you create a WorkDeal account,
+              and you agree to WorkDeal's{" "}
+              <a onClick={() => setShowDialog(true)}>Terms &amp; Conditions</a>
             </p>
           </div>
         </div>

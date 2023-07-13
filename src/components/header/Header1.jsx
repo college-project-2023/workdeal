@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef, useContext } from "react";
 import { auth } from "../../firebase/firebase";
+import { MyContext } from "../context";
 // inital state data
 const initialState = {
   activeMenu: "",
@@ -49,6 +50,11 @@ function Header1() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const currentRoute = useRouter().pathname;
   const headerRef = useRef(null);
+
+  const { serviceType, updateVariable } = useContext(MyContext);
+  const handleInitialServices = () => {
+    updateVariable({ location: "", category: "", pricerange: "", rating: "" });
+  };
   // menu fuction for toggle
   function handleMenu(menuName) {
     dispatch({ type: "TOGGLE", payload: menuName });
@@ -139,7 +145,7 @@ function Header1() {
             </li>
             <li>
               <Link legacyBehavior href="/service">
-                <a className={currentRoute === "/service" ? "active" : ""}>
+                <a onClick={handleInitialServices} className={currentRoute === "/service" ? "active" : ""}>
                   Services
                 </a>
               </Link>

@@ -57,7 +57,7 @@ const UserWorkerSchema = new mongoose.Schema(
     },
     service:{
       type:String,
-      required:true
+      required:false
     }
   },
   {

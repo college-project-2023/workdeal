@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { googleProvider } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
 import { Dialog, DialogTitle } from "@mui/material";

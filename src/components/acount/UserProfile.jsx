@@ -12,8 +12,8 @@ function UserProfile(props) {
   const [address, setAdress] = useState(props.user.address);
   const [addrcity, setCity] = useState(props.user.city);
   const [zipcode, setZipCode] = useState(props.user.zipcode);
-  const [addrstatename, setStateName] = useState(props.user.statename);
-  const [addrcountry, setCountry] = useState(props.user.country);
+  const [addrstatename, setStateName] = useState("Gujarat");
+  const [addrcountry, setCountry] = useState("India");
   const [password, setPass] = useState("");
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import axios from "axios";
 import OrderClient from "../components/acount/OrderClient";
-import { Switch } from "@mui/material";
+import { Checkbox, Switch } from "@mui/material";
 
 function Accountpage() {
   const [workeractive, setWorkerActive] = useState();
@@ -24,7 +24,7 @@ function Accountpage() {
   const handleWorkerActive = () => {
     var checkBox = document.getElementById("checkbox_worker_active");
     if (checkBox && checkBox.checked) {
-      if (userdata) {
+      if (userdata && userdata.city) {
         axios
           .post("http://localhost:5000/setworkeractive", {
             uid: auth.currentUser.uid,
@@ -45,6 +45,9 @@ function Accountpage() {
               checkBox.checked = true;
             }
           });
+      }else{
+        checkBox.checked = false;
+        window.alert("Please complete your profile")
       }
     } else {
       if(userdata){
@@ -152,8 +155,11 @@ function Accountpage() {
   };
 
   async function logout() {
+    var checkBox = document.getElementById("checkbox_worker_active");
+    checkBox.checked=false;
+    handleWorkerActive()
     await auth.signOut().then(() => {
-      window.location = "/";
+      window.location = "/login";
     });
   }
 

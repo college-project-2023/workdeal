@@ -228,7 +228,6 @@ app.post(`/update-user-worker/`, async (req, res) => {
           statename: req.body.addrstatename,
           country: req.body.addrcountry,
           typeofacc: "worker",
-          service: req.body.service,
         },
       }
     );

@@ -47,7 +47,8 @@ function SignUpPage() {
               service != null &&
               service != "" &&
               aadhar != null &&
-              aadhar != ""
+              aadhar != "" &&
+              aadhar.length==12
             ) {
               linkfordb = "http://localhost:5000/create-user-worker";
               waadhar = true;
@@ -76,7 +77,7 @@ function SignUpPage() {
                   }
                 });
             } else {
-              window.alert("all fields are required");
+              window.alert("Please checkout filled details");
             }
           })
           .catch((err) => window.alert(err));
@@ -240,6 +241,7 @@ function SignUpPage() {
                         type="text"
                         name="aadhar"
                         id="aadhar"
+                        style={{boxShadow: aadhar && aadhar.length!=12 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                         placeholder="Type Your Aadhar Number"
                         onChange={(e) => {
                           setAadhar(e.target.value);

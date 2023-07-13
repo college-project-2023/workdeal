@@ -39,10 +39,10 @@ function UserProfile(props) {
     ele.disabled = true;
     ele.style.backgroundColor = "Gray";
     if (password != null && password != "") {
-      if (zipcode.length != 0 && zipcode.length != 6) {
+      if (zipcode.length != 6 && mobile.length!=10 && addrcity==null && address==null) {
         ele.disabled = false;
         ele.style.backgroundColor = "#5bb543";
-        window.alert("enter valid zipcode");
+        window.alert("please fill correct details");
       } else {
         signInWithEmailAndPassword(auth, email, password)
           .then((res) => {
@@ -131,6 +131,7 @@ function UserProfile(props) {
                 name="number"
                 id="number"
                 value={mobile}
+                style={{boxShadow: mobile.length!=10 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
                 }}
@@ -178,7 +179,7 @@ function UserProfile(props) {
                   onChange={(e) => {
                     setCity(e.target.value);
                   }}
-                >
+                ><option  value={""}>select</option>
                   {cities.map((city) => {
                     return (
                       <option key={city.id} value={city.city}>
@@ -215,6 +216,7 @@ function UserProfile(props) {
                 name="zipcode"
                 id="zipcode"
                 value={zipcode}
+                style={{boxShadow: zipcode.length!=6 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 onChange={(e) => {
                   setZipCode(e.target.value);
                 }}

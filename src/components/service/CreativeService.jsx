@@ -1,5 +1,7 @@
 import Link from "next/link";
-import React, { useContext, useMemo } from "react";
+
+import React, { useMemo,useContext } from "react";
+import { MyContext } from "../context";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import serviceData from "../../data/service/creative_services.json";
@@ -7,6 +9,7 @@ import { MyContext } from "../context";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 function CreativeService() {
+
 
   const {updateVariable} = useContext(MyContext);
 
@@ -17,6 +20,14 @@ function CreativeService() {
       pricerange: "",
       rating: "",
     });
+  }
+
+
+  const { serviceType, updateVariable } = useContext(MyContext);
+  
+  const handleService = (input) => {
+    console.log(input);
+    updateVariable({"location":"","category":input,"pricerange":"","rating":""});
   }
 
   const slider = useMemo(() => {

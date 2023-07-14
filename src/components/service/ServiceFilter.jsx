@@ -24,7 +24,6 @@ function ServiceFilter(props) {
     setSelectedrt(event.target.value);
   }
   const fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
-  console.log(fdata);
   props.sendtopage(fdata);
   const options = [
     { value: "Ahmedabad", label: "Ahmedabad" },
@@ -131,7 +130,7 @@ function ServiceFilter(props) {
               >
               <option value="">Select Category</option>
                 {services.map((service)=>{
-                  return <option value={service.service_name}>{service.service_name}</option>
+                  return <option key={service.service_name} value={service.service_name}>{service.service_name}</option>
                 })}
               </select>
               <select

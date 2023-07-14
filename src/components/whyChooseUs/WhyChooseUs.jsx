@@ -28,8 +28,8 @@ function WhyChooseUs() {
                   <h2>Best Offered Services</h2>
                   <p>
                   <b>WorkDeal</b>   provides service to all nearby areas of the city, with a large network of dedicated service providers. We offer our services 24*7. Our workers understand the value of customer's time, so they offer door-to-door services on just a single call.
-                <p> <b>Expert Technician : </b> 
-                We provide only high skilled professionals to make your work done on time.</p>
+                <b>Expert Technician : </b> 
+                We provide only high skilled professionals to make your work done on time.
  <b>Genuine Price : </b>here, we believe in providing genuine pricing for all our home services. Our platform is designed to ensure transparency and fairness, allowing you to receive accurate and competitive quotes from trusted professionals.</p>
                   
                 </div>

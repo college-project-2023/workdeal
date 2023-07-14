@@ -1,11 +1,51 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext, useState } from "react";
 import OtherServices from "../components/service/OtherServices";
 import Brands from "./../components/common/Brands";
 import Breadcrumb from "./../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import { MyContext } from "../components/context";
+import { useEffect } from "react";
+import axios from "axios";
+import { auth } from "../firebase/firebase";
 
 function ServiceDetailsPage() {
+  const { serviceName, isService, updateIsService } = useContext(MyContext);
+  const [workerData, setWorkerData] = useState();
+  const [authentication, setAuthentication] = useState();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setAuthentication(user);
+      } else {
+        updateIsService(true);
+        if (isService) {
+          window.alert("Login is required");
+          window.location = "/login";
+        }
+      }
+    });
+    const getData = async () => {
+      if (auth.currentUser) {
+        const idtoken = await auth.currentUser.getIdToken();
+        axios
+          .post("http://localhost:5000/get-user-data", {
+            uid: serviceName,
+            idtoken: idtoken,
+          })
+          .then((res) => {
+            setWorkerData(res.data);
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    };
+    getData();
+  }, [serviceName, authentication,isService]);
+
   return (
     <Layout>
       <Breadcrumb pageName="Service Details" pageTitle="Service Details" />

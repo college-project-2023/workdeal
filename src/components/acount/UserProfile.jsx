@@ -131,7 +131,7 @@ function UserProfile(props) {
                 name="number"
                 id="number"
                 value={mobile}
-                style={{boxShadow: mobile.length!=10 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
+                style={mobile && {boxShadow: mobile.length!=10 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
                 }}
@@ -216,7 +216,7 @@ function UserProfile(props) {
                 name="zipcode"
                 id="zipcode"
                 value={zipcode}
-                style={{boxShadow: zipcode.length!=6 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
+                style={zipcode && {boxShadow: zipcode.length!=6 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 onChange={(e) => {
                   setZipCode(e.target.value);
                 }}

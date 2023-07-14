@@ -1,17 +1,35 @@
 import Link from "next/link";
+
 import React, { useMemo,useContext } from "react";
 import { MyContext } from "../context";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import serviceData from "../../data/service/creative_services.json";
+import { MyContext } from "../context";
+
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 function CreativeService() {
+
+
+  const {updateVariable} = useContext(MyContext);
+
+  const handleServiceClick = (val)=>{
+    updateVariable({
+      location: "",
+      category: val,
+      pricerange: "",
+      rating: "",
+    });
+  }
+
+
   const { serviceType, updateVariable } = useContext(MyContext);
   
   const handleService = (input) => {
     console.log(input);
     updateVariable({"location":"","category":input,"pricerange":"","rating":""});
   }
+
   const slider = useMemo(() => {
     return {
       slidesPerView: 6,
@@ -95,7 +113,7 @@ function CreativeService() {
                     </div>
                     <h6>
                       <Link legacyBehavior href="/service">
-                        <a  onClick={() => handleService(service_name)}>{service_name}</a>
+                        <a onClick={()=>handleServiceClick(service_name)}>{service_name}</a>
                       </Link>
                     </h6>
                   </div>

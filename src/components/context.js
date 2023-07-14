@@ -12,9 +12,22 @@ export const MyProvider = ({ children }) => {
     setServiceType(newValue);
   };
 
+  const [serviceName, setServiceName] = useState("");
+
+  const updateServiceName = (newValue) => {
+    setServiceName(newValue);
+  };
+
+  const [isService, setIsService] = useState(false);
+
+  const updateIsService= (newValue) => {
+    console.log(newValue);
+    setIsService(newValue);
+  };
+
 
   return (
-    <MyContext.Provider value={{ serviceType, updateVariable }}>
+    <MyContext.Provider value={{ serviceType, updateVariable, serviceName,updateServiceName,isService,updateIsService }}>
       {children}
     </MyContext.Provider>
   );

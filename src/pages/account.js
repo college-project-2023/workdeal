@@ -7,7 +7,6 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import axios from "axios";
 import OrderClient from "../components/acount/OrderClient";
-import { Checkbox, Switch } from "@mui/material";
 
 function Accountpage() {
   const [workeractive, setWorkerActive] = useState();
@@ -45,21 +44,24 @@ function Accountpage() {
               checkBox.checked = true;
             }
           });
-      }else{
+      } else {
         checkBox.checked = false;
-        window.alert("Please complete your profile")
+        window.alert("Please complete your profile");
       }
     } else {
-      if(userdata){
-        axios.post("http://localhost:5000/setworkeroffline",{
-          uid:auth.currentUser.uid
-        }).then((res)=>{
-          if(res.data=="success"){
-            checkBox.checked=false;
-          }
-        }).catch((error)=>{
-          window.alert(error);
-        })
+      if (userdata) {
+        axios
+          .post("http://localhost:5000/setworkeroffline", {
+            uid: auth.currentUser.uid,
+          })
+          .then((res) => {
+            if (res.data == "success") {
+              checkBox.checked = false;
+            }
+          })
+          .catch((error) => {
+            window.alert(error);
+          });
       }
     }
   };
@@ -88,7 +90,6 @@ function Accountpage() {
       }
     });
     const getData = async () => {
-      console.log("asj");
       if (auth.currentUser) {
         const useruid = auth.currentUser.uid;
         const idtoken = await auth.currentUser.getIdToken();
@@ -156,8 +157,10 @@ function Accountpage() {
 
   async function logout() {
     var checkBox = document.getElementById("checkbox_worker_active");
-    checkBox.checked=false;
-    handleWorkerActive()
+    if (checkBox) {
+      checkBox.checked = false;
+      handleWorkerActive();
+    }
     await auth.signOut().then(() => {
       window.location = "/login";
     });

@@ -1,11 +1,12 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { googleProvider } from "../firebase/firebase";
 import { auth } from "../firebase/firebase";
+import { MyContext } from "../components/context";
 import { Dialog, DialogTitle } from "@mui/material";
 
 function LoginPage() {
@@ -14,6 +15,14 @@ function LoginPage() {
     setPasswordVisible((prevState) => !prevState);
   };
 
+  const { isService } = useContext(MyContext);
+  var gotoservice=false;
+  useEffect(()=>{
+    gotoservice=true;
+    console.log(gotoservice)
+  },[isService])
+  
+  console.log(isService);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -22,7 +31,12 @@ function LoginPage() {
       if (document.getElementById("check_terms_signup").checked) {
         signInWithEmailAndPassword(auth, email, password)
           .then(async (res) => {
-            window.location = "/account";
+            console.log(gotoservice)
+            if (gotoservice==true) {
+              window.location = "/service-details";
+            } else {
+              window.location = "/account";
+            }
           })
           .catch((err) => window.alert(err));
       } else {
@@ -36,8 +50,11 @@ function LoginPage() {
   async function loginWithGoogle() {
     const result = await signInWithPopup(auth, googleProvider)
       .then((res) => {
-        if (auth.currentUser.metadata.creationTime ===auth.currentUser.metadata.lastSignInTime) {
-          window.location="/login-google-required"
+        if (
+          auth.currentUser.metadata.creationTime ===
+          auth.currentUser.metadata.lastSignInTime
+        ) {
+          window.location = "/login-google-required";
         } else {
           window.location = "/account";
         }
@@ -101,7 +118,7 @@ function LoginPage() {
                   id="togglePassword"
                 />
                 <input
-                autoComplete="new-password"
+                  autoComplete="new-password"
                   type={!passwordVisible ? "password" : "text"}
                   name="password"
                   id="password"
@@ -114,7 +131,10 @@ function LoginPage() {
               <div className="terms-forgot">
                 <p>
                   <input type="checkbox" name="agree" id="check_terms_signup" />
-                  I agree to the <a onClick={()=>setShowDialog(true)}>Terms &amp; Conditions</a>
+                  I agree to the{" "}
+                  <a onClick={() => setShowDialog(true)}>
+                    Terms &amp; Conditions
+                  </a>
                 </p>
                 <a href="/login-reset-pass">Forgot Your Password</a>
               </div>
@@ -136,8 +156,9 @@ function LoginPage() {
               </div>
             </div>
             <p>
-              By clicking the "Log In" button, you create a WorkDeal account, and
-              you agree to WorkDeal's <a onClick={()=>setShowDialog(true)}>Terms &amp; Conditions</a>
+              By clicking the "Log In" button, you create a WorkDeal account,
+              and you agree to WorkDeal's{" "}
+              <a onClick={() => setShowDialog(true)}>Terms &amp; Conditions</a>
             </p>
           </div>
         </div>

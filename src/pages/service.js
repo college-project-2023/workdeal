@@ -4,12 +4,12 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import ServiceFilter from "../components/service/ServiceFilter";
 import Layout from "./../components/layout/Layout";
 import axios from "axios";
-
+import { MyContext } from "../components/context";
 
  function Servicepage() {
 
   const filters = useRef({"location":"","category":"","pricerange":"","rating":""}); 
-
+  const {serviceName,updateServiceName} = useContext(MyContext);
 
   const [serviceData,setServicedata]=useState([]);
   const previousFliter = useRef({});
@@ -31,27 +31,24 @@ import axios from "axios";
   async function onSendpage(send){
     
     filters.current = send;
-    console.log(filters.current.category);
     if(filters.current.category!=previousFliter.current.category || filters.current.location!=previousFliter.current.location || filters.current.pricerange!=previousFliter.current.pricerange || filters.current.rating!=previousFliter.current.rating){
       fetchData();
      previousFliter.current.category = filters.current.category;
      previousFliter.current.location = filters.current.location;
      previousFliter.current.pricerange = filters.current.pricerange;
      previousFliter.current.rating = filters.current.rating;
-     console.log(previousFliter.current.category);
    }
     
   };
 
-  //useEffect(() => {
-    
-   
-    //onSendpage();
-  //}, []);
-  console.log(filters.current.pricerange!=previousFliter.current.pricerange);
-  //useEffect(()=>{
-    
-  //},[])
+  const handleServiceClick = (val) => {
+    updateServiceName(val);
+  }
+
+  
+  useEffect(()=>{
+    updateServiceName("")
+  },[])
   
  
   return (
@@ -64,28 +61,21 @@ import axios from "axios";
           <div className="row g-4">
             {serviceData.map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="col-md-6 col-lg-4 wow animate fadeInLeft"
                   data-wow-delay="200ms"
                   data-wow-duration="1500ms"
                 >
                   <div className="single-service layout-2">
                     <div className="thumb">
-                      <Link legacyBehavior href="#">
-                        <a>
-                          <img src={item.thumb} alt="" />
+                      <Link  legacyBehavior href="/service-details">
+                        <a >
+                          <img onClick={()=>handleServiceClick(item.uid)} src={item.thumb} alt="" />
                         </a>
                       </Link>
                       <div className="tag">
-                        <Link legacyBehavior href="/service">
-                          <a>{item.tag}</a>
-                        </Link>
-                      </div>
-                      <div className="wish">
-                        <Link legacyBehavior href="/account">
-                          <a>
-                            <i className="bi bi-suit-heart" />
-                          </a>
+                        <Link legacyBehavior href="/service-details">
+                          <a onClick={()=>handleServiceClick(item.uid)}>{item.tag}</a>
                         </Link>
                       </div>
                     </div>
@@ -120,15 +110,15 @@ import axios from "axios";
                       </div>
                       <h4>
                         <Link legacyBehavior href="/service-details">
-                          <a>{item.title}</a>
+                          <a  onClick={()=>handleServiceClick(item.uid)}>{item.title}</a>
                         </Link>
                       </h4>
                       <div className="started">
-                        <Link legacyBehavior href="/contact">
+                        <Link legacyBehavior href="/service-details">
                           <a>
                             Book Now
                             <span>
-                              <i className="bi bi-arrow-right" />
+                              <i onClick={()=>handleServiceClick(item.uid)}  className="bi bi-arrow-right" />
                             </span>
                           </a>
                         </Link>

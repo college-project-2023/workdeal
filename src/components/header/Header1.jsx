@@ -145,7 +145,10 @@ function Header1() {
             </li>
             <li>
               <Link legacyBehavior href="/service">
-                <a onClick={handleInitialServices} className={currentRoute === "/service" ? "active" : ""}>
+                <a
+                  onClick={handleInitialServices}
+                  className={currentRoute === "/service" ? "active" : ""}
+                >
                   Services
                 </a>
               </Link>
@@ -159,7 +162,7 @@ function Header1() {
             </li>
           </ul>
           <div className="my-account">
-            <Link legacyBehavior href="/sign-up-type">
+            <Link legacyBehavior href="/account">
               <a>My Account</a>
             </Link>
           </div>
@@ -182,8 +185,10 @@ function Header1() {
             </a>
           </Link>
         </div>
-        <div className="account-btn" onClick={gotoaccount}>
-          <a>My Account</a>
+        <div className="account-btn">
+          <Link legacyBehavior href="/account">
+            <a>My Account</a>
+          </Link>
         </div>
         <div className="mobile-menu">
           <a href="#" className="cross-btn">

@@ -8,10 +8,11 @@ function OrderClient() {
 
   async function getOrders() {
     axios
-      .get(`http://localhost:5000/get-orders-client/${userid}`, {
-        withCredentials: true,
+      .post(`http://localhost:5000/get-orders-client/`, {
+        orderByUid: userid,
       })
       .then((res) => {
+        console.log(res.data);
         setOrdersData(res.data);
       })
       .catch((error) => {
@@ -21,7 +22,7 @@ function OrderClient() {
 
   async function cancelTheService(id) {
     await axios
-      .post("http://localhost:5000/delete-service-client", {
+      .post("http://localhost:5000/cancel-service", {
         _id: id,
       })
       .then((res) => {
@@ -30,6 +31,16 @@ function OrderClient() {
           window.alert("task deleted");
         }
       });
+  }
+
+  async function completeTheservice(id){
+    await axios.post("http://localhost:5000/complete-service",{
+      _id:id,
+    }).then((res)=>{
+      getOrders();
+    }).catch((error)=>{
+      console.log(error)
+    })
   }
 
   useEffect(() => {
@@ -46,7 +57,6 @@ function OrderClient() {
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>
-         
         </div>
         <div className="order-table" style={{ overflowX: "auto" }}>
           <table style={{ width: "100%" }}>
@@ -54,6 +64,7 @@ function OrderClient() {
               <tr className="head">
                 <th>Service Title</th>
                 <th>Order ID</th>
+                <th>Order To</th>
                 <th>Order Ammount</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -65,14 +76,13 @@ function OrderClient() {
                 {orders.map((item) => (
                   <tr key={item._id}>
                     <td data-label="Service Title">
-                      <img
-                        src="assets/images/table-data/table-data-1.jpg"
-                        alt=""
-                      />
-                      <span>{"service"}</span>
+                      <span>{item.service}</span>
                     </td>
                     <td data-label="Order ID">{item._id}</td>
-                    <td data-label="Order Ammount">{item.amount}</td>
+                    <td data-label="Service Provider">{item.orderToName}</td>
+                    <td data-label="Order Ammount">
+                      {item.amount == 0 ? "Not Specified" : item.amount}
+                    </td>
                     <td data-label="Status">{item.status}</td>
                     <td data-label="Action">
                       <div className="action">
@@ -84,10 +94,26 @@ function OrderClient() {
                           >
                             cancel
                           </button>
-                        ) : (
+                        ) : item.status == "working" ? (
+                          <div>
+                            <button className="btn-current-task" type="button">
+                              in progress
+                            </button>
+
+                            <button
+                              className="btn-current-task-cancel"
+                              type="button"
+                              onClick={() => completeTheservice(item._id)}
+                            >
+                              completed?
+                            </button>
+                          </div>
+                        ) : item.status == "completed" ? (
                           <button className="btn-current-task" type="button">
-                            done
+                            completed
                           </button>
+                        ) : (
+                          "error"
                         )}
                       </div>
                     </td>

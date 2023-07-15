@@ -1,13 +1,14 @@
 const express = require("express");
-const fs = require('fs');
-const servicesModel = require("../models/services")
+const fs = require("fs");
+const servicesModel = require("../models/services");
 const userModel = require("../models/search");
 const userClientModel = require("../models/users/userdataclient");
 const userWorkerModel = require("../models/users/userdataworker");
 const OrderWorker = require("../models/orders/workers");
 const CurrentOrderWorker = require("../models/orders/currentOrder");
-const OrderClient = require("../models/orders/client")
-const BlogData = require("../models/blog-data")
+const OrderClient = require("../models/orders/client");
+const Review = require("../models/orders/review");
+const BlogData = require("../models/blog-data");
 const app = express();
 const cookieParser = require("cookie-parser");
 const admin = require("../firebase-config");
@@ -27,19 +28,18 @@ async function middleware(request, response, next) {
       if (verified) {
         next();
       } else {
-        response.status(400).send({message:'expired1'});
-        console.log('1')
+        response.status(400).send({ message: "expired1" });
+        console.log("1");
       }
     } catch (error) {
-      response.status(400).send({message:'expired2'});
-      console.log(error)
+      response.status(400).send({ message: "expired2" });
+      console.log(error);
     }
   } else {
-    response.status(400).send({message:'expired3'});
-    console.log('3')
+    response.status(400).send({ message: "expired3" });
+    console.log("3");
   }
 }
-
 
 app.post("/create-user-client", async (request, response) => {
   const signup = new userClientModel(request.body);
@@ -63,109 +63,117 @@ app.post("/create-user-client", async (request, response) => {
 
 // ...
 
-app.post("/checkworkeractive",(req,res)=>{
+app.post("/checkworkeractive", (req, res) => {
   const workeractive = new servicesModel(req.body);
-  workeractive.collection.findOne({uid:req.body.uid},async function(error,data){
-    if(data){
-      res.send("online")
-    }else{
-      res.send("offline")
-    }
-    if(error){
-      console.log(error)
-    }
-  })  
-})
-
-app.post("/setworkeractive",(req,res)=>{
-  const workeractive = new servicesModel(req.body);
-  console.log(req.body.uid)
-  workeractive.collection.findOne({uid:req.body.uid},async function(error,data){
-    if(data){
-      res.send("alreadyactive")
-    }else{
-      try {
-        await workeractive.save();
-        res.send("done");
-      } catch (error) {
-        console.log(error)
-        res.status(500).send(error);
+  workeractive.collection.findOne(
+    { uid: req.body.uid },
+    async function (error, data) {
+      if (data) {
+        res.send("online");
+      } else {
+        res.send("offline");
+      }
+      if (error) {
+        console.log(error);
       }
     }
-    if(error){
-      console.log(error)
-    }
-  })  
-})
+  );
+});
 
-app.post("/setworkeroffline",(req,res)=>{
-  servicesModel.deleteOne({ uid: req.body.uid })
+app.post("/setworkeractive", (req, res) => {
+  const workeractive = new servicesModel(req.body);
+  console.log(req.body.uid);
+  workeractive.collection.findOne(
+    { uid: req.body.uid },
+    async function (error, data) {
+      if (data) {
+        res.send("alreadyactive");
+      } else {
+        try {
+          await workeractive.save();
+          res.send("done");
+        } catch (error) {
+          console.log(error);
+          res.status(500).send(error);
+        }
+      }
+      if (error) {
+        console.log(error);
+      }
+    }
+  );
+});
+
+app.post("/setworkeroffline", (req, res) => {
+  servicesModel
+    .deleteOne({ uid: req.body.uid })
     .then(() => {
       res.send("success");
     })
     .catch((error) => {
       res.send(error);
     });
-})
-
-app.get('/data', async (req, res) => {
-  try {
-   const {tag, location , price, rating} = req.query;
-   const filter = {};
-   if(tag!=""){
-    filter.tag = tag.toLowerCase();
-    console.log(tag);
-   }
-   if(location){
-    filter.location = location;
-  }
-  if(price){
-    if(price == 500){
-      filter.price = {
-        $gte: 0,
-       $lte: 500,
-      };
-      console.log(filter.price);
-    }
-    if(price == 2000-5000){
-      filter.price = {
-        $gte: 2000,
-       $lte: 5000,
-      };
-      console.log(filter.price);
-    }
-    if(price == 500-1000){
-      filter.price = {
-        $gte: 500,
-       $lte: 1000,
-      };
-      console.log(filter.price);
-    }
-    if(price == 1000-2000){
-      filter.price = {
-        $gte: 1000,
-       $lte: 2000,
-      };
-      console.log(filter.price);
-    }
-  }
-  if(rating){
-    filter.rating = rating;
-  }
-  console.log(filter);
-   servicesModel.find(filter).then((data)=>{
-    console.log(data);
-    res.json(data);
-   }).catch((error)=>{
-    res.send(error)
-   })
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
-  }
 });
 
-
+app.get("/data", async (req, res) => {
+  try {
+    const { tag, location, price, rating } = req.query;
+    const filter = {};
+    if (tag != "") {
+      filter.tag = tag.toLowerCase();
+      console.log(tag);
+    }
+    if (location) {
+      filter.location = location;
+    }
+    if (price) {
+      if (price == 500) {
+        filter.price = {
+          $gte: 0,
+          $lte: 500,
+        };
+        console.log(filter.price);
+      }
+      if (price == 2000 - 5000) {
+        filter.price = {
+          $gte: 2000,
+          $lte: 5000,
+        };
+        console.log(filter.price);
+      }
+      if (price == 500 - 1000) {
+        filter.price = {
+          $gte: 500,
+          $lte: 1000,
+        };
+        console.log(filter.price);
+      }
+      if (price == 1000 - 2000) {
+        filter.price = {
+          $gte: 1000,
+          $lte: 2000,
+        };
+        console.log(filter.price);
+      }
+    }
+    if (rating) {
+      filter.rating = rating;
+    }
+    console.log(filter);
+    servicesModel
+      .find(filter)
+      .then((data) => {
+        console.log(data);
+        res.json(data);
+      })
+      .catch((error) => {
+        res.send(error);
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
 
 app.post("/create-user-worker", async (request, response) => {
   const signup = new userWorkerModel(request.body);
@@ -177,7 +185,7 @@ app.post("/create-user-worker", async (request, response) => {
   }
 });
 
-app.post(`/get-user-data/`, middleware,async (req, res) => {
+app.post(`/get-user-data/`, middleware, async (req, res) => {
   const worker = new userWorkerModel(req.body);
   const client = new userClientModel(req.body);
   const userid = req.body.uid;
@@ -185,7 +193,7 @@ app.post(`/get-user-data/`, middleware,async (req, res) => {
     if (error) {
       client.collection.findOne({ uid: userid }, function (error, data) {
         if (error) {
-          res.status(404).send({message:'user not found'});
+          res.status(404).send({ message: "user not found" });
         } else {
           res.send(data);
         }
@@ -194,12 +202,12 @@ app.post(`/get-user-data/`, middleware,async (req, res) => {
       if (data == null) {
         client.collection.findOne({ uid: userid }, function (error, data) {
           if (error) {
-            res.status(404).send({message:'user not found'});
+            res.status(404).send({ message: "user not found" });
           } else {
             if (data != null) {
               res.send(data);
             } else {
-              res.status(404).send({message:'user not found'});
+              res.status(404).send({ message: "user not found" });
             }
           }
         });
@@ -276,10 +284,10 @@ app.post("/add_user", async (request, response) => {
   }
 });
 
-app.get(`/get-orders-worker/:uid`, async (req, res) => {
-  const userid = req.params.uid;
+app.post(`/get-orders-worker/`, async (req, res) => {
+  const userid = req.body.orderToUid;
 
-  OrderWorker.find({ uid: userid })
+  OrderWorker.find({ orderToUid: userid })
     .then((workers) => {
       res.json(workers);
     })
@@ -288,10 +296,10 @@ app.get(`/get-orders-worker/:uid`, async (req, res) => {
     });
 });
 
-app.get(`/get-orders-client/:uid`, async (req, res) => {
-  const userid = req.params.uid;
+app.post(`/get-orders-client/`, async (req, res) => {
+  const userid = req.body.orderByUid;
 
-  OrderClient.find({ uid: userid })
+  OrderWorker.find({ orderByUid: userid })
     .then((workers) => {
       res.json(workers);
     })
@@ -300,12 +308,12 @@ app.get(`/get-orders-client/:uid`, async (req, res) => {
     });
 });
 
-app.get(`/get-current-work/:uid`, async (req, res) => {
-  const userid = req.params.uid;
+app.post(`/get-review-worker`, async (req, res) => {
+  const userid = req.body.uid;
 
-  CurrentOrderWorker.findOne({ uid: userid })
-    .then((workers) => {
-      res.json(workers);
+  Review.find({ uid: userid })
+    .then((reviews) => {
+      res.json(reviews);
     })
     .catch((error) => {
       res.send(error);
@@ -313,27 +321,24 @@ app.get(`/get-current-work/:uid`, async (req, res) => {
 });
 
 app.post("/set-current-work", async (request, response) => {
-  const user = new CurrentOrderWorker(request.body);
-
-  try {
-    await user.save();
-    response.send(user);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-});
-
-app.post("/delete-current-work", async (req, res) => {
-  CurrentOrderWorker.deleteOne({ uid: req.body.uid })
-    .then(() => {
-      res.send("success");
+  OrderWorker.findOneAndUpdate(
+    { _id: request.body._id },
+    {
+      $set: {
+        status: "working",
+      },
+    }
+  )
+    .then((res) => {
+      response.send("success");
     })
     .catch((error) => {
-      res.send(error);
+      console.log(error);
+      response.status(400).send(error);
     });
 });
 
-app.post("/delete-service-work", async (req, res) => {
+app.post("/cancel-service", async (req, res) => {
   OrderWorker.deleteOne({ _id: req.body._id })
     .then(() => {
       res.send("success");
@@ -343,9 +348,15 @@ app.post("/delete-service-work", async (req, res) => {
     });
 });
 
-
-app.post("/delete-service-client", async (req, res) => {
-  OrderClient.deleteOne({ _id: req.body._id })
+app.post("/complete-service", async (req, res) => {
+  OrderWorker.findOneAndUpdate(
+    { _id: req.body._id },
+    {
+      $set: {
+        status: "completed",
+      },
+    }
+  )
     .then(() => {
       res.send("success");
     })
@@ -354,18 +365,16 @@ app.post("/delete-service-client", async (req, res) => {
     });
 });
 
-
 //blog data
-app.get("/blog",async (req,res) =>{
+app.get("/blog", async (req, res) => {
   await BlogData.find()
-  .then((data)=>{
-    console.log(data)
-    res.json(data);
-  })
-  .catch((error)=>{
-    res.send(error);
-  });
+    .then((data) => {
+      console.log(data);
+      res.json(data);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
 });
-
 
 module.exports = app;

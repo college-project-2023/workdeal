@@ -1,8 +1,14 @@
 import React from "react";
 import Breadcrumb from "./../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import { useContext,useEffect } from "react";
+import { MyContext } from "../components/context";
 
 function ContactPage() {
+  const {isService}=useContext(MyContext);
+  useEffect(()=>{
+    console.log(isService)
+  },[isService])
   return (
     <Layout>
       <Breadcrumb pageName="Contact" pageTitle="Contact" />

@@ -7,6 +7,9 @@ import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import axios from "axios";
 import OrderClient from "../components/acount/OrderClient";
+import { Dialog, DialogTitle } from "@mui/material";
+import LoginPage from "../components/acount/login";
+import SignUpPage from "../components/acount/sign-up";
 
 function Accountpage() {
   const [workeractive, setWorkerActive] = useState();
@@ -20,11 +23,11 @@ function Accountpage() {
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
 
-  const handleWorkerActive = () => {
+  const handleWorkerActive = async () => {
     var checkBox = document.getElementById("checkbox_worker_active");
     if (checkBox && checkBox.checked) {
       if (userdata && userdata.city) {
-        axios
+        await axios
           .post("http://localhost:5000/setworkeractive", {
             uid: auth.currentUser.uid,
             tag: userdata.service.toLowerCase(),
@@ -50,7 +53,7 @@ function Accountpage() {
       }
     } else {
       if (userdata) {
-        axios
+        await axios
           .post("http://localhost:5000/setworkeroffline", {
             uid: auth.currentUser.uid,
           })
@@ -61,6 +64,7 @@ function Accountpage() {
           })
           .catch((error) => {
             window.alert(error);
+            checkBox.checked = true;
           });
       }
     }
@@ -87,6 +91,9 @@ function Accountpage() {
     auth.onAuthStateChanged(function (user) {
       if (user) {
         setAuthentication(user);
+        setShowLogin(false)
+      }else{
+        setShowLogin(true)
       }
     });
     const getData = async () => {
@@ -156,19 +163,57 @@ function Accountpage() {
   };
 
   async function logout() {
+    setShowDialog(false);
     var checkBox = document.getElementById("checkbox_worker_active");
-    if (checkBox) {
+    if (checkBox && checkBox.checked) {
       checkBox.checked = false;
       handleWorkerActive();
+      setShowDialog(true);
+    } else {
+      await auth.signOut().then(() => {
+        window.location = "/";
+      });
     }
-    await auth.signOut().then(() => {
-      window.location = "/login";
-    });
   }
 
+  const [showDialog, setShowDialog] = useState(false);
+  const handleDialogClose = () => {
+    setShowDialog(false);
+  };
+
+  const [showLogin, setShowLogin] = useState(false);
+  const closeLogin = () => {
+    if(auth.currentUser){
+      setShowLogin(false);
+    }
+  };
+
+  const [showSignUp, setShowSignUp] = useState(false);
+  const closeSignUp = () => {
+    if(auth.currentUser){
+      setShowSignUp(false);
+    }
+  };
+
+ 
   return (
     <Layout>
       <Breadcrumb pageTitle="My Account" pageName="My Account" />
+      <Dialog open={showDialog} onClose={handleDialogClose}>
+        <DialogTitle>You can't accept more works while offline</DialogTitle>
+        <input
+          className="btn-current-task"
+          type="button"
+          onClick={logout}
+          value="logout"
+        />
+      </Dialog>
+      <Dialog open={showLogin} onClose={closeLogin}>
+        <LoginPage signup={setShowSignUp} login={setShowLogin}/>
+      </Dialog>
+      <Dialog open={showSignUp} onClose={closeSignUp}>
+        <SignUpPage signup={setShowSignUp} login={setShowLogin}/>
+      </Dialog>
       <section className="account-dashboard sec-m">
         <div className="container">
           <div className="dashboard-informations">

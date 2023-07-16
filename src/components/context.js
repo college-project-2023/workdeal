@@ -12,7 +12,7 @@ export const MyProvider = ({ children }) => {
     setServiceType(newValue);
   };
 
-  const [serviceName, setServiceName] = useState("");
+  const [serviceName, setServiceName] = useState({});
 
   const updateServiceName = (newValue) => {
     setServiceName(newValue);
@@ -21,9 +21,9 @@ export const MyProvider = ({ children }) => {
   const [isService, setIsService] = useState(false);
 
   const updateIsService= (newValue) => {
-    console.log(newValue);
     setIsService(newValue);
   };
+
 
 
   return (

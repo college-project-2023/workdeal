@@ -14,6 +14,7 @@ import OrderNow from "../components/service/ordernow";
 function ServiceDetailsPage() {
   const { serviceName } = useContext(MyContext);
   const [authentication, setAuthentication] = useState();
+  const [orderPlaced,setOrderPlaced]=useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
@@ -22,11 +23,25 @@ function ServiceDetailsPage() {
         setShowLogin(false);
         getOrders();
         getReviews();
+        checkOrderPlaced();
       } else {
         setShowLogin(true);
       }
     });
   }, [serviceName, authentication]);
+
+  function checkOrderPlaced(){
+    axios.post("http://localhost:5000/check-for-order-placed",{
+      orderToUid:serviceName.uid,
+      orderByUid:auth.currentUser.uid
+    }).then((res)=>{
+      if(res.data=="placed"){
+        setOrderPlaced(true);
+      }else{
+        setOrderPlaced(false);
+      }
+    })
+  }
 
   const [totalOrders, setTotalOrders] = useState(0);
   function getOrders() {
@@ -87,6 +102,12 @@ function ServiceDetailsPage() {
     }
   };
 
+  const [showOrderPlaced,setShowOrderPlaced]=useState(false);
+  
+  const closeorderplaced = ()=>{
+    setShowOrderPlaced(false)
+  }
+
   return (
     <Layout>
       <Breadcrumb pageName="Service Details" pageTitle="Service Details" />
@@ -97,11 +118,20 @@ function ServiceDetailsPage() {
         <SignUpPage signup={setShowSignUp} login={setShowLogin}/>
       </Dialog>
       {authentication && (
-        <Dialog open={showOrderNow} onClose={closeorderNow}>
-          <DialogTitle>Select address for order</DialogTitle>
-          <OrderNow uid={authentication.uid} showdialog={setShowOrderNow} />
+        <Dialog open={showOrderNow} onClose={closeorderNow} PaperProps={{
+          sx: {
+            width: "fit-content",
+          }}}>
+          <DialogTitle style={{color:"red"}}><b>Order will be placed after selecting address</b></DialogTitle>
+          <OrderNow  workerdetail={serviceName} uid={authentication.uid} showdialog={setShowOrderNow} orderPlaced={setOrderPlaced} showOrder={setShowOrderPlaced} />
         </Dialog>
       )}
+      <Dialog open={showOrderPlaced} onClose={closeorderplaced} PaperProps={{
+          sx: {
+            width: "fit-content",
+          }}}>
+          <h4 style={{margin:"20px"}}>Order Placed</h4>
+        </Dialog>
 
       <section id="down" className="services-details-area sec-m-top">
         <div className="container">
@@ -236,7 +266,7 @@ function ServiceDetailsPage() {
 
                     <div className="package book-btn">
                       <Link legacyBehavior href="#">
-                        <a onClick={()=>{setShowOrderNow(true)}}>Book Now</a>
+                        <a onClick={()=>{orderPlaced ? "" : setShowOrderNow(true)}}>{orderPlaced?"Service Booked":"Book Now"}</a>
                       </Link>
                     </div>
                   </div>

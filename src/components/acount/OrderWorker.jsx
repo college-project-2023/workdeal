@@ -66,7 +66,7 @@ function OrderWorker(props) {
     console.log(userid);
     axios
       .post(`http://localhost:5000/get-orders-worker/`, {
-        orderByUid: userid,
+        orderToUid: userid,
       })
       .then((res) => {
         setOrdersData(res.data);
@@ -99,6 +99,7 @@ function OrderWorker(props) {
                 <th>Order ID</th>
                 <th>Order By</th>
                 <th>Order Ammount</th>
+                <th>Address</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -114,6 +115,7 @@ function OrderWorker(props) {
                     <td data-label="Order ID">{item._id}</td>
                     <td data-label="Order By">{item.orderByName}</td>
                     <td data-label="Order Ammount">{item.amount}</td>
+                    <td data-label="Address">{item.address}</td>
                     <td data-label="Status">{item.status}</td>
                     <td data-label="Action">
                       <div className="action">

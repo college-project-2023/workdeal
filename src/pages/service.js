@@ -68,15 +68,36 @@ import { MyContext } from "../components/context";
                   <div className="single-service layout-2">
                     <div className="thumb">
                       <Link  legacyBehavior href="/service-details">
-                        <a >
+                        <a>
                           <img onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})} src={"assets/images/cre-service/"+item.title+".jpg"} alt="" />
                         </a>
                       </Link>
                       <div className="tag">
                         <Link legacyBehavior href="/service-details">
-                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.tag}</a>
+                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.tag}</a>                      
                         </Link>
+                        <div className="ratting">
+                            <ul className="stars">
+                              <li className="li1">
+                                <i className="fas fa-star" />
+                              </li>
+                              <li className="li1">
+                                <i className="fas fa-star" />
+                              </li>
+                              <li className="li1">
+                                <i className="fas fa-star" />
+                              </li>
+                              <li className="li1">
+                                <i className="fas fa-star" />
+                              </li>
+                              <li className="li1">
+                                <i className="fas fa-star" />
+                              </li>
+                            </ul>
+                            <strong className="strong1">(5/5)</strong>
+                          </div>
                       </div>
+                     
                     </div>
                     <div className="single-inner">
                       <div className="author-info">
@@ -85,33 +106,9 @@ import { MyContext } from "../components/context";
                         </div>
                         <div className="author-content">
                           <span>{item.author_name}</span>
-                          <div className="ratting">
-                            <ul className="stars">
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                            </ul>
-                            <strong>(5/5)</strong>
-                          </div>
                         </div>
                       </div>
-                      <h4>
-                        <Link legacyBehavior href="/service-details">
-                          <a  onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.title}</a>
-                        </Link>
-                      </h4>
+                     
                       <div className="started">
                         <Link legacyBehavior href="/service-details">
                           <a>

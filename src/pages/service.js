@@ -10,9 +10,31 @@ import { MyContext } from "../components/context";
 
   const filters = useRef({"location":"","category":"","pricerange":"","rating":""}); 
   const {serviceName,updateServiceName} = useContext(MyContext);
-
+  const [reviews, setReviews] = useState([]);
+  const [avgrate, setAvgRate] = useState(2);
   const [serviceData,setServicedata]=useState([]);
-  const previousFliter = useRef({});
+  const previousFliter = useRef({});function getReviews() {
+    axios
+      .post("http://localhost:5000/get-review-worker", {
+        uid: serviceName.uid,
+      })
+      .then((res) => {
+        console.log(res.data);
+        var data = res.data;
+        setReviews(data);
+        var avg = 0,
+          sum = 0;
+        for (var i = 0; i < data.length; i++) {
+          sum = sum + Number(data[i].rating);
+        }
+        avg = sum / data.length;
+        setAvgRate(avg);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   const fetchData = async () => {    
     try{      
       await axios.get('http://localhost:5000/data',{params : {
@@ -74,29 +96,37 @@ import { MyContext } from "../components/context";
                       </Link>
                       <div className="tag">
                         <Link legacyBehavior href="/service-details">
-                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.tag}</a>
-                        </Link>
-                        <div className="ratting">
-                            <ul className="stars">
-                              <li className="li1">
-                                <i className="fas fa-star" />
-                              </li>
-                              <li className="li1">
-                                <i className="fas fa-star" />
-                              </li>
-                              <li className="li1">
-                                <i className="fas fa-star" />
-                              </li>
-                              <li className="li1">
-                                <i className="fas fa-star" />
-                              </li>
-                              <li className="li1">
-                                <i className="fas fa-star" />
-                              </li>
-                            </ul>
-                            <strong className="strong1">(5/5)</strong>
+                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.tag}</a>                      
+                        </Link>  
+                      <strong className="strong1">
+                            <i
+                              className={
+                                avgrate >= 1 ? "bi bi-star-fill" : "bi bi-star"
+                              }
+                            />
+                            <i
+                              className={
+                                avgrate >= 2 ? "bi bi-star-fill" : "bi bi-star"
+                              }
+                            />
+                            <i
+                              className={
+                                avgrate >= 3 ? "bi bi-star-fill" : "bi bi-star"
+                              }
+                            />
+                            <i
+                              className={
+                                avgrate >= 4 ? "bi bi-star-fill" : "bi bi-star"
+                              }
+                            />
+                            <i
+                              className={
+                                avgrate >= 5 ? "bi bi-star-fill" : "bi bi-star"
+                              }
+                            />
+                            <b className="b1">({avgrate}/5)</b>
+                          </strong>
                           </div>
-                      </div>
                      
                     </div>
                     <div className="single-inner">

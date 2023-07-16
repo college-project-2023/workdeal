@@ -5,13 +5,9 @@ import { MyContext } from "../context";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import serviceData from "../../data/service/creative_services.json";
-import { MyContext } from "../context";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 function CreativeService() {
-
-
-  const {updateVariable} = useContext(MyContext);
 
   const handleServiceClick = (val)=>{
     updateVariable({

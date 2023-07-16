@@ -112,10 +112,10 @@ function ServiceDetailsPage() {
     <Layout>
       <Breadcrumb pageName="Service Details" pageTitle="Service Details" />
       <Dialog open={showLogin} onClose={closeLogin}>
-        <LoginPage signup={setShowSignUp} login={setShowLogin} />
+        <LoginPage signup={setShowSignUp} login={setShowLogin}/>
       </Dialog>
       <Dialog open={showSignUp} onClose={closeSignUp}>
-        <SignUpPage signup={setShowSignUp} login={setShowLogin} />
+        <SignUpPage signup={setShowSignUp} login={setShowLogin}/>
       </Dialog>
       {authentication && (
         <Dialog open={showOrderNow} onClose={closeorderNow} PaperProps={{

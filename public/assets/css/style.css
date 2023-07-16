@@ -16,6 +16,7 @@
   display: inline-block;
   width: 60px;
   height: 34px;
+  margin-left: 40px;
 }
 
 /* Hide default HTML checkbox */
@@ -211,7 +212,7 @@ input:checked + .slider:before {
 .profile-logout{
   display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 20px;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -3147,6 +3148,15 @@ footer .line-shape {
     max-width: 100%;
   }
 }
+.MuiDialog-container.MuiDialog-scrollPaper.css-hz1bth-MuiDialog-container {
+  padding: -10px;
+  height: fit-content;
+  will-change: unset;
+  /* width: fit-content; */
+}
+.row.gy-4.align-items-center {
+  display: none;
+}
 .hero-wrapper.two .hero-banner img {
   height: 100%;
   width: 100%;
@@ -3507,17 +3517,28 @@ footer .line-shape {
 }
 .single-service.layout-2 .thumb a img {
   border-radius: 0;
+  filter : brightness(30%);
 }
 .single-service.layout-2 .thumb .tag {
-  right: auto;
   left: 20px;
 }
 .single-service.layout-2 .thumb .tag a {
-  background-color: #5bb543;
+  background-color: #5bb54300;
+  font-size: 50px;
+  margin-top: 45px;
+}
+.strong1 {
+  color: rgb(196, 194, 194);
+}
+ul.stars {
+  display: inline-block;
+}
+.li1{
+  display: inline-block;
+  color: goldenrod;
 }
 .single-service.layout-2 .thumb .tag a:hover {
   color: #5bb543;
-  background-color: #fff;
 }
 .single-service.layout-2 .thumb .wish {
   position: absolute;

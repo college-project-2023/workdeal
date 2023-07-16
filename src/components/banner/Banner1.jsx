@@ -29,6 +29,10 @@ function Banner1(props) {
   });
   const [error, setError] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const handleService = (input) => {
+    console.log(input);
+    updateVariable({"location":"","category":input,"pricerange":"","rating":""});
+  }
 
   const handleMouseEnter = () => {
     setShowTooltip(true);
@@ -290,22 +294,22 @@ function Banner1(props) {
               <div className="suggest">
                 <span>Suggest For You:</span>
                 <ul className="suggest-list">
-                  <li>
+                  <li onClick={() => handleService("Beauty")}>
                     <Link legacyBehavior href="/service">
-                      <a>Spa &amp; Beauty</a>
+                      <a >Spa &amp; Beauty</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService( "House Shift")}>
                     <Link legacyBehavior href="/service">
                       <a>House Shift</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Ac Repair")}>
                     <Link legacyBehavior href="/service">
                       <a>AC Repair</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Salon")}>
                     <Link legacyBehavior href="/service">
                       <a>Salon </a>
                     </Link>

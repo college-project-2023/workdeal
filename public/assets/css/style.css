@@ -16,6 +16,7 @@
   display: inline-block;
   width: 60px;
   height: 34px;
+  margin-left: 40px;
 }
 
 /* Hide default HTML checkbox */
@@ -211,7 +212,7 @@ input:checked + .slider:before {
 .profile-logout{
   display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 20px;
     flex-wrap: wrap;
     align-items: center;
 }

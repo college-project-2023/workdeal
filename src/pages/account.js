@@ -143,7 +143,7 @@ function Accountpage() {
           window.location = "/account";
         } else {
           console.log(res);
-          window, alert("Something went wrong");
+          window.alert("Something went wrong");
         }
       })
       .catch((error) => {
@@ -179,6 +179,25 @@ function Accountpage() {
                 role="tablist"
                 aria-orientation="vertical"
               >
+                 {typeofacc == "worker" && (
+                <div >
+                  <div>
+                    <div className="profile-logout">
+                      <div>
+                        <h4>Let's get to work?</h4>
+                        <label class="switch">
+                          <input
+                            id="checkbox_worker_active"
+                            type="checkbox"
+                            onClick={handleWorkerActive}
+                          />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
                 {typeofacc == "worker" && (
                   <button
                     className="nav-link"
@@ -251,25 +270,7 @@ function Accountpage() {
                   Logout
                 </button>
               </div>
-              {typeofacc == "worker" && (
-                <div className="tab-active">
-                  <center>
-                    <div className="profile-logout">
-                      <center>
-                        <h3>Let's get to work?</h3>
-                        <label class="switch">
-                          <input
-                            id="checkbox_worker_active"
-                            type="checkbox"
-                            onClick={handleWorkerActive}
-                          />
-                          <span class="slider round"></span>
-                        </label>
-                      </center>
-                    </div>
-                  </center>
-                </div>
-              )}
+             
               <div className="tab-content" id="v-pills-tabContent">
                 <div
                   className="tab-pane fade"

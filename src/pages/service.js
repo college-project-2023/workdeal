@@ -69,12 +69,12 @@ import { MyContext } from "../components/context";
                     <div className="thumb">
                       <Link  legacyBehavior href="/service-details">
                         <a >
-                          <img onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})} src={"assets/images/cre-service/"+item.title+".jpg"} alt="" />
+                          <img onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})} src={"assets/images/cre-service/"+item.title+".jpg"} alt="" />
                         </a>
                       </Link>
                       <div className="tag">
                         <Link legacyBehavior href="/service-details">
-                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.tag}</a>
+                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.tag}</a>
                         </Link>
                       </div>
                     </div>
@@ -109,7 +109,7 @@ import { MyContext } from "../components/context";
                       </div>
                       <h4>
                         <Link legacyBehavior href="/service-details">
-                          <a  onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.title}</a>
+                          <a  onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.title}</a>
                         </Link>
                       </h4>
                       <div className="started">
@@ -117,7 +117,7 @@ import { MyContext } from "../components/context";
                           <a>
                             Book Now
                             <span>
-                              <i onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}  className="bi bi-arrow-right" />
+                              <i onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}  className="bi bi-arrow-right" />
                             </span>
                           </a>
                         </Link>

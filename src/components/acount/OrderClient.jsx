@@ -66,6 +66,7 @@ function OrderClient() {
                 <th>Order ID</th>
                 <th>Order To</th>
                 <th>Order Ammount</th>
+                <th>Address</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -83,6 +84,7 @@ function OrderClient() {
                     <td data-label="Order Ammount">
                       {item.amount == 0 ? "Not Specified" : item.amount}
                     </td>
+                    <td data-label="Address">{item.address}</td>
                     <td data-label="Status">{item.status}</td>
                     <td data-label="Action">
                       <div className="action">

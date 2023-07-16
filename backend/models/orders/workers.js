@@ -27,6 +27,10 @@ const OrderWorkerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    address:{
+      type:String,
+      required:true,
+    },
     service:{
       type:String,
       required:true

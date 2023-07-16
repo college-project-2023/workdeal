@@ -296,6 +296,36 @@ app.post(`/get-orders-worker/`, async (req, res) => {
     });
 });
 
+async function checkOrderplaced(req,res,next){
+  OrderWorker.findOne({orderByUid:req.body.orderByUid,orderToUid:req.body.orderToUid})
+  .then((workers)=>{
+    console.log(workers)
+    if(workers!=null){
+      res.send("placed");
+    }else{
+      next();
+    }
+  }).catch((error)=>{
+    console.log(error)
+    res.send(error)
+  })
+}
+
+app.post("/check-for-order-placed",checkOrderplaced,(req,res)=>{
+  res.send("notplaced");
+})
+
+app.post("/set-order-work",checkOrderplaced,async(req,res)=>{
+  const ordernow = new OrderWorker(req.body);
+  try {
+    await ordernow.save();
+    res.send("success");
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
+  }
+})
+
 app.post(`/get-orders-client/`, async (req, res) => {
   const userid = req.body.orderByUid;
 

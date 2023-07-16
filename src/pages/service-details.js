@@ -288,7 +288,7 @@ function ServiceDetailsPage() {
                               }
                             />
                             <b>({avgrate}/5)</b>
-                          </strong>
+                          </strong>       
                         </h5>
                       </div>
                     </div>

@@ -138,13 +138,17 @@ import { MyContext } from "../components/context";
                           <span>{item.author_name}</span>
                         </div>
                       </div>
-                     
+                      <h4>
+                        <Link legacyBehavior href="/service-details">
+                          <a  onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.title}</a>
+                        </Link>
+                      </h4>
                       <div className="started">
                         <Link legacyBehavior href="/service-details">
                           <a>
                             Book Now
                             <span>
-                              <i onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}  className="bi bi-arrow-right" />
+                              <i onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}  className="bi bi-arrow-right" />
                             </span>
                           </a>
                         </Link>

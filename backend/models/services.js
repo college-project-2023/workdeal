@@ -28,6 +28,10 @@ const ServiceSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
   }
 },{
   collection:"services"

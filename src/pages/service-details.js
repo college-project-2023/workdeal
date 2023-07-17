@@ -58,7 +58,7 @@ function ServiceDetailsPage() {
   }
 
   const [reviews, setReviews] = useState([]);
-  const [avgrate, setAvgRate] = useState(0);
+  const [avgrate, setAvgRate] = useState(2);
   function getReviews() {
     axios
       .post("http://localhost:5000/get-review-worker", {

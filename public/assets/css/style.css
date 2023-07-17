@@ -963,6 +963,10 @@ video {
   z-index: 1;
 }
 
+.header-1-sticky{
+  background-color: white;
+}
+
 .header-1 .my-account a {
   border: 1px solid #5bb543;
 }

@@ -26,12 +26,11 @@ function ServiceFilter(props) {
   const fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
   props.sendtopage(fdata);
   const options = [
-    { value: "Ahmedabad", label: "Ahmedabad" },
+    { value: "ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
-    { value: "Rajkot", label: "Rajkot" },
-    { value: "Surat", label: "Surat" },
-    { value: "Anand", label: "Anand" },
-    { value: "Jamnagar", label: "Jamnagar" },
+    { value: "rajkot", label: "Rajkot" },
+    { value: "surat", label: "Surat" },
+    { value: "anand", label: "Anand" },
   ];
   const customStyles = {
     menu: (provided, state) => ({

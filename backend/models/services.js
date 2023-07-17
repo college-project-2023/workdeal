@@ -32,7 +32,11 @@ const ServiceSchema = new mongoose.Schema({
   rating: {
     type: Number,
     required: true,
-  }
+  },
+  location:{
+    type:String,
+    require:true,
+  },
 },{
   collection:"services"
 });

@@ -9,6 +9,10 @@ const UserClientSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  imageUrl:{
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -48,8 +52,7 @@ const UserClientSchema = new mongoose.Schema({
   country:{
     type: String,
     required: false,
-  },
-  
+  },  
   typeofacc:{
     type:String,
     required:true,

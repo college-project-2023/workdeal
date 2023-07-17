@@ -1,6 +1,7 @@
 import { getApps, initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
+import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API,
@@ -15,6 +16,7 @@ const firebaseConfig = {
 var app = null;
 var user=null;
 var auth = null;
+var storage = null;
 
 if (getApps().length < 1) {
   app = initializeApp(firebaseConfig);
@@ -28,11 +30,14 @@ if(auth!=null){
   auth = getAuth(app);
   user=auth.currentUser;
 }
+storage=getStorage(app);
 
 const googleProvider =  new GoogleAuthProvider()
 
 export {googleProvider}
 
 export {user}
+
+export {storage}
 
 export { auth }

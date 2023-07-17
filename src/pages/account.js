@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CountUp from "react-countup";
 import OrderWorker from "../components/acount/OrderWorker";
 import UserProfile from "../components/acount/UserProfile";
@@ -6,14 +6,19 @@ import Breadcrumb from "../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
 import { auth } from "../firebase/firebase";
 import axios from "axios";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase";
 import OrderClient from "../components/acount/OrderClient";
-import { Dialog, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogTitle, ToggleButton } from "@mui/material";
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import LoginPage from "../components/acount/login";
 import SignUpPage from "../components/acount/sign-up";
 
 function Accountpage() {
   const [workeractive, setWorkerActive] = useState();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
   const [authentication, setAuthentication] = useState(null);
   const [typeofacc, setTypeOfAcc] = useState("worker");
   const [userdata, setUserdata] = useState();
@@ -118,9 +123,9 @@ function Accountpage() {
     auth.onAuthStateChanged(function (user) {
       if (user) {
         setAuthentication(user);
-        setShowLogin(false)
-      }else{
-        setShowLogin(true)
+        setShowLogin(false);
+      } else {
+        setShowLogin(true);
       }
     });
     const getData = async () => {
@@ -136,6 +141,7 @@ function Accountpage() {
             if (data.status == 200) {
               setUserdata(data.data);
               setTypeOfAcc(data.data.typeofacc);
+              setImageUrl(data.data.imageUrl);
               setAddress1(data.data.address);
               setAddress2(data.data.address2);
             } else {
@@ -210,22 +216,103 @@ function Accountpage() {
 
   const [showLogin, setShowLogin] = useState(false);
   const closeLogin = () => {
-    if(auth.currentUser){
+    if (auth.currentUser) {
       setShowLogin(false);
     }
   };
 
   const [showSignUp, setShowSignUp] = useState(false);
   const closeSignUp = () => {
-    if(auth.currentUser){
+    if (auth.currentUser) {
       setShowSignUp(false);
     }
   };
 
- 
+  const [showImageUpload, setShowImageUpload] = useState(false);
+  const [percentUpload, setPercentUpload] = useState(0);
+  const [showCropImage, setShowCropImage] = useState(false);
+
+  const closCropImage = () => {
+    setShowCropImage(false);
+  };
+  const closeShowImageUpload = () => {
+    setShowImageUpload(false);
+  };
+  const [fileForCrop, setFileForCrop] = useState();
+  const handleImageUpload = (event) => {
+    var file = event.target.files[0];
+    if (file) {
+      setFileForCrop(URL.createObjectURL(file));
+      setShowCropImage(true);
+    }
+  };
+
+  const cropperRef = useRef(null);
+  const [cropedFile, setCropedFile] = useState();
+  const onCrop = () => {
+    const cropper = cropperRef.current?.cropper;
+    setCropedFile(cropper.getCroppedCanvas().toDataURL("image/jpeg"));
+  };
+
+  const handelCroppedImage = () => {
+    setShowCropImage(false)
+    var binary = atob(cropedFile.split(",")[1]);
+    var array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    let croppedImage = new Blob([new Uint8Array(array)], {
+      type: "image/png",
+    });
+    if (croppedImage && storage) {
+      const storageRef = ref(storage, `/profile-pics/${userdata.uid}`);
+      const uploadTask = uploadBytesResumable(storageRef, croppedImage);
+      setShowImageUpload(true);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setPercentUpload(percent);
+        },
+        (err) => console.log(err),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            console.log(url);
+            setImageUrl(url)
+            setShowImageUpload(false);
+            axios
+              .post("http://localhost:5000/update-profile-pic", {
+                uid: userdata.uid,
+                imageUrl: url,
+              })
+              .then((res) => {
+
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+        }
+      );
+    }
+  };
+
   return (
     <Layout>
       <Breadcrumb pageTitle="My Account" pageName="My Account" />
+      <Dialog open={showCropImage} onClose={closCropImage}>
+        <Cropper
+          src={fileForCrop}
+          style={{ height: 400, width: "100%" }}
+          aspectRatio={1 / 1}
+          guides={false}
+          crop={onCrop}
+          ref={cropperRef}
+        />
+        <ToggleButton onClick={handelCroppedImage}>Done</ToggleButton>
+      </Dialog>
       <Dialog open={showDialog} onClose={handleDialogClose}>
         <DialogTitle>You can't accept more works while offline</DialogTitle>
         <input
@@ -235,11 +322,14 @@ function Accountpage() {
           value="logout"
         />
       </Dialog>
+      <Dialog open={showImageUpload} onClose={closeShowImageUpload}>
+        <DialogTitle>Image Uploading : {percentUpload}%</DialogTitle>
+      </Dialog>
       <Dialog open={showLogin} onClose={closeLogin}>
-        <LoginPage signup={setShowSignUp} login={setShowLogin}/>
+        <LoginPage signup={setShowSignUp} login={setShowLogin} />
       </Dialog>
       <Dialog open={showSignUp} onClose={closeSignUp}>
-        <SignUpPage signup={setShowSignUp} login={setShowLogin}/>
+        <SignUpPage signup={setShowSignUp} login={setShowLogin} />
       </Dialog>
       <section className="account-dashboard sec-m">
         <div className="container">
@@ -251,25 +341,25 @@ function Accountpage() {
                 role="tablist"
                 aria-orientation="vertical"
               >
-                 {typeofacc == "worker" && (
-                <div >
+                {typeofacc == "worker" && (
                   <div>
-                    <div className="profile-logout">
-                      <div>
-                        <h4>Let's get to work?</h4>
-                        <label class="switch">
-                          <input
-                            id="checkbox_worker_active"
-                            type="checkbox"
-                            onClick={handleWorkerActive}
-                          />
-                          <span class="slider round"></span>
-                        </label>
+                    <div>
+                      <div className="profile-logout">
+                        <div>
+                          <h4>Let's get to work?</h4>
+                          <label class="switch">
+                            <input
+                              id="checkbox_worker_active"
+                              type="checkbox"
+                              onClick={handleWorkerActive}
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
                 {typeofacc == "worker" && (
                   <button
                     className="nav-link"
@@ -342,7 +432,7 @@ function Accountpage() {
                   Logout
                 </button>
               </div>
-             
+
               <div className="tab-content" id="v-pills-tabContent">
                 <div
                   className="tab-pane fade"
@@ -427,20 +517,37 @@ function Accountpage() {
                     <div className="user-info">
                       <div className="thumb">
                         <center>
-                          {userdata && (
-                            <p>
-                              {userdata.fname.slice(0, 1).toUpperCase()}
-                              {userdata.lname.slice(0, 1).toUpperCase()}
-                            </p>
+                          {userdata ? (
+                            imageUrl ? (
+                              <img src={imageUrl} />
+                            ) : (
+                              <p>
+                                {userdata.fname.slice(0, 1).toUpperCase()}
+                                {userdata.lname.slice(0, 1).toUpperCase()}
+                              </p>
+                            )
+                          ) : (
+                            ""
                           )}
                         </center>
                       </div>
                       {userdata != null && (
-                        <div>
+                        <div style={{ width: "100%" }}>
                           <h3>{userdata.fname + " " + userdata.lname}</h3>
                           <span>{userdata.typeofacc}</span>
                         </div>
                       )}
+                      <div className="profile-pic">
+                        <label className="takephoto">
+                          Change Profile Picture
+                          <input
+                            id="input-profile-pic"
+                            onChange={handleImageUpload}
+                            style={{ display: "none" }}
+                            type={"file"}
+                          />
+                        </label>
+                      </div>
                     </div>
                     {userdata != null && <UserProfile user={userdata} />}
                   </div>

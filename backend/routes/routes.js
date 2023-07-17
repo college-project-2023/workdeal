@@ -5,14 +5,11 @@ const userModel = require("../models/search");
 const userClientModel = require("../models/users/userdataclient");
 const userWorkerModel = require("../models/users/userdataworker");
 const OrderWorker = require("../models/orders/workers");
-const CurrentOrderWorker = require("../models/orders/currentOrder");
-const OrderClient = require("../models/orders/client");
 const Review = require("../models/orders/review");
 const BlogData = require("../models/blog-data");
 const app = express();
 const cookieParser = require("cookie-parser");
 const admin = require("../firebase-config");
-var crypto = require("crypto-js");
 const { response } = require("express");
 const { default: mongoose } = require("mongoose");
 app.use(cookieParser());
@@ -217,6 +214,36 @@ app.post(`/get-user-data/`, middleware, async (req, res) => {
     }
   });
 });
+
+app.post("/update-profile-pic",async(req,res)=>{
+  const worker = new userWorkerModel(req.body);
+  const client = new userClientModel(req.body);
+  try{
+    const updatePP = await worker.collection.findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          imageUrl:req.body.imageUrl
+        },
+      }
+    );
+    res.send("success")
+  }catch(error){
+    try{
+      const updatePP = await client.collection.findOneAndUpdate(
+        { uid: req.body.uid },
+        {
+          $set: {
+            imageUrl:req.body.imageUrl
+          },
+        }
+      );
+      res.send("success")
+    }catch(error){
+      res.status(500).send(error);
+    }
+  }
+})
 
 app.post(`/update-user-worker/`, async (req, res) => {
   const user = new userWorkerModel(req.body);

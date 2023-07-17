@@ -123,10 +123,10 @@ import { MyContext } from "../components/context";
                       </h4>
                       <div className="started">
                         <Link legacyBehavior href="/service-details">
-                          <a>
+                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>
                             Book Now
                             <span>
-                              <i onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}  className="bi bi-arrow-right" />
+                              <i className="bi bi-arrow-right" />
                             </span>
                           </a>
                         </Link>

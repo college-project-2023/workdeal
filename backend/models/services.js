@@ -28,6 +28,10 @@ const ServiceSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  location:{
+    type:String,
+    require:true,
   }
 },{
   collection:"services"

@@ -11,6 +11,21 @@
   transition: all 0.3s;
 }
 
+.takephoto{
+  padding: 10px;
+  color: #767676;
+  border-radius: 10px;
+  border: 1px solid #c7c7c7;
+}
+
+.profile-pic{
+  width: 100%;
+}
+
+.takephoto:hover{
+  background-color: #fbfbfb;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -8128,8 +8143,9 @@ i.bi.bi-star {
   align-items: center;
   margin-bottom: 50px;
 }
-.user-info .thumb {
+.user-info .thumb img {
   width: 100px;
+  min-width:100px;
   height: 100px;
   padding: 0;
   margin: 0;

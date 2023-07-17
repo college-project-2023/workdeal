@@ -50,7 +50,10 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    
+    imageUrl:{
+      type: String,
+      required: true,
+    },
     typeofacc:{
       type:String,
       required:true,

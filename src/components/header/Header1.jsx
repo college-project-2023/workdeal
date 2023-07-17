@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useRef, useContext } from "react";
+import React, { useEffect, useReducer, useRef, useContext,useState } from "react";
 import { auth } from "../../firebase/firebase";
 import { MyContext } from "../context";
 // inital state data
@@ -10,13 +10,7 @@ const initialState = {
   scrollY: 0,
 };
 
-function gotoaccount() {
-  if (auth.currentUser != null) {
-    window.location = "/account";
-  } else {
-    window.location = "/sign-up";
-  }
-}
+
 
 // usnig reducer to change logic
 function reducer(state, action) {
@@ -50,6 +44,7 @@ function Header1() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const currentRoute = useRouter().pathname;
   const headerRef = useRef(null);
+  const [mobileHeader,setMobileheader]=useState(false);
 
   const { serviceType, updateVariable } = useContext(MyContext);
   const handleInitialServices = () => {
@@ -73,28 +68,12 @@ function Header1() {
   });
 
   // sticky header
-  useEffect(() => {
-    const header = headerRef.current;
-
-    function handleScroll() {
-      if (window.pageYOffset > 0) {
-        header.classList.add("sticky");
-      } else {
-        header.classList.remove("sticky");
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  
   return (
     <header
       ref={headerRef}
       // just use one header class for your project
-      className={"header-1 sticky_top"}
+      className={"header-1 sticky_top sticky"}
     >
       <div className="header-logo">
         <Link legacyBehavior href="/">
@@ -190,8 +169,8 @@ function Header1() {
             <a>My Account</a>
           </Link>
         </div>
-        <div className="mobile-menu">
-          <a href="#" className="cross-btn">
+        <div className="mobile-menu" onClick={()=>{setMobileheader(true)}}>
+          <a className="cross-btn" onClick={()=>{setMobileheader(false)}}>
             <span className="cross-top" />
             <span className="cross-middle" />
             <span className="cross-bottom" />

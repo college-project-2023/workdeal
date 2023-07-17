@@ -3527,15 +3527,17 @@ footer .line-shape {
   font-size: 50px;
   margin-top: 45px;
 }
-.strong1 {
-  color: rgb(196, 194, 194);
-}
-ul.stars {
-  display: inline-block;
-}
-.li1{
-  display: inline-block;
+i.bi.bi-star-fill {
   color: goldenrod;
+}
+i.bi.bi-star {
+  color: darkgrey;
+}
+.b1 {
+  color: goldenrod;
+}
+.strong1 {
+  display: block;
 }
 .single-service.layout-2 .thumb .tag a:hover {
   color: #5bb543;

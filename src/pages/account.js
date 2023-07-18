@@ -62,12 +62,11 @@ function Accountpage() {
             uid: auth.currentUser.uid,
             tag: userdata.service.toLowerCase(),
             thumb: "assets/images/cre-service/" + userdata.service + ".png",
-            author_thumb: "assets/images/acc.png",
+            author_thumb: imageUrl,
             author_name: userdata.fname + " " + userdata.lname,
             title: userdata.service,
             price: 100,
             rating:avgrate,
-            reviews:review
           })
           .catch((error) => {
             checkBox.checked = false;

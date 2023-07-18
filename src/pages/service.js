@@ -61,9 +61,7 @@ import { MyContext } from "../components/context";
             {serviceData.map((item) => (
                 <div
                   key={item._id}
-                  className="col-md-6 col-lg-4 wow animate fadeInLeft"
-                  data-wow-delay="200ms"
-                  data-wow-duration="1500ms"
+                  className="col-md-6 col-lg-3 wow animate fadeInLeft"
                 >
                   <div className="single-service layout-2">
                     <div className="thumb">
@@ -116,11 +114,6 @@ import { MyContext } from "../components/context";
                           <span>{item.author_name}</span>
                         </div>
                       </div>
-                      <h4>
-                        <Link legacyBehavior href="/service-details">
-                          <a  onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.title}</a>
-                        </Link>
-                      </h4>
                       <div className="started">
                         <Link legacyBehavior href="/service-details">
                           <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>

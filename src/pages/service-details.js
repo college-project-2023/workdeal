@@ -278,7 +278,7 @@ function ServiceDetailsPage() {
                 >
                   <div className="about-seller">
                     <div className="thumb">
-                      <img src={serviceName.thumb_author} alt="" />
+                      <img src={serviceName.author_thumb} alt="" />
                     </div>
                     {serviceName && <h3>{serviceName.name}</h3>}
                     <p>This service provider has following experience</p>

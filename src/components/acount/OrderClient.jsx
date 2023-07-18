@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { auth } from "../../firebase/firebase";
+import { Dialog, DialogTitle } from "@mui/material";
+import Review from "../review/review";
 
 function OrderClient() {
   const userid = auth.currentUser.uid;
@@ -18,6 +20,22 @@ function OrderClient() {
       .catch((error) => {
         console.log(error);
       });
+  }
+  const [uid,setUid]=useState();
+  const [clientUid,setClientUid]=useState();
+  const [name,setName]=useState();
+  const [workId,setWorkId]=useState();
+
+  function getCurrentComplete(id){
+    for(let i=0;i<orders.length;i++){
+      if(orders[i]._id==id){
+        setUid(orders[i].orderToUid);
+        setClientUid(orders[i].orderByUid);
+        setName(orders[i].orderByName);
+        setWorkId(orders[i]._id);
+      }
+    }
+    setOpenReview(true);
   }
 
   async function cancelTheService(id) {
@@ -38,6 +56,7 @@ function OrderClient() {
       _id:id,
     }).then((res)=>{
       getOrders();
+      getCurrentComplete(id);
     }).catch((error)=>{
       console.log(error)
     })
@@ -47,6 +66,11 @@ function OrderClient() {
     getOrders();
   }, []);
 
+  const [openReview,setOpenReview]=useState(false)
+  const closeReview = () =>{
+    setOpenReview(false)
+  }
+
   return (
     <div
       className="tab-pane fade"
@@ -54,6 +78,10 @@ function OrderClient() {
       role="tabpanel"
       aria-labelledby="v-pills-order-tab"
     >
+      <Dialog open={openReview} onClose={closeReview}>
+        <DialogTitle>Please rate the service</DialogTitle>
+        <Review uid={uid} clientUid={clientUid} name={name} workId={workId} closeDialog={setOpenReview}/>
+      </Dialog>
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>

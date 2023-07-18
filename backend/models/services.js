@@ -36,7 +36,7 @@ const ServiceSchema = new mongoose.Schema({
   location:{
     type:String,
     require:true,
-  },
+  }
 },{
   collection:"services"
 });

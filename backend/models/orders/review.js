@@ -9,6 +9,14 @@ const WorkerReview = new mongoose.Schema(
       type: String,
       required: true,
     },
+    workId:{
+      type: String,
+      required: false,
+    },
+    clientUid:{
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -21,6 +29,10 @@ const WorkerReview = new mongoose.Schema(
       type: String,
       required: true,
     },
+    price:{
+      type: Number,
+      required: true,
+    }
   },
   {
     collection: "review",

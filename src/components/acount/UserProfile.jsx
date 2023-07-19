@@ -95,7 +95,7 @@ function UserProfile(props) {
         <div className="row">
           <div className="col-lg-6">
             <label>
-              Frist Name *
+              First Name *
               <input
                 type="text"
                 name="fname"

@@ -377,6 +377,28 @@ app.post(`/get-review-worker`, async (req, res) => {
     });
 });
 
+async function updatePrice(req,res,next){
+  OrderWorker.findOneAndUpdate({_id:req.body.workId},{
+    $set:{
+      amount:req.body.price
+    }
+  }).then((res)=>{
+    next();
+  }).catch((error)=>{
+    res.status(500).send(error);
+  })
+}
+
+app.post(`/set-review-worker`,updatePrice ,async (req, res) => {
+  const reviewModel = new Review(req.body);
+  try{
+    reviewModel.save()
+    res.send(reviewModel)
+  }catch(error){
+    res.status(500).send(error)
+  }
+});
+
 app.post("/set-current-work", async (request, response) => {
   OrderWorker.findOneAndUpdate(
     { _id: request.body._id },

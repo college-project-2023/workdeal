@@ -10,30 +10,8 @@ import { MyContext } from "../components/context";
 
   const filters = useRef({"location":"","category":"","pricerange":"","rating":""}); 
   const {serviceName,updateServiceName} = useContext(MyContext);
-  const [reviews, setReviews] = useState([]);
-  const [avgrate, setAvgRate] = useState(2);
   const [serviceData,setServicedata]=useState([]);
-  const previousFliter = useRef({});function getReviews() {
-    axios
-      .post("http://localhost:5000/get-review-worker", {
-        uid: serviceName.uid,
-      })
-      .then((res) => {
-        console.log(res.data);
-        var data = res.data;
-        setReviews(data);
-        var avg = 0,
-          sum = 0;
-        for (var i = 0; i < data.length; i++) {
-          sum = sum + Number(data[i].rating);
-        }
-        avg = sum / data.length;
-        setAvgRate(avg);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  const previousFliter = useRef({});
 
   const fetchData = async () => {    
     try{      
@@ -83,9 +61,7 @@ import { MyContext } from "../components/context";
             {serviceData.map((item) => (
                 <div
                   key={item._id}
-                  className="col-md-6 col-lg-4 wow animate fadeInLeft"
-                  data-wow-delay="200ms"
-                  data-wow-duration="1500ms"
+                  className="col-md-6 col-lg-3 wow animate fadeInLeft"
                 >
                   <div className="single-service layout-2">
                     <div className="thumb">
@@ -101,30 +77,30 @@ import { MyContext } from "../components/context";
                       <strong className="strong1">
                             <i
                               className={
-                                avgrate >= 1 ? "bi bi-star-fill" : "bi bi-star"
+                                item.rating >= 1 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
                             <i
                               className={
-                                avgrate >= 2 ? "bi bi-star-fill" : "bi bi-star"
+                                item.rating >= 2 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
                             <i
                               className={
-                                avgrate >= 3 ? "bi bi-star-fill" : "bi bi-star"
+                                item.rating >= 3 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
                             <i
                               className={
-                                avgrate >= 4 ? "bi bi-star-fill" : "bi bi-star"
+                                item.rating >= 4 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
                             <i
                               className={
-                                avgrate >= 5 ? "bi bi-star-fill" : "bi bi-star"
+                                item.rating >= 5 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
-                            <b className="b1">({avgrate}/5)</b>
+                            <b className="b1">({item.rating}/5)</b>
                           </strong>
                           </div>
                      
@@ -138,11 +114,6 @@ import { MyContext } from "../components/context";
                           <span>{item.author_name}</span>
                         </div>
                       </div>
-                      <h4>
-                        <Link legacyBehavior href="/service-details">
-                          <a  onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.title}</a>
-                        </Link>
-                      </h4>
                       <div className="started">
                         <Link legacyBehavior href="/service-details">
                           <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>

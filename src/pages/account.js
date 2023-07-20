@@ -24,23 +24,49 @@ function Accountpage() {
   const [userdata, setUserdata] = useState();
   const [address1, setAddress1] = useState();
   const [address2, setAddress2] = useState();
-
+  const [avgrate, setAvgRate] = useState(2);
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
+
+  function getReviews() {
+    axios
+      .post("http://localhost:5000/get-review-worker", {
+        uid: auth.currentUser.uid,
+      })
+      .then((res) => {
+        console.log(res.data);
+        
+        var data = res.data;
+        var avg = 0,
+          sum = 0;
+        for (var i = 0; i < data.length; i++) {
+          sum = sum + Number(data[i].rating);
+        }
+        avg = sum / data.length;
+        setAvgRate(avg);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   const handleWorkerActive = async () => {
     var checkBox = document.getElementById("checkbox_worker_active");
     if (checkBox && checkBox.checked) {
+      getReviews();
+      console.log(1);
       if (userdata && userdata.city) {
         await axios
           .post("http://localhost:5000/setworkeractive", {
             uid: auth.currentUser.uid,
             tag: userdata.service.toLowerCase(),
             thumb: "assets/images/cre-service/" + userdata.service + ".png",
-            author_thumb: "assets/images/acc.png",
+            author_thumb: imageUrl,
             author_name: userdata.fname + " " + userdata.lname,
             title: userdata.service,
             price: 100,
+            rating:avgrate,
           })
           .catch((error) => {
             checkBox.checked = false;

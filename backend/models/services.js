@@ -29,6 +29,10 @@ const ServiceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  rating: {
+    type: Number,
+    required: true,
+  },
   location:{
     type:String,
     require:true,

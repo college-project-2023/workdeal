@@ -108,7 +108,7 @@ import { MyContext } from "../components/context";
                     <div className="single-inner">
                       <div className="author-info">
                         <div className="author-thumb">
-                          <img src={item.author_thumb} alt="" />
+                          <img src={item.author_thumb?item.author_thumb:"assets/images/acc.png"} alt="" />
                         </div>
                         <div className="author-content">
                           <span>{item.author_name}</span>

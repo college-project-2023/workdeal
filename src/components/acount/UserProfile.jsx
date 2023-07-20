@@ -135,7 +135,7 @@ function UserProfile(props) {
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
                 }}
-                placeholder={+8801}
+                placeholder={"Phone"}
               />
             </label>
           </div>
@@ -258,7 +258,6 @@ function UserProfile(props) {
                   name="email"
                   autoComplete="new-password"
                   id="passwordTwo"
-                  placeholder="******"
                   value={password}
                   onChange={(e) => {
                     setPass(e.target.value);

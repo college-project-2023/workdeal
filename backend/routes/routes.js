@@ -215,9 +215,8 @@ app.post(`/get-user-data/`, middleware, async (req, res) => {
   });
 });
 
-app.post("/update-profile-pic",async(req,res)=>{
+app.post("/update-profile-pic-worker",async(req,res)=>{
   const worker = new userWorkerModel(req.body);
-  const client = new userClientModel(req.body);
   try{
     const updatePP = await worker.collection.findOneAndUpdate(
       { uid: req.body.uid },
@@ -229,21 +228,27 @@ app.post("/update-profile-pic",async(req,res)=>{
     );
     res.send("success")
   }catch(error){
-    try{
-      const updatePP = await client.collection.findOneAndUpdate(
-        { uid: req.body.uid },
-        {
-          $set: {
-            imageUrl:req.body.imageUrl
-          },
-        }
-      );
-      res.send("success")
-    }catch(error){
-      res.status(500).send(error);
-    }
+    res.status(500).send(error);
   }
 })
+
+app.post("/update-profile-pic-client",async(req,res)=>{
+  const client = new userClientModel(req.body);
+  try{
+    const updatePP = await client.collection.findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          imageUrl:req.body.imageUrl
+        },
+      }
+    );
+    res.send("success")
+  }catch(error){
+    res.status(500).send(error);
+  }
+})
+
 
 app.post(`/update-user-worker/`, async (req, res) => {
   const user = new userWorkerModel(req.body);

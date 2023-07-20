@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { auth } from "../../firebase/firebase";
+import DialogLayout from "../common/DialogLayout";
 
 function OrderWorker(props) {
-  const userid = auth.currentUser.uid;
   const [orders, setOrdersData] = useState([]);
 
   const [orderPending, setOrderPending] = useState(0);
@@ -12,12 +12,20 @@ function OrderWorker(props) {
   const [currentTask, setCurrentTask] = useState();
 
   function setOrderDataToDashboard() {
+    let price = 0,
+      count = 0;
     for (let i = 0; i < orders.length; i++) {
       if (orders[i].status == "completed") {
         setOrderComplete(orderComplete + 1);
+        price += orders[i].amount;
+        count += 1;
       } else {
         setOrderPending(orderPending + 1);
       }
+    }
+    if (price != 0) {
+      price /= count;
+      props.setAvgPrice(price);
     }
   }
 
@@ -31,7 +39,7 @@ function OrderWorker(props) {
         .then((res) => {
           if (res.status == 200) {
             getOrders();
-            window.alert("task started");
+            setShowAccept(true);
           }
         });
     } else {
@@ -47,11 +55,10 @@ function OrderWorker(props) {
       .then((res) => {
         if (res.status == 200) {
           getOrders();
-          window.alert("task deleted");
+          setShowReject(true);
         }
       });
   }
-
 
   useEffect(() => {
     setOrderDataToDashboard();
@@ -63,22 +70,27 @@ function OrderWorker(props) {
   }, [orderPending, orderComplete]);
 
   async function getOrders() {
-    console.log(userid);
-    axios
-      .post(`http://localhost:5000/get-orders-worker/`, {
-        orderToUid: userid,
-      })
-      .then((res) => {
-        setOrdersData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (auth.currentUser) {
+      const userid = await auth.currentUser.uid;
+      axios
+        .post(`http://localhost:5000/get-orders-worker/`, {
+          orderToUid: userid,
+        })
+        .then((res) => {
+          setOrdersData(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   useEffect(() => {
     getOrders();
   }, []);
+
+  const [showAccept, setShowAccept] = useState(false);
+  const [showReject, setShowReject] = useState(false);
 
   return (
     <div
@@ -87,25 +99,40 @@ function OrderWorker(props) {
       role="tabpanel"
       aria-labelledby="v-pills-order-tab"
     >
+      {showAccept && (
+        <DialogLayout
+          title={"service cancelled"}
+          content={"Thank you for trying our platform\nhope you like it"}
+          buttonText={"DONE"}
+        />
+      )}
+      {showReject && (
+        <DialogLayout
+          title={"service cancelled"}
+          content={"Thank you for trying our platform\nhope you like it"}
+          buttonText={"DONE"}
+        />
+      )}
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>
         </div>
-        <div className="order-table" style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr className="head">
-                <th>Service Title</th>
-                <th>Order ID</th>
-                <th>Order By</th>
-                <th>Order Ammount</th>
-                <th>Address</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            {/* every single data*/}
-            {orders && (
+        {orders && orders.length>0 ? (
+          <div className="order-table" style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%" }}>
+              <thead>
+                <tr className="head">
+                  <th>Service Title</th>
+                  <th>Order ID</th>
+                  <th>Order By</th>
+                  <th>Order Ammount</th>
+                  <th>Address</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              {/* every single data*/}
+
               <tbody>
                 {orders.map((item) => (
                   <tr key={item._id}>
@@ -158,9 +185,9 @@ function OrderWorker(props) {
                   </tr>
                 ))}
               </tbody>
-            )}
-          </table>
-        </div>
+            </table>
+          </div>
+        ):<center><h3>No Orders Found</h3></center>}
       </div>
     </div>
   );

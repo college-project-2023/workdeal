@@ -18,70 +18,72 @@ import SignUpPage from "../components/acount/sign-up";
 function Accountpage() {
   const [workeractive, setWorkerActive] = useState();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState(null);
   const [authentication, setAuthentication] = useState(null);
   const [typeofacc, setTypeOfAcc] = useState("worker");
   const [userdata, setUserdata] = useState();
   const [address1, setAddress1] = useState();
   const [address2, setAddress2] = useState();
   const [avgrate, setAvgRate] = useState(2);
+  const [avgPrice, setAvgPrice] = useState(100);
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
 
   function getReviews() {
-    axios
-      .post("http://localhost:5000/get-review-worker", {
-        uid: auth.currentUser.uid,
-      })
-      .then((res) => {
-        console.log(res.data);
-        
-        var data = res.data;
-        var avg = 0,
-          sum = 0;
-        for (var i = 0; i < data.length; i++) {
-          sum = sum + Number(data[i].rating);
-        }
-        avg = sum / data.length;
-        setAvgRate(avg);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    
   }
 
 
   const handleWorkerActive = async () => {
     var checkBox = document.getElementById("checkbox_worker_active");
     if (checkBox && checkBox.checked) {
-      getReviews();
-      console.log(1);
-      if (userdata && userdata.city) {
-        await axios
-          .post("http://localhost:5000/setworkeractive", {
-            uid: auth.currentUser.uid,
-            tag: userdata.service.toLowerCase(),
-            thumb: "assets/images/cre-service/" + userdata.service + ".png",
-            author_thumb: imageUrl,
-            author_name: userdata.fname + " " + userdata.lname,
-            title: userdata.service,
-            price: 100,
-            rating:avgrate,
-          })
-          .catch((error) => {
-            checkBox.checked = false;
-            window.alert(error);
-          })
-          .then((res) => {
-            console.log(res.data);
-            if (res == "online") {
-              checkBox.checked = true;
-            }
-          });
-      } else {
-        checkBox.checked = false;
-        window.alert("Please complete your profile");
-      }
+      axios
+      .post("http://localhost:5000/get-review-worker", {
+        uid: auth.currentUser.uid,
+      })
+      .then((res) => {
+        var data = res.data;
+        console.log(avgrate+" "+data.length)
+        var avg = 0,
+          sum = 0;
+        for (var i = 0; i < data.length; i++) {
+          sum = sum + Number(data[i].rating);
+        }
+        if(data.length!=0){
+          avg = sum / data.length;
+          setAvgRate(avg);
+        }
+        if (userdata && userdata.city) {
+          axios
+            .post("http://localhost:5000/setworkeractive", {
+              uid: auth.currentUser.uid,
+              tag: userdata.service.toLowerCase(),
+              thumb: "assets/images/cre-service/" + userdata.service + ".png",
+              author_thumb: imageUrl,
+              author_name: userdata.fname + " " + userdata.lname,
+              title: userdata.service,
+              price: avgPrice,
+              rating:avgrate,
+            })
+            .catch((error) => {
+              checkBox.checked = false;
+              window.alert(error);
+            })
+            .then((res) => {
+              console.log(res.data);
+              if (res == "online") {
+                checkBox.checked = true;
+              }
+            });
+        } else {
+          checkBox.checked = false;
+          window.alert("Please complete your profile");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
     } else {
       if (userdata) {
         await axios
@@ -140,7 +142,9 @@ function Accountpage() {
             if (data.status == 200) {
               setUserdata(data.data);
               setTypeOfAcc(data.data.typeofacc);
-              setImageUrl(data.data.imageUrl);
+              if(data.data.imageUrl!=null || data.data.imageUrl!=undefined){
+                setImageUrl(data.data.imageUrl);
+              }
               setAddress1(data.data.address);
               setAddress2(data.data.address2);
             } else {
@@ -281,8 +285,8 @@ function Accountpage() {
             console.log(url);
             setImageUrl(url)
             setShowImageUpload(false);
-            axios
-              .post("http://localhost:5000/update-profile-pic", {
+            if(userdata.typeofacc=="worker"){axios
+              .post("http://localhost:5000/update-profile-pic-worker", {
                 uid: userdata.uid,
                 imageUrl: url,
               })
@@ -292,6 +296,20 @@ function Accountpage() {
               .catch((error) => {
                 console.log(error);
               });
+            }else{
+              axios
+              .post("http://localhost:5000/update-profile-pic-client", {
+                uid: userdata.uid,
+                imageUrl: url,
+              })
+              .then((res) => {
+
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            }
+            
           });
         }
       );
@@ -463,7 +481,7 @@ function Accountpage() {
                     </div>
                     <div className="col-lg-6">
                       <div className="order-box">
-                        <h5>Order Complate</h5>
+                        <h5>Order Completed</h5>
                         <div className="box-inner">
                           <div className="icon">
                             <img
@@ -555,6 +573,7 @@ function Accountpage() {
                   userdata &&
                   (typeofacc == "worker" ? (
                     <OrderWorker
+                      setAvgPrice={setAvgPrice}
                       service={userdata.service}
                       pending={setOrderPending}
                       complete={setOrderComplete}

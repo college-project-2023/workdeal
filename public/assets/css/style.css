@@ -596,14 +596,12 @@ video {
 
 .sticky {
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
   width: 100% !important;
   box-sizing: border-box;
   background-color: #fff;
   box-shadow: 5px 3px 40px rgba(0, 72, 88, 0.1);
   z-index: 99 !important;
-  animation: smooth-header 0.65s linear;
+  animation: smooth-header 0.2s linear;
 }
 
 .header-3.sticky_top.sticky {
@@ -611,10 +609,10 @@ video {
 }
 @keyframes smooth-header {
   0% {
-    transform: translateY(-30px);
+    opacity: 0;
   }
   100% {
-    transform: translateY(0px);
+    opacity: 1;
   }
 }
 .sec-title {
@@ -1874,8 +1872,14 @@ header {
 /*===========================
      05.Popular services css 
 ===========================*/
+
+.single-service.layout-2{
+  border-radius: 8px;
+}
+
 .single-service .thumb {
   height: 230px;
+  border-radius: 8px 8px 0 0;
   position: relative;
   overflow: hidden;
 }
@@ -1969,11 +1973,11 @@ header {
   border: 1px solid #eeeeee;
   box-shadow: 0px 0px 30px rgba(84, 161, 93, 0.15);
   text-align: center;
-  line-height: 50px;
   margin-right: 10px;
   border-radius: 50%;
   overflow: hidden;
 }
+
 .single-service .single-inner .author-info .author-content span {
   font-family: "Rubik", sans-serif;
   font-weight: 500;
@@ -7005,7 +7009,7 @@ i.bi.bi-star {
   padding: 30px 0;
 }
 .about-seller h3 {
-  font-family: "Rubik", sans-serif;
+  font-family: "Rubabout-sellerik", sans-serif;
   font-weight: 700;
   font-size: 30px;
   text-align: center;
@@ -7025,11 +7029,11 @@ i.bi.bi-star {
   background-color: #ffffff;
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
   border-radius: 50%;
-  line-height: 130px;
   margin-bottom: 30px;
 }
 .about-seller .thumb img {
-  width: auto;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
 }
 

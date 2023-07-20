@@ -40,7 +40,7 @@ function reducer(state, action) {
       return { ...state };
   }
 }
-function Header1() {
+function Header2() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const currentRoute = useRouter().pathname;
   const headerRef = useRef(null);
@@ -68,29 +68,12 @@ function Header1() {
   });
 
   // sticky header
-  useEffect(() => {
-    const header = headerRef.current;
-
-    function handleScroll() {
-      if (window.pageYOffset > 0) {
-        header.classList.add("sticky");
-      } else {
-        header.classList.remove("sticky");
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   
   return (
     <header
       ref={headerRef}
       // just use one header class for your project
-      className={"header-1 sticky_top"}
+      className={"header-1 sticky_top sticky"}
     >
       <div className="header-logo">
         <Link legacyBehavior href="/">
@@ -198,4 +181,4 @@ function Header1() {
   );
 }
 
-export default Header1;
+export default Header2;

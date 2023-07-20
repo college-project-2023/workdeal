@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Footer2 from "../footer/Footer2";
-import Header1 from "../header/Header1";
+import Header2 from "../header/Header2";
 
 function Layout({ children }) {
   return (
@@ -22,7 +22,7 @@ function Layout({ children }) {
           sizes="20x20"
         />
       </Head>
-      <Header1 />
+      <Header2 />
       {children}
       <Footer2 />
     </>

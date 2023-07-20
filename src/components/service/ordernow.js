@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { auth } from "../../firebase/firebase";
 import { Dialog, ToggleButton } from "@mui/material";
+import "../../../public/assets/js/celebration"
 
 function OrderNow(props) {
 
@@ -47,6 +48,7 @@ function OrderNow(props) {
           address:addr,
           status: "pending"
         }).then((res)=>{
+          confetti({particleCount:300,spread:120,origin:{y:1}}); 
           props.showOrder(true);
           props.orderPlaced(true);
         }).catch((error)=>{

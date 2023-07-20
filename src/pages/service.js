@@ -67,12 +67,12 @@ import { MyContext } from "../components/context";
                     <div className="thumb">
                       <Link  legacyBehavior href="/service-details">
                         <a>
-                          <img onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})} src={"assets/images/cre-service/"+item.title+".jpg"} alt="" />
+                          <img onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})} src={"assets/images/cre-service/"+item.title+".jpg"} alt="" />
                         </a>
                       </Link>
                       <div className="tag">
                         <Link legacyBehavior href="/service-details">
-                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb})}>{item.tag}</a>                      
+                          <a onClick={()=>handleServiceClick({"uid":item.uid,"service":item.title,"thumb":item.thumb,"name":item.author_name,"price":item.price,"author_thumb":item.author_thumb,"tag":item.tag})}>{item.tag}</a>                      
                         </Link>  
                       <strong className="strong1">
                             <i
@@ -108,7 +108,7 @@ import { MyContext } from "../components/context";
                     <div className="single-inner">
                       <div className="author-info">
                         <div className="author-thumb">
-                          <img src={item.author_thumb} alt="" />
+                          <img src={item.author_thumb?item.author_thumb:"assets/images/acc.png"} alt="" />
                         </div>
                         <div className="author-content">
                           <span>{item.author_name}</span>

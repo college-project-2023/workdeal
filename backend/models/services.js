@@ -15,7 +15,7 @@ const ServiceSchema = new mongoose.Schema({
   },
   author_thumb: {
     type: String,
-    required: true,
+    required: false,
   },
   author_name: {
     type: String,

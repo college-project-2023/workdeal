@@ -10,6 +10,7 @@ import { auth } from "../firebase/firebase";
 import LoginPage from "../components/acount/login";
 import SignUpPage from "../components/acount/sign-up";
 import OrderNow from "../components/service/ordernow";
+import OrderPlaced from "../components/service/orderPlaced";
 
 function ServiceDetailsPage() {
   const { serviceName } = useContext(MyContext);
@@ -130,7 +131,7 @@ function ServiceDetailsPage() {
           sx: {
             width: "fit-content",
           }}}>
-          <h4 style={{margin:"20px"}}>Order Placed</h4>
+            <OrderPlaced/>
         </Dialog>
 
       <section id="down" className="services-details-area sec-m-top">
@@ -317,7 +318,7 @@ function ServiceDetailsPage() {
                                 avgrate >= 5 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
-                            <b>({avgrate}/5)</b>
+                            <b>({avgrate?avgrate:0}/5)</b>
                           </strong>       
                         </h5>
                       </div>

@@ -329,11 +329,22 @@ app.post(`/get-orders-worker/`, async (req, res) => {
 });
 
 async function checkOrderplaced(req,res,next){
-  OrderWorker.findOne({orderByUid:req.body.orderByUid,orderToUid:req.body.orderToUid})
+  await OrderWorker.find({orderByUid:req.body.orderByUid,orderToUid:req.body.orderToUid})
   .then((workers)=>{
     console.log(workers)
     if(workers!=null){
-      res.send("placed");
+      var go = false;
+      for(var i=0;i<workers.length;i++){
+        if(workers[i].status!="completed"){
+          go = true;
+          break;
+        }
+      }
+      if(!go){
+        next();
+      }else{
+        res.send("placed");
+      }
     }else{
       next();
     }
@@ -423,7 +434,11 @@ app.post("/set-current-work", async (request, response) => {
 });
 
 app.post("/cancel-service", async (req, res) => {
-  OrderWorker.deleteOne({ _id: req.body._id })
+  OrderWorker.findOneAndUpdate({ _id: req.body._id },{
+    $set: {
+      status: "cancelled",
+    },
+  })
     .then(() => {
       res.send("success");
     })

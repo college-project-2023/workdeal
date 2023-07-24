@@ -49,7 +49,7 @@ function OrderWorker(props) {
 
   async function deleteTheService(id) {
     await axios
-      .post("http://localhost:5000/delete-service-work", {
+      .post("http://localhost:5000/cancel-service", {
         _id: id,
       })
       .then((res) => {
@@ -101,15 +101,15 @@ function OrderWorker(props) {
     >
       {showAccept && (
         <DialogLayout
-          title={"service cancelled"}
-          content={"Thank you for trying our platform\nhope you like it"}
+          title={"Let's get to work"}
+          content={"Please be in time and don't forget terms. Customers are our first priority. \nAll the best for your order"}
           buttonText={"DONE"}
         />
       )}
       {showReject && (
         <DialogLayout
-          title={"service cancelled"}
-          content={"Thank you for trying our platform\nhope you like it"}
+          title={"Order Rejected"}
+          content={"Please keep in mind that more rejections of work will lose your rating.\nThank you for work with WorkDeal"}
           buttonText={"DONE"}
         />
       )}
@@ -163,7 +163,7 @@ function OrderWorker(props) {
                               type="button"
                               onClick={() => deleteTheService(item._id)}
                             >
-                              cancel
+                              reject
                             </button>
                           </div>
                         ) : item.status == "working" ? (
@@ -177,9 +177,12 @@ function OrderWorker(props) {
                           <button className="btn-current-task" type="button">
                             completed
                           </button>
-                        ) : (
-                          "error"
-                        )}
+                        ) : item.status == "cancelled" ? (
+                          <button className="btn-current-task-cancel" type="cancelled">
+                            cancelled
+                          </button>
+                          
+                        ) : "Error"}
                       </div>
                     </td>
                   </tr>

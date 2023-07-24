@@ -171,6 +171,10 @@ function OrderClient() {
                           <button className="btn-current-task" type="button">
                             completed
                           </button>
+                        ) : item.status == "cancelled" ? (
+                          <button className="btn-current-task-cancel" type="button">
+                            cancelled
+                          </button>
                         ) : (
                           "error"
                         )}

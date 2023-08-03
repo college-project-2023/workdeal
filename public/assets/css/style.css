@@ -3173,7 +3173,6 @@ footer .line-shape {
 }
 .MuiDialog-container.MuiDialog-scrollPaper.css-hz1bth-MuiDialog-container {
   padding: -10px;
-  height: fit-content;
   will-change: unset;
   /* width: fit-content; */
 }

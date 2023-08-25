@@ -124,7 +124,7 @@ import { MyContext } from "../components/context";
                           </a>
                         </Link>
                         <span>
-                          <small>$</small>
+                          <small>RS</small>
                           {item.price}
                         </span>
                       </div>

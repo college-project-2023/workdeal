@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import Select from "react-select";
 import { MyContext } from "../context";
 import services from "../../data/service/creative_services.json"
@@ -6,6 +6,7 @@ import services from "../../data/service/creative_services.json"
 function ServiceFilter(props) {
 
   const {serviceType,updateVariable} = useContext(MyContext);
+  
 
   const [selectedOption, setSelectedOption] = useState(serviceType.location);
   function handleSelectChange(event) {
@@ -23,8 +24,24 @@ function ServiceFilter(props) {
   function handleSelectChangert(event) {
     setSelectedrt(event.target.value);
   }
-  const fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
-  props.sendtopage(fdata);
+
+  let fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+  let city=""
+
+  useEffect(()=>{
+    city = localStorage.getItem('city');
+    if(city){
+      setSelectedOption(city.toLowerCase())
+      fdata = {"location": city.toLowerCase(),"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+    }
+    filterNow()
+  },[])
+
+ 
+  useEffect(()=>{
+    fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+  },[selectedOption,selectedcg,selectedpr,selectedrt])
+
   const options = [
     { value: "ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
@@ -32,6 +49,11 @@ function ServiceFilter(props) {
     { value: "surat", label: "Surat" },
     { value: "anand", label: "Anand" },
   ];
+
+  function filterNow(){
+    props.sendtopage(fdata);
+  }
+
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
@@ -112,7 +134,8 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={{label:selectedOption!=""?selectedOption:"Location", value: selectedOption }}
+                defaultValue={{label:fdata.city!=""?fdata.city:"Location", value: fdata.city }}
+                value={{label:selectedOption!=""?selectedOption:"Location", value: selectedOption }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
@@ -157,6 +180,7 @@ function ServiceFilter(props) {
                 <option value="4">4 Star</option>
                 <option value="5">5 Star </option>
               </select>
+              <button type="button" onClick={filterNow} class="btn btn-success">Filter</button>
             </div>
           </div>
         </div>

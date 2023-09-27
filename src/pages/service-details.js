@@ -5,43 +5,74 @@ import Layout from "./../components/layout/Layout";
 import { MyContext } from "../components/context";
 import { useEffect } from "react";
 import axios from "axios";
-import { Dialog, DialogTitle, ToggleButton } from "@mui/material";
+import { Dialog, DialogTitle } from "@mui/material";
 import { auth } from "../firebase/firebase";
-import LoginPage from "../components/acount/login";
-import SignUpPage from "../components/acount/sign-up";
-import OrderNow from "../components/service/ordernow";
-import OrderPlaced from "../components/service/orderPlaced";
+var LoginPage = undefined;
+var SignUpPage = undefined;
+var OrderNow = undefined;
+var OrderPlaced = undefined;
+if (typeof window !== "undefined") {
+  import("../components/service/ordernow").then((module) => {
+    OrderNow = module.default;
+  });
+  import("../components/acount/login").then((module) => {
+    LoginPage = module.default;
+  });
+  import("../components/acount/sign-up").then((module) => {
+    SignUpPage = module.default;
+  });
+  import("../components/service/orderPlaced").then((module) => {
+    OrderPlaced = module.default;
+  });
+}
 
 function ServiceDetailsPage() {
-  const { serviceName } = useContext(MyContext);
   const [authentication, setAuthentication] = useState();
-  const [orderPlaced,setOrderPlaced]=useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const { serviceName } = useContext(MyContext);
+
+  // useEffect(() => {
+  //   const orderNowContainer = document.getElementById('orderNowContainer');
+  //   const orderNowComponent = new OrderNow();
+  //   orderNowContainer.appendChild(orderNowComponent.render()); 
+  
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
+  
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
       if (user) {
-        setAuthentication(user);
-        setShowLogin(false);
-        getOrders();
-        getReviews();
-        checkOrderPlaced();
+        if (serviceName.uid != undefined) {
+          setAuthentication(user);
+          setShowLogin(false);
+          getOrders();
+          getReviews();
+          checkOrderPlaced();
+        } else {
+          window.location = "/service";
+        }
       } else {
         setShowLogin(true);
       }
     });
   }, [serviceName, authentication]);
 
-  function checkOrderPlaced(){
-    axios.post("http://localhost:5000/check-for-order-placed",{
-      orderToUid:serviceName.uid,
-      orderByUid:auth.currentUser.uid
-    }).then((res)=>{
-      if(res.data=="placed"){
-        setOrderPlaced(true);
-      }else{
-        setOrderPlaced(false);
-      }
-    })
+  function checkOrderPlaced() {
+    axios
+      .post("http://localhost:5000/check-for-order-placed", {
+        orderToUid: serviceName.uid,
+        orderByUid: auth.currentUser.uid,
+      })
+      .then((res) => {
+        if (res.data == "placed") {
+          setOrderPlaced(true);
+        } else {
+          setOrderPlaced(false);
+        }
+      });
   }
 
   const [totalOrders, setTotalOrders] = useState(0);
@@ -59,7 +90,7 @@ function ServiceDetailsPage() {
   }
 
   const [reviews, setReviews] = useState([]);
-  const [avgrate, setAvgRate] = useState(2);
+  const [avgrate, setAvgRate] = useState(0);
   function getReviews() {
     axios
       .post("http://localhost:5000/get-review-worker", {
@@ -103,36 +134,62 @@ function ServiceDetailsPage() {
     }
   };
 
-  const [showOrderPlaced,setShowOrderPlaced]=useState(false);
-  
-  const closeorderplaced = ()=>{
-    setShowOrderPlaced(false)
-  }
+  const [showOrderPlaced, setShowOrderPlaced] = useState(false);
+
+  const closeorderplaced = () => {
+    setShowOrderPlaced(false);
+  };
 
   return (
     <Layout>
       <Breadcrumb pageName="Service Details" pageTitle="Service Details" />
       <Dialog open={showLogin} onClose={closeLogin}>
-        <LoginPage signup={setShowSignUp} login={setShowLogin}/>
+        <div id="logincontainer">
+          <LoginPage signup={setShowSignUp} login={setShowLogin} />
+        </div>
       </Dialog>
       <Dialog open={showSignUp} onClose={closeSignUp}>
-        <SignUpPage signup={setShowSignUp} login={setShowLogin}/>
+        <div id="signupcontainer">
+          <SignUpPage signup={setShowSignUp} login={setShowLogin} />
+        </div>
       </Dialog>
       {authentication && (
-        <Dialog open={showOrderNow} onClose={closeorderNow} PaperProps={{
-          sx: {
-            width: "fit-content",
-          }}}>
-          <DialogTitle style={{color:"red"}}><b>Order will be placed after selecting address</b></DialogTitle>
-          <OrderNow  workerdetail={serviceName} uid={authentication.uid} showdialog={setShowOrderNow} orderPlaced={setOrderPlaced} showOrder={setShowOrderPlaced} />
-        </Dialog>
+        <div id="ordernowcontainer">
+          <Dialog
+            open={showOrderNow}
+            onClose={closeorderNow}
+            PaperProps={{
+              sx: {
+                width: "fit-content",
+              },
+            }}
+          >
+            <DialogTitle style={{ color: "red" }}>
+              <b>Order will be placed after selecting address</b>
+            </DialogTitle>
+            <OrderNow
+              workerdetail={serviceName}
+              uid={authentication.uid}
+              showdialog={setShowOrderNow}
+              orderPlaced={setOrderPlaced}
+              showOrder={setShowOrderPlaced}
+            />
+          </Dialog>
+        </div>
       )}
-      <Dialog open={showOrderPlaced} onClose={closeorderplaced} PaperProps={{
-          sx: {
-            width: "fit-content",
-          }}}>
-            <OrderPlaced/>
+      <div id="orderplacedcontainer">
+        <Dialog
+          open={showOrderPlaced}
+          onClose={closeorderplaced}
+          PaperProps={{
+            sx: {
+              width: "fit-content",
+            },
+          }}
+        >
+          <OrderPlaced />
         </Dialog>
+      </div>
 
       <section id="down" className="services-details-area sec-m-top">
         <div className="container">
@@ -267,7 +324,13 @@ function ServiceDetailsPage() {
 
                     <div className="package book-btn">
                       <Link legacyBehavior href="#">
-                        <a onClick={()=>{orderPlaced ? "" : setShowOrderNow(true)}}>{orderPlaced?"Service Booked":"Book Now"}</a>
+                        <a
+                          onClick={() => {
+                            orderPlaced ? "" : setShowOrderNow(true);
+                          }}
+                        >
+                          {orderPlaced ? "Service Booked" : "Book Now"}
+                        </a>
                       </Link>
                     </div>
                   </div>
@@ -318,8 +381,8 @@ function ServiceDetailsPage() {
                                 avgrate >= 5 ? "bi bi-star-fill" : "bi bi-star"
                               }
                             />
-                            <b>({avgrate?avgrate:0}/5)</b>
-                          </strong>       
+                            <b>({avgrate ? Number.parseInt(avgrate) : 0}/5)</b>
+                          </strong>
                         </h5>
                       </div>
                     </div>

@@ -24,7 +24,7 @@
     "http-proxy-middleware": "^2.0.6",
     "mongoose": "^7.3.1",
     "net": "^1.0.2",
-    "next": "^13.2.1",
+    "next": "^13.5.2",
     "react": "^18.2.0",
     "react-countup": "^6.4.2",
     "react-cropper": "^2.3.3",

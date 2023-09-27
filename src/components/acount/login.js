@@ -8,6 +8,7 @@ import { googleProvider } from "../../firebase/firebase";
 import { auth } from "../../firebase/firebase";
 import { MyContext } from "../context";
 import { Dialog, DialogTitle } from "@mui/material";
+import axios from "axios";
 
 function LoginPage(props) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -23,8 +24,33 @@ function LoginPage(props) {
     if (email != null && email != "" && password != null && password != "") {
       if (document.getElementById("check_terms_signup").checked) {
         signInWithEmailAndPassword(auth, email, password)
-          .then((res) => {
+          .then(async (res) => {
             props.login(false)
+            // console.log(res.user.uid)
+            if (auth.currentUser) {
+              const useruid = auth.currentUser.uid;
+              const idtoken = await auth.currentUser.getIdToken();
+              axios
+                .post(`http://localhost:5000/get-user-data/`, {
+                  uid: useruid,
+                  idtoken: idtoken,
+                })
+                .then((data) => {
+                  if (data.status == 200) {
+                    localStorage.setItem('city',data.data.city)
+                  } else {
+                    window.alert("something went wrong");
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                  if (error.response && error.response.status == 404) {
+                    window.location = "/login-google-required";
+                  } else {
+                    window.alert(error.message);
+                  }
+                });
+            }
           })
           .catch((err) => window.alert(err));
       } else {

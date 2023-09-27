@@ -14,8 +14,99 @@ const { response } = require("express");
 const { default: mongoose } = require("mongoose");
 app.use(cookieParser());
 app.use(express.json());
+const { spawn,signal } = require("child_process");
+const { exec } = require("node:child_process");
+const { stringify } = require("querystring");
+const { default: axios } = require("axios");
+const { kill } = require("process");
 
 var loggedin = false;
+
+app.get("/get-review-score", async (req, res) => {
+  exec(
+    "python c:/Users/Sagar.Mulani/Dev/Python/sentiment.py " + req.query.text,
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        res.status(500).send(error);
+        return;
+      }
+      if (stderr) {
+        console.error(`Python Error: ${stderr}`);
+        res.status(500).send(error);
+        return;
+      }
+      const prediction = stdout;
+      console.log(prediction);
+      res.send(prediction);
+    }
+  );
+});
+
+app.get("/get-review-score-from-service", async (req, res) => {
+  servicesModel
+    .findOne({ uid: req.query.uid })
+    .then((resp) => {
+      res.send(resp);
+    })
+    .catch((err) => {
+      console.log("rs" + err);
+    });
+});
+
+app.post("/set-review-score", async (req, res) => {
+  console.log(req.body.score + "set review");
+  servicesModel
+    .findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          review_score: req.body.score,
+        },
+      }
+    )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/get-work-count", async (req, res) => {
+  await OrderWorker.find({ orderToUid: req.query.uid })
+    .then((data) => {
+      console.log(data);
+      if (data) {
+        res.send(data.length.toString());
+      } else {
+        res.send("0");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post("/set-work-count", async (req, res) => {
+  servicesModel
+    .findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          no_works: req.body.count,
+        },
+      }
+    )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err + "a");
+    });
+});
+
+
 
 async function middleware(request, response, next) {
   loggedin = request.body.idtoken;
@@ -65,7 +156,7 @@ app.post("/checkworkeractive", (req, res) => {
   workeractive.collection.findOne(
     { uid: req.body.uid },
     async function (error, data) {
-      if (data) {
+      if (data.enabled) {
         res.send("online");
       } else {
         res.send("offline");
@@ -80,94 +171,121 @@ app.post("/checkworkeractive", (req, res) => {
 app.post("/setworkeractive", (req, res) => {
   const workeractive = new servicesModel(req.body);
   console.log(req.body.uid);
-  workeractive.collection.findOne(
-    { uid: req.body.uid },
-    async function (error, data) {
-      if (data) {
-        res.send("alreadyactive");
-      } else {
-        try {
-          await workeractive.save();
-          res.send("done");
-        } catch (error) {
-          console.log(error);
-          res.status(500).send(error);
-        }
+  workeractive.collection
+    .findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          no_works: req.body.no_works,
+          enabled: true,
+        },
       }
-      if (error) {
+    )
+    .then((r) => {
+      res.send("done");
+    })
+    .catch(async (err) => {
+      console.log(err);
+      try {
+        await workeractive.save();
+        res.send("done");
+      } catch (error) {
         console.log(error);
+        res.status(500).send(error);
       }
-    }
-  );
+    });
 });
 
 app.post("/setworkeroffline", (req, res) => {
   servicesModel
-    .deleteOne({ uid: req.body.uid })
+    .findOneAndUpdate(
+      { uid: req.body.uid },
+      {
+        $set: {
+          enabled: false,
+        },
+      }
+    )
     .then(() => {
       res.send("success");
     })
     .catch((error) => {
+      console.log(error);
       res.send(error);
     });
 });
 
-app.get("/data", async (req, res) => {
+app.get("/data", (req, res) => {
   try {
     const { tag, location, price, rating } = req.query;
-    const filter = {};
+    console.log(price);
+    var filter = {};
     if (tag != "") {
       filter.tag = tag.toLowerCase();
-      console.log(tag);
+    } else {
+      filter.tag = 0;
     }
     if (location) {
       filter.location = location;
+    } else {
+      filter.location = 0;
     }
     if (price) {
-      if (price == 500) {
-        filter.price = {
-          $gte: 0,
-          $lte: 500,
-        };
-        console.log(filter.price);
-      }
-      if (price == 2000 - 5000) {
-        filter.price = {
-          $gte: 2000,
-          $lte: 5000,
-        };
-        console.log(filter.price);
-      }
-      if (price == 500 - 1000) {
-        filter.price = {
-          $gte: 500,
-          $lte: 1000,
-        };
-        console.log(filter.price);
-      }
-      if (price == 1000 - 2000) {
-        filter.price = {
-          $gte: 1000,
-          $lte: 2000,
-        };
-        console.log(filter.price);
-      }
+      filter.price = price;
+    } else {
+      filter.price = 0;
     }
     if (rating) {
       filter.rating = rating;
+    } else {
+      filter.rating = 0;
     }
-    console.log(filter);
-    servicesModel
-      .find(filter)
-      .then((data) => {
-        console.log(data);
-        res.json(data);
-      })
-      .catch((error) => {
-        res.send(error);
+    filter.enabled = true;
+    console.log(filter)
+
+    execution_str = [
+      "python",
+      "c:/Users/Sagar.Mulani/Dev/Python/model.py",
+      filter.tag,
+      filter.price,
+      filter.location,
+      filter.rating,
+    ];
+    const command = spawn(execution_str[0], execution_str.slice(1));
+    
+    let responseData = ''; 
+    command.stdout.on("data", (data) => {
+      responseData = data.toString(); 
+    });
+
+    command.stderr.on("data", (data) => {
+      console.error(`stderr: ${data}`);
+    });
+  
+    command.on("close", (code) => {
+      command.kill(code)
+      console.log(`child process exited with code ${code}`);
+      const csvData = responseData.trim();
+      const lines = csvData.split("\n");
+      const header = lines[0].split(",");
+      const finaldata = lines.slice(1).map((line) => {
+        const values = line.split(",");
+        const cleanedValues = values.map((value) => value.trim());
+        return header.reduce((obj, key, index) => {
+          obj[key.trim()] = cleanedValues[index];
+          return obj;
+        }, {});
       });
+      res.json(finaldata)
+    });
+
+    command.on("error", (error) => {
+      console.error(`Error executing process: ${error.message}`);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+
   } catch (error) {
-    console.error(error);
+    console.error("last "+error.message);
     res.status(500).json({ error: "An error occurred" });
   }
 });
@@ -215,40 +333,39 @@ app.post(`/get-user-data/`, middleware, async (req, res) => {
   });
 });
 
-app.post("/update-profile-pic-worker",async(req,res)=>{
+app.post("/update-profile-pic-worker", async (req, res) => {
   const worker = new userWorkerModel(req.body);
-  try{
+  try {
     const updatePP = await worker.collection.findOneAndUpdate(
       { uid: req.body.uid },
       {
         $set: {
-          imageUrl:req.body.imageUrl
+          imageUrl: req.body.imageUrl,
         },
       }
     );
-    res.send("success")
-  }catch(error){
+    res.send("success");
+  } catch (error) {
     res.status(500).send(error);
   }
-})
+});
 
-app.post("/update-profile-pic-client",async(req,res)=>{
+app.post("/update-profile-pic-client", async (req, res) => {
   const client = new userClientModel(req.body);
-  try{
+  try {
     const updatePP = await client.collection.findOneAndUpdate(
       { uid: req.body.uid },
       {
         $set: {
-          imageUrl:req.body.imageUrl
+          imageUrl: req.body.imageUrl,
         },
       }
     );
-    res.send("success")
-  }catch(error){
+    res.send("success");
+  } catch (error) {
     res.status(500).send(error);
   }
-})
-
+});
 
 app.post(`/update-user-worker/`, async (req, res) => {
   const user = new userWorkerModel(req.body);
@@ -328,46 +445,50 @@ app.post(`/get-orders-worker/`, async (req, res) => {
     });
 });
 
-async function checkOrderplaced(req,res,next){
-  await OrderWorker.find({orderByUid:req.body.orderByUid,orderToUid:req.body.orderToUid})
-  .then((workers)=>{
-    console.log(workers)
-    if(workers!=null){
-      var go = false;
-      for(var i=0;i<workers.length;i++){
-        if(workers[i].status!="completed"){
-          go = true;
-          break;
-        }
-      }
-      if(!go){
-        next();
-      }else{
-        res.send("placed");
-      }
-    }else{
-      next();
-    }
-  }).catch((error)=>{
-    console.log(error)
-    res.send(error)
+async function checkOrderplaced(req, res, next) {
+  await OrderWorker.find({
+    orderByUid: req.body.orderByUid,
+    orderToUid: req.body.orderToUid,
   })
+    .then((workers) => {
+      console.log(workers);
+      if (workers != null) {
+        var go = false;
+        for (var i = 0; i < workers.length; i++) {
+          if (workers[i].status != "completed") {
+            go = true;
+            break;
+          }
+        }
+        if (!go) {
+          next();
+        } else {
+          res.send("placed");
+        }
+      } else {
+        next();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
 }
 
-app.post("/check-for-order-placed",checkOrderplaced,(req,res)=>{
+app.post("/check-for-order-placed", checkOrderplaced, (req, res) => {
   res.send("notplaced");
-})
+});
 
-app.post("/set-order-work",checkOrderplaced,async(req,res)=>{
+app.post("/set-order-work", checkOrderplaced, async (req, res) => {
   const ordernow = new OrderWorker(req.body);
   try {
     await ordernow.save();
     res.send("success");
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).send(error);
   }
-})
+});
 
 app.post(`/get-orders-client/`, async (req, res) => {
   const userid = req.body.orderByUid;
@@ -378,6 +499,19 @@ app.post(`/get-orders-client/`, async (req, res) => {
     })
     .catch((error) => {
       res.send(error);
+    });
+});
+
+app.post("/set-avg-review-worker", async (req, res) => {
+  const rate = Number.parseInt(req.body.rate);
+  const userid = req.body.uid;
+  servicesModel
+    .findOneAndUpdate({ uid: userid }, { $set: { rating: rate } })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 
@@ -393,25 +527,30 @@ app.post(`/get-review-worker`, async (req, res) => {
     });
 });
 
-async function updatePrice(req,res,next){
-  OrderWorker.findOneAndUpdate({_id:req.body.workId},{
-    $set:{
-      amount:req.body.price
+async function updatePrice(req, res, next) {
+  OrderWorker.findOneAndUpdate(
+    { _id: req.body.workId },
+    {
+      $set: {
+        amount: req.body.price,
+      },
     }
-  }).then((res)=>{
-    next();
-  }).catch((error)=>{
-    res.status(500).send(error);
-  })
+  )
+    .then((res) => {
+      next();
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 }
 
-app.post(`/set-review-worker`,updatePrice ,async (req, res) => {
+app.post(`/set-review-worker`, updatePrice, async (req, res) => {
   const reviewModel = new Review(req.body);
-  try{
-    reviewModel.save()
-    res.send(reviewModel)
-  }catch(error){
-    res.status(500).send(error)
+  try {
+    reviewModel.save();
+    res.send(reviewModel);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
@@ -434,11 +573,14 @@ app.post("/set-current-work", async (request, response) => {
 });
 
 app.post("/cancel-service", async (req, res) => {
-  OrderWorker.findOneAndUpdate({ _id: req.body._id },{
-    $set: {
-      status: "cancelled",
-    },
-  })
+  OrderWorker.findOneAndUpdate(
+    { _id: req.body._id },
+    {
+      $set: {
+        status: "cancelled",
+      },
+    }
+  )
     .then(() => {
       res.send("success");
     })

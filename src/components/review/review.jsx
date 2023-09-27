@@ -9,7 +9,21 @@ function Review(props) {
 
   const handleSubmit = () => {
     if (rating != 0 && review != "" && price != null) {
-      axios
+      axios.get("http://localhost:5000/get-review-score",{params:{
+        text:review
+      }}).then((data)=>{
+        var s = data.data;
+        if(!s){
+          s=0;
+        }
+        var score = s;
+        if(props.review_score && props.review_score!=0){
+          score = (props.review_score+s)/2
+        }
+        if(!score || !Number.isInteger(score)){
+          score=0;
+        }
+        axios
         .post("http://localhost:5000/set-review-worker", {
           uid: props.uid,
           clientUid: props.clientUid,
@@ -20,15 +34,25 @@ function Review(props) {
           price: price,
         })
         .then((res) => {
-            props.closeDialog(false)
+            axios.post('http://localhost:5000/set-review-score',{
+              uid:props.uid,
+              score:score,
+            }).then((res)=>{
+              console.log(res)
+              props.closeDialog(false)              
+            }).catch((err)=>{
+              console.log(err);
+            })
         })
         .catch((error) => {
           console.log(error);
         });
+      })
+    
     }else{
         window.alert("please enter valid fields")
     }
-  };
+  }
 
   return (
     <div className="container d-flex justify-content-center ">

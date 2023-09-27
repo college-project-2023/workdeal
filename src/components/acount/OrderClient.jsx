@@ -1,12 +1,14 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import axios from "axios";
 import { auth } from "../../firebase/firebase";
-import { Dialog, DialogTitle } from "@mui/material";
+import { Dialog, DialogTitle,ToggleButton } from "@mui/material";
 import Review from "../review/review";
 import DialogLayout from "../common/DialogLayout";
+import { connectStorageEmulator } from "firebase/storage";
 
 function OrderClient() {
   const [orders, setOrdersData] = useState([]);
+  const [itemToComplete,setItemToComplete]=useState({})
 
   async function getOrders() {
     if (auth.currentUser) {
@@ -22,12 +24,20 @@ function OrderClient() {
         .catch((error) => {
           console.log(error);
         });
+      axios
+        .get("http://localhost:5000/get-review-score-from-service", {
+          params: { uid: auth.currentUser.uid },
+        })
+        .then((res) => {
+          setReviewScore(res.data.review_score);
+        });
     }
   }
   const [uid, setUid] = useState();
   const [clientUid, setClientUid] = useState();
   const [name, setName] = useState();
   const [workId, setWorkId] = useState();
+  const [review_score, setReviewScore] = useState();
 
   function getCurrentComplete(id) {
     for (let i = 0; i < orders.length; i++) {
@@ -54,18 +64,47 @@ function OrderClient() {
       });
   }
 
-  async function completeTheservice(id) {
+  function isCompleted(id,uid) {
+    setItemToComplete({id:id,uid:uid})
+    setShowCompleted(true);
+  }
+
+  async function completeTheservice() {
+
     await axios
       .post("http://localhost:5000/complete-service", {
-        _id: id,
+        _id: itemToComplete.id,
       })
       .then((res) => {
         getOrders();
-        getCurrentComplete(id);
-        setShowCompleted(true);
+        getCurrentComplete(itemToComplete.id);
+        setShowCompleted(false);
+        setWorkCount(itemToComplete.uid);
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  async function setWorkCount(orderToUid) {
+    const uid = orderToUid;
+    axios
+      .get("http://localhost:5000/get-work-count", {
+        uid: uid,
+      })
+      .then((res) => {
+        axios
+          .post("http://localhost:5000/set-work-count", {
+            uid: uid,
+            count: res,
+          })
+          .then((res) => {})
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -94,6 +133,7 @@ function OrderClient() {
           uid={uid}
           clientUid={clientUid}
           name={name}
+          review_score={review_score}
           workId={workId}
           closeDialog={setOpenReview}
         />
@@ -106,13 +146,29 @@ function OrderClient() {
         />
       )}
       {showCompleted && (
-        <DialogLayout
-          title={"Completed?"}
-          content={
-            "is service provided by worker? please click 'YES' if work is dservice booking cancelledone"
-          }
-          buttonText={"YES"}
-        />
+        <Dialog open={showCompleted} close={close}>
+          <center>
+            <DialogTitle>Completed?</DialogTitle>
+            <p
+              style={{
+                marginLeft: "30px",
+                marginRight: "30px",
+                marginBottom: "20px",
+              }}
+            >
+              "is service provided by worker? please click 'YES' if work is
+              done"
+            </p>
+          </center>
+          <div class="row">
+            <div class="col-6">
+              <ToggleButton onClick={completeTheservice}>YES</ToggleButton>
+            </div>
+            <div class="col-6">
+              <ToggleButton onClick={close}>NO</ToggleButton>
+            </div>
+          </div>
+        </Dialog>
       )}
 
       <div className="all-order">
@@ -162,7 +218,9 @@ function OrderClient() {
                             <button
                               className="btn-current-task-cancel"
                               type="button"
-                              onClick={() => completeTheservice(item._id)}
+                              onClick={() =>
+                                isCompleted(item._id,item.orderToUid)
+                              }
                             >
                               completed?
                             </button>
@@ -172,7 +230,10 @@ function OrderClient() {
                             completed
                           </button>
                         ) : item.status == "cancelled" ? (
-                          <button className="btn-current-task-cancel" type="button">
+                          <button
+                            className="btn-current-task-cancel"
+                            type="button"
+                          >
                             cancelled
                           </button>
                         ) : (

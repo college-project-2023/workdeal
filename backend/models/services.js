@@ -36,6 +36,18 @@ const ServiceSchema = new mongoose.Schema({
   location:{
     type:String,
     require:true,
+  },
+  no_works:{
+    type:Number,
+    required:false,
+  },
+  review_score:{
+    type:Number,
+    required:false,
+  },
+  enabled:{
+    type:Boolean,
+    required:false,
   }
 },{
   collection:"services"
@@ -43,6 +55,6 @@ const ServiceSchema = new mongoose.Schema({
 
 
 const mydb = mongoose.connection.useDb('workdeal');
-const service = mydb.model("service", ServiceSchema);
+const servicesModel = mydb.model("servicesModel", ServiceSchema);
 
-module.exports = service;
+module.exports = servicesModel;

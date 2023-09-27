@@ -29,61 +29,105 @@ function Accountpage() {
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
 
-  function getReviews() {
-    
-  }
-
+  function getReviews() {}
 
   const handleWorkerActive = async () => {
     var checkBox = document.getElementById("checkbox_worker_active");
     if (checkBox && checkBox.checked) {
       axios
-      .post("http://localhost:5000/get-review-worker", {
-        uid: auth.currentUser.uid,
-      })
-      .then((res) => {
-        var data = res.data;
-        console.log(avgrate+" "+data.length)
-        var avg = 0,
-          sum = 0;
-        for (var i = 0; i < data.length; i++) {
-          sum = sum + Number(data[i].rating);
-        }
-        if(data.length!=0){
-          avg = sum / data.length;
-          setAvgRate(avg);
-        }
-        if (userdata && userdata.city) {
-          axios
-            .post("http://localhost:5000/setworkeractive", {
-              uid: auth.currentUser.uid,
-              tag: userdata.service.toLowerCase(),
-              thumb: "assets/images/cre-service/" + userdata.service + ".png",
-              author_thumb: imageUrl,
-              author_name: userdata.fname + " " + userdata.lname,
-              title: userdata.service,
-              price: avgPrice,
-              rating:avgrate,
-            })
-            .catch((error) => {
-              checkBox.checked = false;
-              window.alert(error);
-            })
-            .then((res) => {
-              console.log(res.data);
-              if (res == "online") {
-                checkBox.checked = true;
-              }
-            });
-        } else {
-          checkBox.checked = false;
-          window.alert("Please complete your profile");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      
+        .post("http://localhost:5000/get-review-worker", {
+          uid: auth.currentUser.uid,
+        })
+        .then((res) => {
+          var data = res.data;
+          var avg = 0,
+            sum = 0;
+          for (var i = 0; i < data.length; i++) {
+            sum = sum + Number(data[i].rating);
+          }
+          if (data.length != 0) {
+            avg = sum / data.length;
+            setAvgRate(avg);
+          }
+          if (userdata && userdata.city) {
+            axios
+              .get("http://localhost:5000/get-work-count", {
+                params: { uid: auth.currentUser.uid },
+              })
+              .then((count) => {
+                var countwork = count.data;
+                console.log(countwork);
+                axios
+                  .get("http://localhost:5000/get-review-score-from-service", {
+                    params: { uid: auth.currentUser.uid },
+                  })
+                  .then((review_score) => {
+                    axios
+                      .post("http://localhost:5000/get-review-worker", {
+                        uid: auth.currentUser.uid,
+                      })
+                      .then((res) => {
+                        console.log(res.data);
+                        var data = res.data;
+                        var avg = 0,
+                          sum = 0;
+                        for (var i = 0; i < data.length; i++) {
+                          sum = sum + Number(data[i].rating);
+                        }
+                        avg = sum / data.length;
+                        console.log(avg)
+                        axios
+                          .post("http://localhost:5000/set-avg-review-worker", {
+                            uid: auth.currentUser.uid,
+                            rate: avg,
+                          })
+                          .then((res) => {
+                            console.log(res)
+                            axios
+                              .post("http://localhost:5000/setworkeractive", {
+                                uid: auth.currentUser.uid,
+                                tag: userdata.service.toLowerCase(),
+                                thumb:
+                                  "assets/images/cre-service/" +
+                                  userdata.service +
+                                  ".png",
+                                author_thumb: imageUrl,
+                                author_name:
+                                  userdata.fname + " " + userdata.lname,
+                                title: userdata.service,
+                                price: avgPrice,
+                                no_works: Number.parseInt(countwork),
+                                review_score: Number.parseInt(
+                                  review_score.data.review_score
+                                ),
+                                enabled: true,
+                                rating: avgrate,
+                              })
+                              .catch((error) => {
+                                checkBox.checked = false;
+                                window.alert(error);
+                              })
+                              .then((res) => {
+                                console.log(res.data);
+                                if (res == "online") {
+                                  checkBox.checked = true;
+                                }
+                              });
+                          });
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  });
+              });
+          } else {
+            checkBox.checked = false;
+            window.alert("Please complete your profile");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       if (userdata) {
         await axios
@@ -104,7 +148,8 @@ function Accountpage() {
   };
 
   useEffect(() => {
-    if (auth.currentUser) {
+    if (auth.currentUser && userdata && userdata.typeofacc == "worker") {
+      console.log(userdata);
       var checkBox = document.getElementById("checkbox_worker_active");
       axios
         .post("http://localhost:5000/checkworkeractive", {
@@ -118,7 +163,7 @@ function Accountpage() {
           }
         });
     }
-  }, [auth.currentUser]);
+  }, [auth.currentUser, userdata]);
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
@@ -140,9 +185,13 @@ function Accountpage() {
           })
           .then((data) => {
             if (data.status == 200) {
+              console.log(data);
               setUserdata(data.data);
               setTypeOfAcc(data.data.typeofacc);
-              if(data.data.imageUrl!=null || data.data.imageUrl!=undefined){
+              if (
+                data.data.imageUrl != null ||
+                data.data.imageUrl != undefined
+              ) {
                 setImageUrl(data.data.imageUrl);
               }
               setAddress1(data.data.address);
@@ -152,6 +201,7 @@ function Accountpage() {
             }
           })
           .catch((error) => {
+            console.log(error);
             if (error.response.status == 404) {
               window.location = "/login-google-required";
             } else {
@@ -258,7 +308,7 @@ function Accountpage() {
   };
 
   const handelCroppedImage = () => {
-    setShowCropImage(false)
+    setShowCropImage(false);
     var binary = atob(cropedFile.split(",")[1]);
     var array = [];
     for (var i = 0; i < binary.length; i++) {
@@ -283,33 +333,29 @@ function Accountpage() {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
             console.log(url);
-            setImageUrl(url)
+            setImageUrl(url);
             setShowImageUpload(false);
-            if(userdata.typeofacc=="worker"){axios
-              .post("http://localhost:5000/update-profile-pic-worker", {
-                uid: userdata.uid,
-                imageUrl: url,
-              })
-              .then((res) => {
-
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-            }else{
+            if (userdata.typeofacc == "worker") {
               axios
-              .post("http://localhost:5000/update-profile-pic-client", {
-                uid: userdata.uid,
-                imageUrl: url,
-              })
-              .then((res) => {
-
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+                .post("http://localhost:5000/update-profile-pic-worker", {
+                  uid: userdata.uid,
+                  imageUrl: url,
+                })
+                .then((res) => {})
+                .catch((error) => {
+                  console.log(error);
+                });
+            } else {
+              axios
+                .post("http://localhost:5000/update-profile-pic-client", {
+                  uid: userdata.uid,
+                  imageUrl: url,
+                })
+                .then((res) => {})
+                .catch((error) => {
+                  console.log(error);
+                });
             }
-            
           });
         }
       );

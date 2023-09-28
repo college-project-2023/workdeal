@@ -27,7 +27,7 @@ if response.status_code == 200:
 df_store = pd.DataFrame(data)
 df = pd.DataFrame(data)
 
-df = pd.DataFrame(df,columns=['price','no_works','review_score'])
+df = pd.DataFrame(df,columns=['no_works','review_score','rating'])
 
 
 

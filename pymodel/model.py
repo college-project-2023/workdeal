@@ -1,12 +1,9 @@
-import json
 import warnings
 
 warnings.filterwarnings("ignore")
 import joblib
 import sys
 import pandas as pd
-import numpy as np
-from pymongo import MongoClient
 
 category = sys.argv[1]
 price = sys.argv[2]

@@ -173,6 +173,5 @@ print(f"R squared error:{r2:.2f}")
 
 import joblib
 
-# Assuming 'model' is your trained model
 joblib.dump(customModel, 'rating_prediction_model.pkl')
 

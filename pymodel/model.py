@@ -40,7 +40,7 @@ if(len(df)>0):
         predic.append(rating)
 
     df_store['recomend_score']=predic
-    df_store  = df_store.sort_values(by='recomend_score', ascending=False)
+    df_store  = df_store.sort_values(by=['recomend_score','price'], ascending=[False,True])
     print(df_store.to_csv(index=False))
 else:
     print(df_store.to_csv(index=False))

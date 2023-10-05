@@ -31,7 +31,7 @@ df = pd.DataFrame(df,columns=['no_works','review_score','rating'])
 
 
 
-loaded_model = joblib.load('c:/Users/Sagar.Mulani/Dev/Python/rating_prediction_model.pkl')
+loaded_model = joblib.load('pymodel/rating_prediction_model.pkl')
 predic=[]
 
 if(len(df)>0):

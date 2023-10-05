@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-with open("c:/Users/Sagar.Mulani/Dev/React/workdeal/pymodel/tempdata.json", 'r') as json_file:
+with open("tempdata.json", 'r') as json_file:
     data_list_service = json.load(json_file)
 
 data_df=pd.DataFrame(data_list_service)
@@ -74,13 +74,13 @@ customModel = customLinearRegression(b0,b2,b3,b4)
 # print(predict([[20,8,4],[10,9,4],[15,1,1]]))
 
 
-with open("c:/Users/Sagar.Mulani/Dev/Python/mongo_data.json", 'r') as json_file:
+with open("mongo_data.json", 'r') as json_file:
     data_list_service = json.load(json_file)
 
-with open('c:/Users/Sagar.Mulani/Dev/Python/mongo_review.json', 'r') as json_file:
+with open('mongo_review.json', 'r') as json_file:
     data_list_review = json.load(json_file)
 
-with open('c:/Users/Sagar.Mulani/Dev/Python/mongo_works.json', 'r') as json_file:
+with open('mongo_works.json', 'r') as json_file:
     data_list_works = json.load(json_file)
 
 

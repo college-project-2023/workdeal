@@ -1,10 +1,31 @@
 import Link from "next/link";
-import React, { useMemo } from "react";
+
+import React, { useMemo,useContext } from "react";
+import { MyContext } from "../context";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import serviceData from "../../data/service/creative_services.json";
+
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 function CreativeService() {
+
+  const handleServiceClick = (val)=>{
+    updateVariable({
+      location: "",
+      category: val,
+      pricerange: "",
+      rating: "",
+    });
+  }
+
+
+  const { serviceType, updateVariable } = useContext(MyContext);
+  
+  const handleService = (input) => {
+    console.log(input);
+    updateVariable({"location":"","category":input,"pricerange":"","rating":""});
+  }
+
   const slider = useMemo(() => {
     return {
       slidesPerView: 6,
@@ -51,7 +72,7 @@ function CreativeService() {
             >
               <div className="title-left">
                 <span>Category</span>
-                <h2>See Our All Creative Services</h2>
+                <h2>See All Creative Services</h2>
               </div>
               <div className="title-right">
                 <strong>Category</strong>
@@ -75,6 +96,7 @@ function CreativeService() {
                 <SwiperSlide key={id} className="swiper-slide">
                   <div
                     className="creative-service wow animate fadeInDown"
+                   
                     data-wow-delay="200ms"
                     data-wow-duration="1500ms"
                   >
@@ -86,8 +108,8 @@ function CreativeService() {
                       </div>
                     </div>
                     <h6>
-                      <Link legacyBehavior href="/service-details">
-                        <a>{service_name}</a>
+                      <Link legacyBehavior href="/service">
+                        <a onClick={()=>handleServiceClick(service_name)}>{service_name}</a>
                       </Link>
                     </h6>
                   </div>

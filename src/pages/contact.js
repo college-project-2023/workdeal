@@ -1,8 +1,14 @@
 import React from "react";
 import Breadcrumb from "./../components/common/Breadcrumb";
 import Layout from "./../components/layout/Layout";
+import { useContext,useEffect } from "react";
+import { MyContext } from "../components/context";
 
 function ContactPage() {
+  const {isService}=useContext(MyContext);
+  useEffect(()=>{
+    console.log(isService)
+  },[isService])
   return (
     <Layout>
       <Breadcrumb pageName="Contact" pageTitle="Contact" />
@@ -28,8 +34,8 @@ function ContactPage() {
                   </div>
                   <div className="desc">
                     <h4>Phone</h4>
-                    <a href="tel:01761111456">+880 176 1111 456</a>
-                    <a href="tel:01761111555">+880 176 1111 555</a>
+                    <a href="tel:01761111456">+91 7833445323</a>
+                    <a href="tel:01761111555">+91 7833445323</a>
                   </div>
                 </div>
               </div>
@@ -50,10 +56,7 @@ function ContactPage() {
           <div className="contact-form">
             <span>We’re Ready To Help You</span>
             <h2>Send Message</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-              eiusmodesmu.
-            </p>
+            <p>Fill out below form to book service</p>
             <form action="#" method="post">
               <div className="row">
                 <div className="col-lg-6">

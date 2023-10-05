@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef, useContext,useState } from "react";
 import { auth } from "../../firebase/firebase";
+import { MyContext } from "../context";
 // inital state data
 const initialState = {
   activeMenu: "",
@@ -9,13 +10,7 @@ const initialState = {
   scrollY: 0,
 };
 
-function gotoaccount() {
-  if (auth.currentUser != null) {
-    window.location = "/account";
-  } else {
-    window.location = "/login";
-  }
-}
+
 
 // usnig reducer to change logic
 function reducer(state, action) {
@@ -49,6 +44,12 @@ function Header1() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const currentRoute = useRouter().pathname;
   const headerRef = useRef(null);
+  const [mobileHeader,setMobileheader]=useState(false);
+
+  const { serviceType, updateVariable } = useContext(MyContext);
+  const handleInitialServices = () => {
+    updateVariable({ location: "", category: "", pricerange: "", rating: "" });
+  };
   // menu fuction for toggle
   function handleMenu(menuName) {
     dispatch({ type: "TOGGLE", payload: menuName });
@@ -84,6 +85,7 @@ function Header1() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  
   return (
     <header
       ref={headerRef}
@@ -139,7 +141,10 @@ function Header1() {
             </li>
             <li>
               <Link legacyBehavior href="/service">
-                <a className={currentRoute === "/service" ? "active" : ""}>
+                <a
+                  onClick={handleInitialServices}
+                  className={currentRoute === "/service" ? "active" : ""}
+                >
                   Services
                 </a>
               </Link>
@@ -147,20 +152,13 @@ function Header1() {
             <li>
               <Link legacyBehavior href="/blog-details">
                 <a className={currentRoute === "/blog-details" ? "active" : ""}>
-                  What's going on
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link legacyBehavior href="/contact">
-                <a className={currentRoute === "/contact" ? "active" : ""}>
-                  Contact Us
+                  News Feed
                 </a>
               </Link>
             </li>
           </ul>
           <div className="my-account">
-            <Link legacyBehavior href="/sign-up-type">
+            <Link legacyBehavior href="/account">
               <a>My Account</a>
             </Link>
           </div>
@@ -173,7 +171,7 @@ function Header1() {
           </div>
           <div className="phn-info">
             <span>Call Us Now</span>
-            <a href="tel:01701111000">+880 170 1111 000</a>
+            <a href="tel:01701111000">+91 7844932404</a>
           </div>
         </div>
         <div className="wishlist">
@@ -183,11 +181,13 @@ function Header1() {
             </a>
           </Link>
         </div>
-        <div className="account-btn" onClick={gotoaccount}>
-          <a>My Account</a>
+        <div className="account-btn">
+          <Link legacyBehavior href="/account">
+            <a>My Account</a>
+          </Link>
         </div>
-        <div className="mobile-menu">
-          <a href="#" className="cross-btn">
+        <div className="mobile-menu" onClick={()=>{setMobileheader(true)}}>
+          <a className="cross-btn" onClick={()=>{setMobileheader(false)}}>
             <span className="cross-top" />
             <span className="cross-middle" />
             <span className="cross-bottom" />

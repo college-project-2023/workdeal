@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+import cities from "../../data/profile/pincode_IN.json";
 import axios from "axios";
 
 function UserProfile(props) {
@@ -11,13 +12,22 @@ function UserProfile(props) {
   const [address, setAdress] = useState(props.user.address);
   const [addrcity, setCity] = useState(props.user.city);
   const [zipcode, setZipCode] = useState(props.user.zipcode);
-  const [addrstatename, setStateName] = useState(props.user.statename);
-  const [addrcountry, setCountry] = useState(props.user.country);
+  const [addrstatename, setStateName] = useState("Gujarat");
+  const [addrcountry, setCountry] = useState("India");
   const [password, setPass] = useState("");
-  
 
-
-
+  useEffect(() => {
+    if (zipcode && zipcode.length == 6) {
+      fetch("https://api.postalpincode.in/pincode/" + zipcode)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setCity(responseJson[0].PostOffice[0].District);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [zipcode, addrcity]);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -28,33 +38,37 @@ function UserProfile(props) {
     var ele = document.getElementById("btn_submit_updat_profile");
     ele.disabled = true;
     ele.style.backgroundColor = "Gray";
-      if (password != null && password != "") {
+    if (password != null && password != "") {
+      if (zipcode.length != 6 && mobile.length!=10 && addrcity==null && address==null) {
+        ele.disabled = false;
+        ele.style.backgroundColor = "#5bb543";
+        window.alert("please fill correct details");
+      } else {
         signInWithEmailAndPassword(auth, email, password)
           .then((res) => {
             var typeofaccount;
-            if (props.user.typeofacc=="worker"){
-              typeofaccount="worker"
-            }else{
-              typeofaccount="client"
+            if (props.user.typeofacc == "worker") {
+              typeofaccount = "worker";
+            } else {
+              typeofaccount = "client";
             }
-            axios 
+            axios
               .post(`http://localhost:5000/update-user-${typeofaccount}/`, {
-                  fname: fname,
-                  lname: lname,
-                  email: email,
-                  mobile: mobile,
-                  address: address,
-                  addrcity: addrcity,
-                  zipcode: zipcode,
-                  addrstatename: addrstatename,
-                  addrcountry: addrcountry,
-                  uid: auth.currentUser.uid,
-                },
-              )
+                fname: fname,
+                lname: lname,
+                email: email,
+                mobile: mobile,
+                address: address,
+                addrcity: addrcity,
+                zipcode: zipcode,
+                addrstatename: addrstatename,
+                addrcountry: addrcountry,
+                uid: auth.currentUser.uid,
+              })
               .then((res) => {
                 if (res.status == 200) {
                   window.alert("Profile updated successfully");
-                  window.location="/account"
+                  window.location = "/account";
                 } else {
                   window, alert("Something went wrong");
                 }
@@ -67,13 +81,13 @@ function UserProfile(props) {
             ele.disabled = false;
             ele.style.backgroundColor = "#5bb543";
           });
-      } else {
-        ele.disabled = false;
-        ele.style.backgroundColor = "#5bb543";
-        window.alert("Please enter password");
       }
+    } else {
+      ele.disabled = false;
+      ele.style.backgroundColor = "#5bb543";
+      window.alert("Please enter password");
+    }
   }
-
 
   return (
     <div className="user-form">
@@ -81,7 +95,7 @@ function UserProfile(props) {
         <div className="row">
           <div className="col-lg-6">
             <label>
-              Frist Name *
+              First Name *
               <input
                 type="text"
                 name="fname"
@@ -117,10 +131,11 @@ function UserProfile(props) {
                 name="number"
                 id="number"
                 value={mobile}
+                style={mobile && {boxShadow: mobile.length!=10 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
                 }}
-                placeholder={+8801}
+                placeholder={"Phone"}
               />
             </label>
           </div>
@@ -158,15 +173,21 @@ function UserProfile(props) {
             <div className="select-level level-b">
               <label>
                 City
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
+                <select
                   value={addrcity}
+                  className=".nice-select"
                   onChange={(e) => {
                     setCity(e.target.value);
                   }}
-                />
+                ><option  value={""}>select</option>
+                  {cities.map((city) => {
+                    return (
+                      <option key={city.id} value={city.city}>
+                        {city.city}
+                      </option>
+                    );
+                  })}
+                </select>
               </label>
             </div>
           </div>
@@ -175,10 +196,11 @@ function UserProfile(props) {
               <label>
                 State
                 <input
+                  disabled="true"
                   type="text"
                   name="state"
                   id="state"
-                  value={addrstatename}
+                  value="Gujarat"
                   onChange={(e) => {
                     setStateName(e.target.value);
                   }}
@@ -194,6 +216,7 @@ function UserProfile(props) {
                 name="zipcode"
                 id="zipcode"
                 value={zipcode}
+                style={zipcode && {boxShadow: zipcode.length!=6 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
                 onChange={(e) => {
                   setZipCode(e.target.value);
                 }}
@@ -205,10 +228,11 @@ function UserProfile(props) {
               <label>
                 Country
                 <input
+                  disabled="true"
                   type="text"
                   name="country"
                   id="counry"
-                  value={addrcountry}
+                  value="India"
                   onChange={(e) => {
                     setCountry(e.target.value);
                   }}
@@ -232,8 +256,8 @@ function UserProfile(props) {
                 <input
                   type={!passwordVisible ? "password" : "text"}
                   name="email"
+                  autoComplete="new-password"
                   id="passwordTwo"
-                  placeholder="******"
                   value={password}
                   onChange={(e) => {
                     setPass(e.target.value);

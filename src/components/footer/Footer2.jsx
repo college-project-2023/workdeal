@@ -1,7 +1,18 @@
 import Link from "next/link";
 import React from "react";
+import { useContext } from "react";
+import { MyContext } from '../context';
 
-function Footer2() {
+const Footer2 =()=> {
+
+  const { serviceType, updateVariable } = useContext(MyContext);
+  
+
+  const handleService = (input) => {
+    console.log(input);
+    updateVariable({"location":"","category":input,"pricerange":"","rating":""});
+  }
+
   return (
     <footer className="footer-2">
       <img
@@ -17,16 +28,15 @@ function Footer2() {
                 <div className="footer-logo">
                   <Link legacyBehavior href="/">
                     <a>
-                      <img src="assets/images/footer-logo.svg" alt="" />
+                      <img src="assets/images/footer_logo.png" alt="" />
                     </a>
                   </Link>
                 </div>
                 <p>
-                  Aenean fermentum sapien acena gravida. Fusce a ipsum metuslai.
-                  Suspendisse oi potenti.
+                Book Your Desired Service in a Few Clicks: Streamlined Booking for All Your Home Service Needs!
                 </p>
                 <div className="request-btn">
-                  <Link legacyBehavior href="/contact">
+                  <Link legacyBehavior href="/service">
                     <a>Request a Service</a>
                   </Link>
                 </div>
@@ -42,17 +52,7 @@ function Footer2() {
                     </Link>
                   </li>
                   <li>
-                    <Link legacyBehavior href="/blog">
-                      <a>Blog Grid</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <a href="#">Help &amp; Support</a>
-                  </li>
-                  <li>
-                    <Link legacyBehavior href="/service-details">
-                      <a>Services Details</a>
-                    </Link>
+                    <a href="/contact">Help &amp; Support</a>
                   </li>
                   <li>
                     <a href="#">Privacy Policy</a>
@@ -67,29 +67,29 @@ function Footer2() {
               <div className="footer-widget">
                 <h4>Categories</h4>
                 <ul className="footer-menu">
-                  <li>
+                  <li  onClick={() => handleService("Electrician")}>
                     <Link legacyBehavior href="/service">
-                      <a>Electronics</a>
+                      <a>Electrician</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Cook")}>
                     <Link legacyBehavior href="/service">
-                      <a>Driver Service</a>
+                      <a>Cooking</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Ac Repair")}>
                     <Link legacyBehavior href="/service">
-                      <a>Electric &amp; Plumbing</a>
+                      <a>Ac Repair</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Plumbing")}>
                     <Link legacyBehavior href="/service">
-                      <a>Gadgets Repair</a>
+                      <a>Plumbing</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Home Clean")}>
                     <Link legacyBehavior href="/service">
-                      <a>Security Service</a>
+                      <a>Home Clean</a>
                     </Link>
                   </li>
                 </ul>
@@ -104,8 +104,8 @@ function Footer2() {
                       <i className="fas fa-phone-alt" />
                     </div>
                     <div className="desc">
-                      <a href="tel:01761111456">+880 176 1111 456</a>
-                      <a href="tel:01761111555">+880 176 1111 555</a>
+                      <a href="tel:01761111456">+91 7833445323</a>
+                      <a href="tel:01761111555">+91 7833445323</a>
                     </div>
                   </div>
                   <div className="info">
@@ -122,7 +122,7 @@ function Footer2() {
                       <i className="fas fa-map-marker-alt" />
                     </div>
                     <div className="desc">
-                      <p>168/170, Avenue 01, Mirpur DOHS, Bangladesh</p>
+                      <p>Vadodara, Gujarat, India, 390001</p>
                     </div>
                   </div>
                 </div>
@@ -135,8 +135,8 @@ function Footer2() {
             <div className="col-lg-6">
               <div className="copy-right">
                 <span>
-                  Copyright 2023 Serve | Design By
-                  <a href="https://www.egenslab.com/">Egens Lab</a>
+                  Copyright 2023 WorkDeal | Design By{" "}
+                  <a href="https://www.egenslab.com/">141</a>
                 </span>
               </div>
             </div>

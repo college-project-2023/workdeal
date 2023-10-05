@@ -1,11 +1,18 @@
-import React from "react";
-import { useState } from "react";
+import React, { useRef } from "react";
+import { useState,useEffect } from "react";
 import Signuptype from "./sign-up-type";
 import { auth } from "../firebase/firebase";
 import { updatePassword } from "firebase/auth";
 import axios from "axios";
+import { Dialog, DialogTitle } from "@mui/material";
+import services from "../data/service/creative_services.json";
 
 const signupdata = () => {
+  const [showDialog, setShowDialog] = useState(false);
+  const handleDialogClose = () => {
+    setShowDialog(false);
+  };
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [typeofacc, setTypeOfAcc] = useState("worker");
   const togglePasswordVisibility = () => {
@@ -14,7 +21,17 @@ const signupdata = () => {
   const [password, setPassword] = useState();
   const [fname, setFname] = useState();
   const [lname, setLname] = useState();
+  const [aadhar, setAadhar] = useState();
   const [service, setServiceType] = useState(null);
+
+  const handleServiceChange = (e) =>{
+    setServiceType(e.target.value)
+  }
+
+  useEffect(()=>{
+    setServiceType(service)
+    console.log(service)
+  },[service])
 
   const register = async () => {
     if (
@@ -27,13 +44,16 @@ const signupdata = () => {
     ) {
       if (document.getElementById("check_terms_signup").checked) {
         var linkfordb;
-        if (typeofacc == "worker") {
+        var waadhar = false;
+        if (typeofacc == "worker" && aadhar != null && aadhar != "" && service!=null && service!="" && aadhar.length==12) {
           linkfordb = "http://localhost:5000/create-user-worker";
-        } else {
+          waadhar = true;
+        } else if(typeofacc == "client"){
           linkfordb = "http://localhost:5000/create-user-client";
+          waadhar = true;
         }
         const user = auth.currentUser;
-        if (user) {
+        if (user && waadhar) {
           updatePassword(user, password)
             .then(async () => {
               await axios
@@ -43,7 +63,8 @@ const signupdata = () => {
                   fname: fname,
                   lname: lname,
                   typeofacc: typeofacc,
-                  service:service
+                  service: service,
+                  aadhar: aadhar,
                 })
                 .then((res) => {
                   if (res.status == 200) {
@@ -56,11 +77,15 @@ const signupdata = () => {
                 window.alert("Session expired");
                 window.location = "/login";
               } else {
-                window.alert("can't update profile" + error);
+                window.alert("can't create profile" + error);
               }
             });
         } else {
-          window.alert("user not found");
+          if (!waadhar) {
+            window.alert("all field are required");
+          } else {
+            window.alert("user not found"); 
+          }
         }
       } else {
         window.alert("please accept the terms");
@@ -70,8 +95,23 @@ const signupdata = () => {
     }
   };
 
+  const switchaccount = () => {
+    window.location = "/login";
+  };
+
+  const dialogstyle = {
+    paddingLeft: "30px",
+    paddingRight: "30px",
+    paddingBottom: "30px",
+  };
+
   return (
-    <form className="form">
+    <div className="form">
+      <Dialog open={showDialog} onClose={handleDialogClose}>
+        <DialogTitle>Terms & Conditions</DialogTitle>
+        <p style={dialogstyle}>these are some terms you have to follow</p>
+      </Dialog>
+      <p id="txt_head_sign_up_form">let's complete the profile</p>
       <div className="row">
         <div className="col-md-6">
           <label htmlFor="fname">
@@ -102,7 +142,7 @@ const signupdata = () => {
           </label>
         </div>
         <div className="col-12">
-          <label htmlFor="password">
+          <label>
             Password*
             <i
               onClick={() => togglePasswordVisibility()}
@@ -112,8 +152,8 @@ const signupdata = () => {
               id="togglePassword"
             />
             <input
+              autoComplete="new-password"
               type={!passwordVisible ? "password" : "text"}
-              name="email"
               id="password"
               placeholder="Type Your Password"
               onChange={(e) => {
@@ -122,37 +162,75 @@ const signupdata = () => {
             />
           </label>
         </div>
-
-        
-
       </div>
-              
+
       <div className="terms-forgot">
         <p>
           <input type="checkbox" name="agree" id="check_terms_signup" />I agree
-          to the <a href="#">Terms &amp; Policy</a>
+          to the{" "}
+          <a
+            onClick={() => {
+              setShowDialog(true);
+            }}
+          >
+            Terms &amp; Policy
+          </a>
         </p>
       </div>
       <Signuptype value={typeofacc} setvalue={setTypeOfAcc} />
-      {typeofacc=="worker" &&
-        <div className="col-12">
-          <label htmlFor="password">
-            Service*
-            <select className="service-selection-signup" onChange={(e)=>{
-              setServiceType(e.target.value)
-            }}>
-              <option value="Cleaning">Cleaning</option>
-              <option value="Electrician">Electrician</option>
-            </select>
-          </label>
-        </div>}
-      <input
-        type="button"
-        onClick={register}
-        defaultValue="Create Account"
-        className="btn_create_account"
-      />
-    </form>
+      {typeofacc == "worker" && (
+        <div>
+          <div className="col-12">
+            <label htmlFor="password">
+              Service*
+              <select
+                className="service-selection-signup"
+                defaultValue={service}
+                onChange={(e) =>  {
+                  handleServiceChange(e)
+                }}
+              >
+              <option value={""}>select</option>
+                {services.map((s) => {
+                  return (
+                    <option key={s.id} value={s.service_name}>
+                      {" "}
+                      {s.service_name}{" "}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+          </div>
+          <div className="col-12">
+            <label htmlFor="aadhar">
+              Aadhar Number*
+              <input
+                type="text"
+                name="aadhar"
+                id="aadhar"
+                style={{boxShadow: aadhar && aadhar.length!=12 && "0px 1px 10px 0px rgb(255 0 0 / 50%)"}}
+                placeholder="Type Your Aadhar Number"
+                onChange={(e) => {
+                  setAadhar(e.target.value);
+                }}
+              />
+            </label>
+          </div>
+        </div>
+      )}
+      <div className="row">
+        <input
+          type="button"
+          onClick={register}
+          defaultValue="Create Account"
+          className="btn_create_account"
+        />
+        <button onClick={switchaccount} className="btn_login_other_account">
+          Switch Account
+        </button>
+      </div>
+    </div>
   );
 };
 

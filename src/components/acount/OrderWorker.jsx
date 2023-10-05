@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { auth } from "../../firebase/firebase";
+import DialogLayout from "../common/DialogLayout";
 
 function OrderWorker(props) {
-  const userid = auth.currentUser.uid;
   const [orders, setOrdersData] = useState([]);
-  const service = props.service;
 
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
@@ -13,12 +12,20 @@ function OrderWorker(props) {
   const [currentTask, setCurrentTask] = useState();
 
   function setOrderDataToDashboard() {
+    let price = 0,
+      count = 0;
     for (let i = 0; i < orders.length; i++) {
-      if (orders[i].status == "Complete") {
+      if (orders[i].status == "completed") {
         setOrderComplete(orderComplete + 1);
+        price += orders[i].amount;
+        count += 1;
       } else {
         setOrderPending(orderPending + 1);
       }
+    }
+    if (price != 0) {
+      price /= count;
+      props.setAvgPrice(price);
     }
   }
 
@@ -26,13 +33,13 @@ function OrderWorker(props) {
     if (!currentTask) {
       await axios
         .post("http://localhost:5000/set-current-work", {
-          idforwork: id,
+          _id: id,
           uid: auth.currentUser.uid,
         })
         .then((res) => {
           if (res.status == 200) {
-            getOrderTaskStatus();
-            window.alert("task started");
+            getOrders();
+            setShowAccept(true);
           }
         });
     } else {
@@ -40,48 +47,21 @@ function OrderWorker(props) {
     }
   }
 
-  async function cancelTheService() {
-    await axios
-      .post("http://localhost:5000/delete-current-work", {
-        uid: auth.currentUser.uid,
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          setCurrentTask("");
-          window.alert("task deleted");
-        }
-      });
-  }
-
   async function deleteTheService(id) {
     await axios
-      .post("http://localhost:5000/delete-service-work", {
+      .post("http://localhost:5000/cancel-service", {
         _id: id,
       })
       .then((res) => {
         if (res.status == 200) {
           getOrders();
-          window.alert("task deleted");
+          setShowReject(true);
         }
-      });
-  }
-
-  function getOrderTaskStatus() {
-    axios
-      .get(`http://localhost:5000/get-current-work/${userid}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setCurrentTask(res.data.idforwork);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   }
 
   useEffect(() => {
     setOrderDataToDashboard();
-    getOrderTaskStatus();
   }, [orders]);
 
   useEffect(() => {
@@ -90,21 +70,27 @@ function OrderWorker(props) {
   }, [orderPending, orderComplete]);
 
   async function getOrders() {
-    axios
-      .get(`http://localhost:5000/get-orders-worker/${userid}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setOrdersData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (auth.currentUser) {
+      const userid = await auth.currentUser.uid;
+      axios
+        .post(`http://localhost:5000/get-orders-worker/`, {
+          orderToUid: userid,
+        })
+        .then((res) => {
+          setOrdersData(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   useEffect(() => {
     getOrders();
   }, []);
+
+  const [showAccept, setShowAccept] = useState(false);
+  const [showReject, setShowReject] = useState(false);
 
   return (
     <div
@@ -113,79 +99,98 @@ function OrderWorker(props) {
       role="tabpanel"
       aria-labelledby="v-pills-order-tab"
     >
+      {showAccept && (
+        <DialogLayout
+          title={"Let's get to work"}
+          content={"Please be in time and don't forget terms. Customers are our first priority. \nAll the best for your order"}
+          buttonText={"DONE"}
+        />
+      )}
+      {showReject && (
+        <DialogLayout
+          title={"Order Rejected"}
+          content={"Please keep in mind that more rejections of work will lose your rating.\nThank you for work with WorkDeal"}
+          buttonText={"DONE"}
+        />
+      )}
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>
-          
         </div>
-        <div className="order-table" style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr className="head">
-                <th>Service Title</th>
-                <th>Order ID</th>
-                <th>Order Ammount</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            {/* every single data*/}
-            {orders && (
+        {orders && orders.length>0 ? (
+          <div className="order-table" style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%" }}>
+              <thead>
+                <tr className="head">
+                  <th>Service Title</th>
+                  <th>Order ID</th>
+                  <th>Order By</th>
+                  <th>Order Ammount</th>
+                  <th>Address</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              {/* every single data*/}
+
               <tbody>
                 {orders.map((item) => (
                   <tr key={item._id}>
                     <td data-label="Service Title">
-                      <img
-                        src="assets/images/table-data/table-data-1.jpg"
-                        alt=""
-                      />
-                      <span>{service}</span>
+                      <span>{item.service}</span>
                     </td>
                     <td data-label="Order ID">{item._id}</td>
+                    <td data-label="Order By">{item.orderByName}</td>
                     <td data-label="Order Ammount">{item.amount}</td>
+                    <td data-label="Address">{item.address}</td>
                     <td data-label="Status">{item.status}</td>
                     <td data-label="Action">
                       <div className="action">
                         {item.status == "pending" ? (
-                          currentTask != item._id ? (
-                            <div>
+                          <div>
+                            {!currentTask && (
                               <button
                                 className="btn-current-task"
                                 type="button"
                                 onClick={() => startTheService(item._id)}
                               >
-                                start
+                                accept
                               </button>
-                              <button
-                                className="btn-current-task-delete"
-                                type="button"
-                                onClick={() => deleteTheService(item._id)}
-                              >
-                                delete
-                              </button>
-                            </div>
-                          ) : (
+                            )}
+
                             <button
-                              className="btn-current-task-cancel"
+                              className="btn-current-task-delete"
                               type="button"
-                              onClick={cancelTheService}
+                              onClick={() => deleteTheService(item._id)}
                             >
-                              cancel
+                              reject
                             </button>
-                          )
-                        ) : (
-                          <button className="btn-current-task" type="button">
-                            Done
+                          </div>
+                        ) : item.status == "working" ? (
+                          <button
+                            className="btn-current-task-cancel"
+                            type="button"
+                          >
+                            in progress
                           </button>
-                        )}
+                        ) : item.status == "completed" ? (
+                          <button className="btn-current-task" type="button">
+                            completed
+                          </button>
+                        ) : item.status == "cancelled" ? (
+                          <button className="btn-current-task-cancel" type="cancelled">
+                            cancelled
+                          </button>
+                          
+                        ) : "Error"}
                       </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            )}
-          </table>
-        </div>
+            </table>
+          </div>
+        ):<center><h3>No Orders Found</h3></center>}
       </div>
     </div>
   );

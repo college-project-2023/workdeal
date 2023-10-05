@@ -6,6 +6,14 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    aadhar: {
+      type: String,
+      required: true,
+    },
+    idtoken: {
+      type: String,
+      required: false,
+    },
     email: {
       type: String,
       required: true,
@@ -42,14 +50,17 @@ const UserWorkerSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    
+    imageUrl:{
+      type: String,
+      required: false,
+    },
     typeofacc:{
       type:String,
       required:true,
     },
     service:{
       type:String,
-      required:true
+      required:false
     }
   },
   {

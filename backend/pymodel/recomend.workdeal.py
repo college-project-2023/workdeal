@@ -115,12 +115,15 @@ df_review_imp=df_review_imp.rename(columns={'mean': 'Review_Score'})
 print("\n--------- scored review ---------------- ")
 print(df_review_imp)
 
-uid_counts = df_workd['uid'].value_counts()
+uid_counts = df_workd['uid'].value_counts().reset_index()
 df_uid_counts = pd.DataFrame(uid_counts)
-df_uid_counts = df_uid_counts.rename(columns={'count': 'no_of_works'})
+df_uid_counts = df_uid_counts.rename(columns={'uid':'no_of_works'})
+df_uid_counts = df_uid_counts.rename(columns={'index':'uid'})
 
 
 df_imp = pd.merge(df_service, df_review_imp, left_on='uid', right_on='uid', how='left')
+
+print(df_uid_counts.head())
 df_imp = pd.merge(df_imp, df_uid_counts, left_on='uid', right_on='uid', how='left')
 
 
@@ -173,5 +176,5 @@ print(f"R squared error:{r2:.2f}")
 
 import joblib
 
-joblib.dump(customModel, 'rating_prediction_model.pkl')
+joblib.dump(customModel, 'backend/pymodel/rating_prediction_model.pkl')
 

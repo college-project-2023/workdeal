@@ -7,25 +7,41 @@ const conn = mongoose.createConnection(process.env.ATLAS_URI+"orders");
 
 const OrderWorkerSchema = new mongoose.Schema(
   {
-    orderBy: {
+    orderByUid: {
       type: String,
       required: true,
+    },
+    orderByName: {
+      type: String,
+      required: true,
+    },
+    orderToName: {
+      type: String,
+      required: true,
+    },
+    orderToUid:{
+      type:String,
+      required:true
     },
     amount: {
       type: String,
       required: true,
     },
+    address:{
+      type:String,
+      required:true,
+    },
+    service:{
+      type:String,
+      required:true
+    },
     status: {
       type: String,
       required: true,
-    },
-    uid: {
-      type: String,
-      required: true,
-    },
+    }
   },
   {
-    collection: "worker",
+    collection: "works",
   }
 );
 

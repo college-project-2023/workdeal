@@ -1,39 +1,59 @@
-import React, { useState } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import Select from "react-select";
-import Cookies from "universal-cookie";
+import { MyContext } from "../context";
+import services from "../../data/service/creative_services.json"
 
 function ServiceFilter(props) {
-  const cookies = new Cookies();
-  const l = cookies.get('mycookie');
-  const i = cookies.get('mycookie2');
-  console.log(l);
-  const [selectedOption, setSelectedOption] = useState("");
+
+  const {serviceType,updateVariable} = useContext(MyContext);
+  
+
+  const [selectedOption, setSelectedOption] = useState(serviceType.location);
   function handleSelectChange(event) {
     setSelectedOption(event.value);
   }
-  const [selectedcg, setSelectedcg] = useState(i);
+  const [selectedcg, setSelectedcg] = useState(serviceType.category);
   function handleSelectChangecg(event) {
     setSelectedcg(event.target.value);
   }
-  const [selectedpr, setSelectedpr] = useState();
+  const [selectedpr, setSelectedpr] = useState(serviceType.pricerange);
   function handleSelectChangepr(event) {
     setSelectedpr(event.target.value);
   }
-  const [selectedrt, setSelectedrt] = useState('');
+  const [selectedrt, setSelectedrt] = useState(serviceType.rating);
   function handleSelectChangert(event) {
     setSelectedrt(event.target.value);
   }
-  const fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
-  console.log(fdata);
-  props.sendtopage(fdata);
+
+  let fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+  let city=""
+
+  useEffect(()=>{
+    city = localStorage.getItem('city');
+    if(city){
+      setSelectedOption(city.toLowerCase())
+      fdata = {"location": city.toLowerCase(),"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+    }
+    filterNow()
+  },[])
+
+ 
+  useEffect(()=>{
+    fdata = {"location": selectedOption,"category":selectedcg,"pricerange":selectedpr,"rating":selectedrt};
+  },[selectedOption,selectedcg,selectedpr,selectedrt])
+
   const options = [
-    { value: "Ahmedabad", label: "Ahmedabad" },
+    { value: "ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
-    { value: "Rajkot", label: "Rajkot" },
-    { value: "Surat", label: "Surat" },
-    { value: "Anand", label: "Anand" },
-    { value: "Jamnagar", label: "Jamnagar" },
+    { value: "rajkot", label: "Rajkot" },
+    { value: "surat", label: "Surat" },
+    { value: "anand", label: "Anand" },
   ];
+
+  function filterNow(){
+    props.sendtopage(fdata);
+  }
+
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
@@ -114,7 +134,8 @@ function ServiceFilter(props) {
                 }}
                 width="250px"
                 menuColor="#333"
-                defaultValue={{ value: selectedOption }}
+                defaultValue={{label:fdata.city!=""?fdata.city:"Location", value: fdata.city }}
+                value={{label:selectedOption!=""?selectedOption:"Location", value: selectedOption }}
                 onChange={handleSelectChange}
                 options={options}
                 placeholder="Select"
@@ -129,17 +150,10 @@ function ServiceFilter(props) {
                 onChange={handleSelectChangecg}
                 value={selectedcg}
               >
-                <option value="">Select Category</option>
-                <option value="Saloon">Saloon</option>
-                <option value="Cook">Cooking</option>
-                <option value="Cleaning">Home Clean</option>
-                <option value="Ac repair">Ac repair</option>
-                <option value="Spa & beauty">Spa & beauty</option>
-                <option value="House Sift">House Sift</option>
-                <option value="Vihcle & Care">Vihcle & Care</option>
-                <option value="Plumbing">Plumbing</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Interior">Interior</option>
+              <option value="">Select Category</option>
+                {services.map((service)=>{
+                  return <option key={service.service_name} value={service.service_name}>{service.service_name}</option>
+                })}
               </select>
               <select
                 className="srv-select"
@@ -166,6 +180,7 @@ function ServiceFilter(props) {
                 <option value="4">4 Star</option>
                 <option value="5">5 Star </option>
               </select>
+              <button type="button" onClick={filterNow} class="btn btn-success">Filter</button>
             </div>
           </div>
         </div>

@@ -1,0 +1,866 @@
+[
+  {
+    "id": 1,
+    "number_of_work": 75,
+    "rating": 4.9,
+    "review_score": 9,
+    "average_price": 3260,
+    "service_type": "electrician"
+  },
+  {
+    "id": 2,
+    "number_of_work": 48,
+    "rating": 3.2,
+    "review_score": 2,
+    "average_price": 2345,
+    "service_type": "plumber"
+  },
+  {
+    "id": 3,
+    "number_of_work": 63,
+    "rating": 4.6,
+    "review_score": 7,
+    "average_price": 2355,
+    "service_type": "cook"
+  },
+  {
+    "id": 4,
+    "number_of_work": 31,
+    "rating": 3.7,
+    "review_score": 3,
+    "average_price": 2340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 5,
+    "number_of_work": 92,
+    "rating": 4.8,
+    "review_score": 8,
+    "average_price": 2350,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 6,
+    "number_of_work": 57,
+    "rating": 4.5,
+    "review_score": 6,
+    "average_price": 2365,
+    "service_type": "electrician"
+  },
+  {
+    "id": 7,
+    "number_of_work": 40,
+    "rating": 3.4,
+    "review_score": 4,
+    "average_price": 3230,
+    "service_type": "plumber"
+  },
+  {
+    "id": 8,
+    "number_of_work": 68,
+    "rating": 4.7,
+    "review_score": 7,
+    "average_price": 1270,
+    "service_type": "cook"
+  },
+  {
+    "id": 9,
+    "number_of_work": 23,
+    "rating": 3.1,
+    "review_score": 2,
+    "average_price": 3235,
+    "service_type": "gardener"
+  },
+  {
+    "id": 10,
+    "number_of_work": 85,
+    "rating": 4.9,
+    "review_score": 9,
+    "average_price": 1260,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 11,
+    "number_of_work": 40,
+    "rating": 3.6,
+    "review_score": 5,
+    "average_price": 3240,
+    "service_type": "electrician"
+  },
+  {
+    "id": 12,
+    "number_of_work": 55,
+    "rating": 4.2,
+    "review_score": 6,
+    "average_price": 2355,
+    "service_type": "plumber"
+  },
+  {
+    "id": 13,
+    "number_of_work": 28,
+    "rating": 3.9,
+    "review_score": 4,
+    "average_price": 2135,
+    "service_type": "cook"
+  },
+  {
+    "id": 14,
+    "number_of_work": 19,
+    "rating": 2.8,
+    "review_score": 2,
+    "average_price": 1330,
+    "service_type": "gardener"
+  },
+  {
+    "id": 15,
+    "number_of_work": 70,
+    "rating": 4.7,
+    "review_score": 8,
+    "average_price": 2365,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 16,
+    "number_of_work": 33,
+    "rating": 3.3,
+    "review_score": 3,
+    "average_price": 3245,
+    "service_type": "electrician"
+  },
+  {
+    "id": 17,
+    "number_of_work": 42,
+    "rating": 3.8,
+    "review_score": 4,
+    "average_price": 2340,
+    "service_type": "plumber"
+  },
+  {
+    "id": 18,
+    "number_of_work": 50,
+    "rating": 4.0,
+    "review_score": 5,
+    "average_price": 5230,
+    "service_type": "cook"
+  },
+  {
+    "id": 21,
+    "number_of_work": 35,
+    "rating": 3.5,
+    "review_score": 5,
+    "average_price": 3255,
+    "service_type": "electrician"
+  },
+  {
+    "id": 22,
+    "number_of_work": 60,
+    "rating": 4.3,
+    "review_score": 7,
+    "average_price": 2365,
+    "service_type": "plumber"
+  },
+  {
+    "id": 23,
+    "number_of_work": 25,
+    "rating": 3.0,
+    "review_score": 3,
+    "average_price": 3240,
+    "service_type": "cook"
+  },
+  {
+    "id": 24,
+    "number_of_work": 17,
+    "rating": 2.7,
+    "review_score": 2,
+    "average_price": 2335,
+    "service_type": "gardener"
+  },
+  {
+    "id": 25,
+    "number_of_work": 80,
+    "rating": 4.6,
+    "review_score": 8,
+    "average_price": 3260,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 26,
+    "number_of_work": 38,
+    "rating": 3.2,
+    "review_score": 4,
+    "average_price": 3245,
+    "service_type": "electrician"
+  },
+  {
+    "id": 27,
+    "number_of_work": 45,
+    "rating": 3.7,
+    "review_score": 5,
+    "average_price": 3250,
+    "service_type": "plumber"
+  },
+  {
+    "id": 28,
+    "number_of_work": 54,
+    "rating": 4.1,
+    "review_score": 6,
+    "average_price": 2355,
+    "service_type": "cook"
+  },
+  {
+    "id": 29,
+    "number_of_work": 22,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 4420,
+    "service_type": "gardener"
+  },
+  {
+    "id": 30,
+    "number_of_work": 88,
+    "rating": 4.7,
+    "review_score": 9,
+    "average_price": 2365,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 31,
+    "number_of_work": 37,
+    "rating": 3.4,
+    "review_score": 4,
+    "average_price": 3350,
+    "service_type": "electrician"
+  },
+  {
+    "id": 32,
+    "number_of_work": 58,
+    "rating": 4.4,
+    "review_score": 6,
+    "average_price": 3255,
+    "service_type": "plumber"
+  },
+  {
+    "id": 33,
+    "number_of_work": 29,
+    "rating": 3.1,
+    "review_score": 3,
+    "average_price": 3245,
+    "service_type": "cook"
+  },
+  {
+    "id": 34,
+    "number_of_work": 18,
+    "rating": 2.9,
+    "review_score": 2,
+    "average_price": 2335,
+    "service_type": "gardener"
+  },
+  {
+    "id": 35,
+    "number_of_work": 72,
+    "rating": 4.7,
+    "review_score": 7,
+    "average_price": 2360,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 36,
+    "number_of_work": 36,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 3240,
+    "service_type": "electrician"
+  },
+  {
+    "id": 37,
+    "number_of_work": 47,
+    "rating": 3.6,
+    "review_score": 5,
+    "average_price": 1255,
+    "service_type": "plumber"
+  },
+  {
+    "id": 38,
+    "number_of_work": 52,
+    "rating": 3.9,
+    "review_score": 4,
+    "average_price": 2145,
+    "service_type": "cook"
+  },
+  {
+    "id": 39,
+    "number_of_work": 24,
+    "rating": 3.2,
+    "review_score": 3,
+    "average_price": 1235,
+    "service_type": "gardener"
+  },
+  {
+    "id": 40,
+    "number_of_work": 82,
+    "rating": 4.8,
+    "review_score": 8,
+    "average_price": 2165,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 41,
+    "number_of_work": 45,
+    "rating": 3.7,
+    "review_score": 5,
+    "average_price": 1250,
+    "service_type": "electrician"
+  },
+  {
+    "id": 42,
+    "number_of_work": 54,
+    "rating": 4.1,
+    "review_score": 6,
+    "average_price": 2155,
+    "service_type": "plumber"
+  },
+  {
+    "id": 43,
+    "number_of_work": 22,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 1240,
+    "service_type": "cook"
+  },
+  {
+    "id": 44,
+    "number_of_work": 88,
+    "rating": 4.7,
+    "review_score": 9,
+    "average_price": 2365,
+    "service_type": "gardener"
+  },
+  {
+    "id": 45,
+    "number_of_work": 37,
+    "rating": 3.4,
+    "review_score": 4,
+    "average_price": 3250,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 46,
+    "number_of_work": 58,
+    "rating": 4.4,
+    "review_score": 6,
+    "average_price": 3255,
+    "service_type": "electrician"
+  },
+  {
+    "id": 47,
+    "number_of_work": 29,
+    "rating": 3.1,
+    "review_score": 3,
+    "average_price": 2345,
+    "service_type": "plumber"
+  },
+  {
+    "id": 48,
+    "number_of_work": 18,
+    "rating": 2.9,
+    "review_score": 2,
+    "average_price": 2335,
+    "service_type": "cook"
+  },
+  {
+    "id": 49,
+    "number_of_work": 72,
+    "rating": 4.7,
+    "review_score": 7,
+    "average_price": 3260,
+    "service_type": "gardener"
+  },
+  {
+    "id": 50,
+    "number_of_work": 36,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 4240,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 51,
+    "number_of_work": 46,
+    "rating": 3.8,
+    "review_score": 5,
+    "average_price": 355,
+    "service_type": "electrician"
+  },
+  {
+    "id": 52,
+    "number_of_work": 55,
+    "rating": 4.2,
+    "review_score": 6,
+    "average_price": 260,
+    "service_type": "plumber"
+  },
+  {
+    "id": 53,
+    "number_of_work": 31,
+    "rating": 3.5,
+    "review_score": 4,
+    "average_price": 445,
+    "service_type": "cook"
+  },
+  {
+    "id": 54,
+    "number_of_work": 21,
+    "rating": 2.6,
+    "review_score": 2,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 55,
+    "number_of_work": 76,
+    "rating": 4.9,
+    "review_score": 8,
+    "average_price": 365,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 56,
+    "number_of_work": 39,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 250,
+    "service_type": "electrician"
+  },
+  {
+    "id": 57,
+    "number_of_work": 48,
+    "rating": 3.6,
+    "review_score": 5,
+    "average_price": 255,
+    "service_type": "plumber"
+  },
+  {
+    "id": 58,
+    "number_of_work": 53,
+    "rating": 3.9,
+    "review_score": 4,
+    "average_price": 345,
+    "service_type": "cook"
+  },
+  {
+    "id": 59,
+    "number_of_work": 27,
+    "rating": 3.2,
+    "review_score": 3,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 60,
+    "number_of_work": 84,
+    "rating": 4.8,
+    "review_score": 9,
+    "average_price": 265,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 61,
+    "number_of_work": 42,
+    "rating": 3.7,
+    "review_score": 5,
+    "average_price": 250,
+    "service_type": "electrician"
+  },
+  {
+    "id": 62,
+    "number_of_work": 57,
+    "rating": 4.1,
+    "review_score": 6,
+    "average_price": 525,
+    "service_type": "plumber"
+  },
+  {
+    "id": 63,
+    "number_of_work": 30,
+    "rating": 3.4,
+    "review_score": 4,
+    "average_price": 345,
+    "service_type": "cook"
+  },
+  {
+    "id": 64,
+    "number_of_work": 20,
+    "rating": 2.5,
+    "review_score": 2,
+    "average_price": 240,
+    "service_type": "gardener"
+  },
+  {
+    "id": 65,
+    "number_of_work": 78,
+    "rating": 4.9,
+    "review_score": 8,
+    "average_price": 265,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 66,
+    "number_of_work": 41,
+    "rating": 3.2,
+    "review_score": 4,
+    "average_price": 350,
+    "service_type": "electrician"
+  },
+  {
+    "id": 67,
+    "number_of_work": 50,
+    "rating": 3.8,
+    "review_score": 5,
+    "average_price": 455,
+    "service_type": "plumber"
+  },
+  {
+    "id": 68,
+    "number_of_work": 51,
+    "rating": 3.9,
+    "review_score": 4,
+    "average_price": 245,
+    "service_type": "cook"
+  },
+  {
+    "id": 69,
+    "number_of_work": 29,
+    "rating": 3.1,
+    "review_score": 3,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 70,
+    "number_of_work": 86,
+    "rating": 4.7,
+    "review_score": 9,
+    "average_price": 265,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 71,
+    "number_of_work": 33,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 350,
+    "service_type": "electrician"
+  },
+  {
+    "id": 72,
+    "number_of_work": 59,
+    "rating": 4.3,
+    "review_score": 6,
+    "average_price": 460,
+    "service_type": "plumber"
+  },
+  {
+    "id": 73,
+    "number_of_work": 32,
+    "rating": 3.2,
+    "review_score": 4,
+    "average_price": 245,
+    "service_type": "cook"
+  },
+  {
+    "id": 74,
+    "number_of_work": 23,
+    "rating": 2.7,
+    "review_score": 2,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 75,
+    "number_of_work": 77,
+    "rating": 4.8,
+    "review_score": 8,
+    "average_price": 265,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 76,
+    "number_of_work": 35,
+    "rating": 3.5,
+    "review_score": 5,
+    "average_price": 450,
+    "service_type": "electrician"
+  },
+  {
+    "id": 77,
+    "number_of_work": 56,
+    "rating": 4.2,
+    "review_score": 6,
+    "average_price": 460,
+    "service_type": "plumber"
+  },
+  {
+    "id": 78,
+    "number_of_work": 28,
+    "rating": 3.1,
+    "review_score": 3,
+    "average_price": 245,
+    "service_type": "cook"
+  },
+  {
+    "id": 79,
+    "number_of_work": 24,
+    "rating": 2.9,
+    "review_score": 2,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 80,
+    "number_of_work": 73,
+    "rating": 4.7,
+    "review_score": 7,
+    "average_price": 265,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 81,
+    "number_of_work": 44,
+    "rating": 3.6,
+    "review_score": 5,
+    "average_price": 355,
+    "service_type": "electrician"
+  },
+  {
+    "id": 82,
+    "number_of_work": 53,
+    "rating": 4.0,
+    "review_score": 6,
+    "average_price": 260,
+    "service_type": "plumber"
+  },
+  {
+    "id": 83,
+    "number_of_work": 34,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 345,
+    "service_type": "cook"
+  },
+  {
+    "id": 84,
+    "number_of_work": 22,
+    "rating": 2.8,
+    "review_score": 2,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 85,
+    "number_of_work": 75,
+    "rating": 4.9,
+    "review_score": 8,
+    "average_price": 265,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 86,
+    "number_of_work": 43,
+    "rating": 3.4,
+    "review_score": 5,
+    "average_price": 250,
+    "service_type": "electrician"
+  },
+  {
+    "id": 87,
+    "number_of_work": 55,
+    "rating": 4.1,
+    "review_score": 6,
+    "average_price": 355,
+    "service_type": "plumber"
+  },
+  {
+    "id": 88,
+    "number_of_work": 36,
+    "rating": 3.2,
+    "review_score": 4,
+    "average_price": 445,
+    "service_type": "cook"
+  },
+  {
+    "id": 89,
+    "number_of_work": 28,
+    "rating": 3.0,
+    "review_score": 3,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 90,
+    "number_of_work": 71,
+    "rating": 4.6,
+    "review_score": 7,
+    "average_price": 460,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 91,
+    "number_of_work": 39,
+    "rating": 3.5,
+    "review_score": 5,
+    "average_price": 250,
+    "service_type": "electrician"
+  },
+  {
+    "id": 92,
+    "number_of_work": 58,
+    "rating": 4.3,
+    "review_score": 6,
+    "average_price": 155,
+    "service_type": "plumber"
+  },
+  {
+    "id": 93,
+    "number_of_work": 35,
+    "rating": 3.4,
+    "review_score": 4,
+    "average_price": 345,
+    "service_type": "cook"
+  },
+  {
+    "id": 94,
+    "number_of_work": 25,
+    "rating": 2.7,
+    "review_score": 2,
+    "average_price": 440,
+    "service_type": "gardener"
+  },
+  {
+    "id": 95,
+    "number_of_work": 76,
+    "rating": 4.8,
+    "review_score": 8,
+    "average_price": 365,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 96,
+    "number_of_work": 47,
+    "rating": 3.6,
+    "review_score": 5,
+    "average_price": 450,
+    "service_type": "electrician"
+  },
+  {
+    "id": 97,
+    "number_of_work": 60,
+    "rating": 4.0,
+    "review_score": 6,
+    "average_price": 455,
+    "service_type": "plumber"
+  },
+  {
+    "id": 98,
+    "number_of_work": 38,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 345,
+    "service_type": "cook"
+  },
+  {
+    "id": 99,
+    "number_of_work": 26,
+    "rating": 2.8,
+    "review_score": 2,
+    "average_price": 340,
+    "service_type": "gardener"
+  },
+  {
+    "id": 100,
+    "number_of_work": 80,
+    "rating": 4.7,
+    "review_score": 7,
+    "average_price": 160,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 101,
+    "number_of_work": 43,
+    "rating": 3.7,
+    "review_score": 5,
+    "average_price": 350,
+    "service_type": "electrician"
+  },
+  {
+    "id": 102,
+    "number_of_work": 59,
+    "rating": 4.1,
+    "review_score": 6,
+    "average_price": 255,
+    "service_type": "plumber"
+  },
+  {
+    "id": 103,
+    "number_of_work": 33,
+    "rating": 3.3,
+    "review_score": 4,
+    "average_price": 345,
+    "service_type": "cook"
+  },
+  {
+    "id": 104,
+    "number_of_work": 22,
+    "rating": 2.7,
+    "review_score": 2,
+    "average_price": 120,
+    "service_type": "gardener"
+  },
+  {
+    "id": 105,
+    "number_of_work": 79,
+    "rating": 4.9,
+    "review_score": 8,
+    "average_price": 165,
+    "service_type": "cleaner"
+  },
+  {
+    "id": 106,
+    "number_of_work": 45,
+    "rating": 3.5,
+    "review_score": 5,
+    "average_price": 150,
+    "service_type": "electrician"
+  },
+  {
+    "id": 107,
+    "number_of_work": 56,
+    "rating": 4.2,
+    "review_score": 6,
+    "average_price": 155,
+    "service_type": "plumber"
+  },
+  {
+    "id": 108,
+    "number_of_work": 36,
+    "rating": 3.2,
+    "review_score": 4,
+    "average_price": 245,
+    "service_type": "cook"
+  },
+  {
+    "id": 109,
+    "number_of_work": 29,
+    "rating": 3.1,
+    "review_score": 3,
+    "average_price": 240,
+    "service_type": "gardener"
+  },
+  {
+    "id": 110,
+    "number_of_work": 88,
+    "rating": 4.7,
+    "review_score": 7,
+    "average_price": 260,
+    "service_type": "cleaner"
+  }
+]

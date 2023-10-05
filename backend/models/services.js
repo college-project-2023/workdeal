@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const ServiceSchema = new mongoose.Schema({
-  _id: {
+  uid:{
     type: String,
-    required: true,
+    required: false
   },
   tag: {
     type: String,
@@ -15,7 +15,7 @@ const ServiceSchema = new mongoose.Schema({
   },
   author_thumb: {
     type: String,
-    required: true,
+    required: false,
   },
   author_name: {
     type: String,
@@ -28,6 +28,26 @@ const ServiceSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  location:{
+    type:String,
+    require:true,
+  },
+  no_works:{
+    type:Number,
+    required:false,
+  },
+  review_score:{
+    type:Number,
+    required:false,
+  },
+  enabled:{
+    type:Boolean,
+    required:false,
   }
 },{
   collection:"services"
@@ -35,6 +55,6 @@ const ServiceSchema = new mongoose.Schema({
 
 
 const mydb = mongoose.connection.useDb('workdeal');
-const service = mydb.model("service", ServiceSchema);
+const servicesModel = mydb.model("servicesModel", ServiceSchema);
 
-module.exports = service;
+module.exports = servicesModel;

@@ -1,27 +1,81 @@
 import Link from "next/link";
-import { useState,useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Select from "react-select";
-import axios from "axios";
+import { MyContext } from "../context";
 import Cookies from "universal-cookie";
-const allowedInputs = ["Saloon", "Cook", "Cleaning","Ac repair","Spa & beauty"];
 
+const allowedInputs = [
+  "Salon",
+  "Cook",
+  "Home Clean",
+  "Ac Repair",
+  "Beauty",
+  "House Shift",
+  "Vehicle & Care",
+  "Plumbing",
+  "Electrician",
+  "Interior",
+];
 
 function Banner1(props) {
-  //const { setParam1} = useContext(DataContext);
+  const { serviceType, updateVariable } = useContext(MyContext);
+
   const cookies = new Cookies();
-  const [inputValue, setInputValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);  
-  const [selectedOption, setSelectedOption] = useState({ value: "", label: "select" });
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState({
+    value: "",
+    label: "select",
+  });
+  const [error, setError] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const handleService = (input) => {
+    console.log(input);
+    updateVariable({"location":"","category":input,"pricerange":"","rating":""});
+  }
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
   function handleSelectChange(event) {
+    console.log(event);
     setSelectedOption(event);
+    updateVariable({
+      location: event.value,
+      category: inputValue,
+      pricerange: "",
+      rating: "",
+    });
   }
   const handleInputChange = (event) => {
-    const value = event.target.value.toLowerCase();
+    const value = event.target.value;
     setInputValue(value);
     setSuggestions(getMatchingSuggestions(value));
   };
-  cookies.set('mycookie',selectedOption);
-  cookies.set('mycookie2',inputValue);
+  useEffect(() => {
+    for (var i = 0; i <= 10; i++) {
+      var s = allowedInputs[i];
+      if (s && inputValue.toLowerCase() == s.toLowerCase() || inputValue == "") {
+        setError(false);
+
+        updateVariable({
+          location: selectedOption.value,
+          category: s,
+          pricerange: "",
+          rating: "",
+        });
+        break;
+      } else {
+        setError(true);
+      }
+    }
+  }, [inputValue]);
+  cookies.set("mycookie", selectedOption);
+  cookies.set("mycookie2", inputValue);
   const options = [
     { value: "Ahmedabad", label: "Ahmedabad" },
     { value: "vadodara", label: "Vadodara" },
@@ -32,22 +86,23 @@ function Banner1(props) {
   ];
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (allowedInputs.includes(inputValue)) {
-      console.log('Valid input:', inputValue);
-    } else {
-      console.log('Invalid input:', inputValue);
-    }
   };
+
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
+    updateVariable({
+      location: selectedOption.value,
+      category: suggestion,
+      pricerange: "",
+      rating: "",
+    });
     setSuggestions([]);
   };
   const getMatchingSuggestions = (value) => {
-    return allowedInputs.filter(input =>
-      input.toLowerCase().includes(value)
+    return allowedInputs.filter((input) =>
+      input.toLowerCase().includes(value.toLowerCase())
     );
   };
-
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -109,13 +164,33 @@ function Banner1(props) {
             data-wow-delay="200ms"
             data-wow-duration="1500ms"
           >
-            <span>Wellcome Our Service Sale</span>
-            <h1> With Workdeal, work smarter, not harder!</h1>
+            <span>Welcome to WorkDeal</span>
+            <h1>Your trusted destination for all household service needs!</h1>
             <p>
-            Client satisfaction is our  top precedence focus. We go over and beyond to give excellent service and products. Good labor force, professional station and cooperation are our essential rudiments in delivering good services.
+              We understand the importance of finding reliable workers who can
+              provide exceptional service for your household tasks.Take the
+              first step towards enhancing your home with the help of trusted
+              experts.
             </p>
+            {error && showTooltip && (
+              <div
+                style={{
+                  position: "absolute",
+                  backgroundColor: "white",
+                  color: "#5bb543",
+                  marginLeft: "460px",
+
+                  borderRadius: "5px",
+                  padding: "5px",
+                  width: "172px",
+                  transform: "translateX(-50%)",
+                }}
+              >
+                select from below list.
+              </div>
+            )}
             <div className="find-service">
-              <div className="location-search">
+              <div className="location-search" style={{ marginTop: "35px" }}>
                 <div className="location-btn">
                   <i>
                     <img src="assets/images/icons/location.svg" alt="" />
@@ -145,78 +220,98 @@ function Banner1(props) {
                     instanceId="my-unique-id"
                   />
                 </div>
+
                 <div className="location-form">
                   <form method="post" onSubmit={handleSubmit}>
-                    <input 
+                    <input
                       type="text"
                       name="location"
                       value={inputValue}
+                      autoComplete="off"
                       onChange={handleInputChange}
                       placeholder="Find Your Services Here"
                       style={{
-                        padding: '8px',
-                        fontSize: '16px',
-                        border: '1px solid #ccc',
-                        borderRadius: '10px',
+                        padding: "8px",
+                        fontSize: "16px",
+                        border: "1px solid #ccc",
+                        boxShadow: error
+                          ? "0px 1px 10px 0px rgb(255 0 0 / 50%)"
+                          : "none",
+                        borderRadius: "10px",
+                        transition: "box-shadow 1s",
                       }}
                     />
-                    <button  type="submit" >
-                    <Link legacyBehavior href="/service ">
-                      <i className="bi bi-search" />
-                   </Link>
+                    <button
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      type="submit"
+                      style={{
+                        backgroundColor: error ? "#6c757dcc" : "#5bb543",
+                      }}
+                    >
+                      <Link legacyBehavior href={error ? "/" : "/service "}>
+                        <i className="bi bi-search" />
+                      </Link>
                     </button>
                     {suggestions.length > 0 && (
-                    <ul className="suggestions"
-                    style={{
-                      listStyleType: 'none',
-                      padding: '0',
-                      margin: '4px 0',
-                      border: '1px solid #ccc',
-                      borderRadius: '4px',
-                      backgroundColor: 'white',
-                      position: 'absolute',
-                    }}>
-                      {suggestions.map((suggestion, index) => (
-                      <li key={index} onClick={() => handleSuggestionClick(suggestion)} 
-                      style={{
-                        padding: '8px',
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = '#81d866';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'white';
-                      }}>
-                        {suggestion}
-                        </li>
+                      <ul
+                        className="suggestions"
+                        style={{
+                          listStyleType: "none",
+                          padding: "0",
+                          margin: "4px 0",
+                          border: "1px solid #ccc",
+                          borderRadius: "4px",
+                          backgroundColor: "white",
+                          position: "absolute",
+                          maxHeight: "140px",
+                          overflowY: "auto",
+                        }}
+                      >
+                        {suggestions.map((suggestion, index) => (
+                          <li
+                            key={index}
+                            onClick={() => handleSuggestionClick(suggestion)}
+                            style={{
+                              cursor: "pointer",
+                              padding: "8px 220px 8px 8px",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.backgroundColor = "#81d866";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.backgroundColor = "white";
+                            }}
+                          >
+                            {suggestion}
+                          </li>
                         ))}
-                        </ul>
-                        )}
+                      </ul>
+                    )}
                   </form>
                 </div>
               </div>
               <div className="suggest">
                 <span>Suggest For You:</span>
                 <ul className="suggest-list">
-                  <li>
+                  <li onClick={() => handleService("Beauty")}>
                     <Link legacyBehavior href="/service">
-                      <a>Beauty &amp; Salon</a>
+                      <a >Spa &amp; Beauty</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService( "House Shift")}>
                     <Link legacyBehavior href="/service">
-                      <a>Shifting</a>
+                      <a>House Shift</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Ac Repair")}>
                     <Link legacyBehavior href="/service">
                       <a>AC Repair</a>
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={() => handleService("Salon")}>
                     <Link legacyBehavior href="/service">
-                      <a>WallPainting</a>
+                      <a>Salon </a>
                     </Link>
                   </li>
                 </ul>
@@ -229,9 +324,10 @@ function Banner1(props) {
             data-wow-duration="1500ms"
           >
             <img
-              src="assets/images/home-1/hero-section-right-img.png"
+              src="assets/images/home-1/fp_wd_1.jpg"
               alt=""
               className="banner"
+              style={{ borderRadius: "20px" }}
             />
           </div>
         </div>

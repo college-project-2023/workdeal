@@ -67,7 +67,7 @@ function Testimonial1() {
                   </div>
                   <div className="reviewer-info">
                     <h4>Radhika Singh</h4>
-                    <span>CEO Founder</span>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>
@@ -88,14 +88,14 @@ function Testimonial1() {
                 <div className="reviewer">
                   <div className="thumb">
                     <img
-                      src="assets/images/testimonial/testimonial-2.jpg"
+                      src="assets/images/testimonial/testiminial-2.jpg"
                       alt=""
                     />
                     <i className="fas fa-quote-left" />
                   </div>
                   <div className="reviewer-info">
                     <h4>Arpan Patel</h4>
-                    <span>CO Founder</span>
+                    <span>Client</span>
                   </div>
                 </div>
                 <p>

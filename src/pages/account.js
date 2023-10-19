@@ -62,6 +62,12 @@ function Accountpage() {
                     params: { uid: auth.currentUser.uid },
                   })
                   .then((review_score) => {
+                    let review_sc = Number.parseInt(
+                      review_score.data.review_score
+                    )
+                    if(!review_sc){
+                      review_sc=0
+                    }
                     axios
                       .post("http://localhost:5000/get-review-worker", {
                         uid: auth.currentUser.uid,
@@ -75,6 +81,9 @@ function Accountpage() {
                           sum = sum + Number(data[i].rating);
                         }
                         avg = sum / data.length;
+                        if(isNaN(avg)){
+                          avg=0;
+                        }
                         console.log(avg)
                         axios
                           .post("http://localhost:5000/set-avg-review-worker", {
@@ -82,7 +91,7 @@ function Accountpage() {
                             rate: avg,
                           })
                           .then((res) => {
-                            console.log(res)
+                            console.log(userdata)
                             axios
                               .post("http://localhost:5000/setworkeractive", {
                                 uid: auth.currentUser.uid,
@@ -97,11 +106,10 @@ function Accountpage() {
                                 title: userdata.service,
                                 price: avgPrice,
                                 no_works: Number.parseInt(countwork),
-                                review_score: Number.parseInt(
-                                  review_score.data.review_score
-                                ),
+                                review_score: review_sc,
                                 enabled: true,
                                 rating: avgrate,
+                                location:userdata.city.toLowerCase()
                               })
                               .catch((error) => {
                                 checkBox.checked = false;
@@ -202,7 +210,7 @@ function Accountpage() {
           })
           .catch((error) => {
             console.log(error);
-            if (error.response.status == 404) {
+            if (error && error.response && error.response.status == 404) {
               window.location = "/login-google-required";
             } else {
               window.alert(error.message);

@@ -117,8 +117,9 @@ print(df_review_imp)
 
 uid_counts = df_workd['uid'].value_counts().reset_index()
 df_uid_counts = pd.DataFrame(uid_counts)
-df_uid_counts = df_uid_counts.rename(columns={'uid':'no_of_works'})
-df_uid_counts = df_uid_counts.rename(columns={'index':'uid'})
+
+df_uid_counts.columns = ['uid', 'no_of_works']
+# print(df_uid_counts)
 
 
 df_imp = pd.merge(df_service, df_review_imp, left_on='uid', right_on='uid', how='left')
@@ -171,7 +172,7 @@ with open('predicted_data.json', 'w') as json_file:
     
 
 print(f"Mean Squared Error: {mse:.2f}")
-print(f"R squared error:{r2:.2f}")
+# print(f"R squared error:{r2:.2f}")
 
 
 import joblib

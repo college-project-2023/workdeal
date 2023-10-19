@@ -117,11 +117,14 @@ print(df_review_imp)
 
 uid_counts = df_workd['uid'].value_counts().reset_index()
 df_uid_counts = pd.DataFrame(uid_counts)
+
 df_uid_counts.columns = ['uid', 'no_of_works']
 # print(df_uid_counts)
 
 
 df_imp = pd.merge(df_service, df_review_imp, left_on='uid', right_on='uid', how='left')
+
+print(df_uid_counts.head())
 df_imp = pd.merge(df_imp, df_uid_counts, left_on='uid', right_on='uid', how='left')
 
 
@@ -174,5 +177,5 @@ print(f"Mean Squared Error: {mse:.2f}")
 
 import joblib
 
-joblib.dump(customModel, 'rating_prediction_model.pkl')
+joblib.dump(customModel, 'backend/pymodel/rating_prediction_model.pkl')
 

@@ -156,21 +156,22 @@ app.post("/checkworkeractive", (req, res) => {
   workeractive.collection.findOne(
     { uid: req.body.uid },
     async function (error, data) {
-      if (data.enabled) {
-        res.send("online");
-      } else {
-        res.send("offline");
-      }
       if (error) {
         console.log(error);
       }
+      if (data && data.enabled) {
+        res.send("online");
+      } else  {
+        res.send("offline");
+      }
+      
     }
   );
 });
 
 app.post("/setworkeractive", (req, res) => {
   const workeractive = new servicesModel(req.body);
-  console.log(req.body.uid);
+  console.log(req.body.location);
   workeractive.collection
     .findOneAndUpdate(
       { uid: req.body.uid },
@@ -178,11 +179,23 @@ app.post("/setworkeractive", (req, res) => {
         $set: {
           no_works: req.body.no_works,
           enabled: true,
+          location:req.body.location
         },
       }
     )
     .then((r) => {
-      res.send("done");
+      console.log(r)
+      if(r.value){
+        res.send("done");
+      }else{
+        try {
+          workeractive.save();
+          res.send("done");
+        } catch (error) {
+          console.log(error);
+          res.status(500).send(error);
+        }
+      }
     })
     .catch(async (err) => {
       console.log(err);
@@ -245,7 +258,7 @@ app.get("/data", (req, res) => {
 
     execution_str = [
       "python",
-      "c:/Users/Sagar.Mulani/Dev/Python/model.py",
+      "pymodel/model.py",
       filter.tag,
       filter.price,
       filter.location,

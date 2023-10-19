@@ -28,6 +28,7 @@ df_store = pd.DataFrame(data)
 df = pd.DataFrame(data)
 
 df = pd.DataFrame(df,columns=['no_works','review_score','rating'])
+df=df.fillna(0)
 
 
 

@@ -30,7 +30,8 @@ function ServiceDetailsPage() {
   const [authentication, setAuthentication] = useState();
   const [orderPlaced, setOrderPlaced] = useState(false);
   const { serviceName } = useContext(MyContext);
-
+  // console.log("service name: " + serviceName.author_thumb);
+  // console.log(serviceName.uid)
   // useEffect(() => {
   //   const orderNowContainer = document.getElementById('orderNowContainer');
   //   const orderNowComponent = new OrderNow();
@@ -97,7 +98,7 @@ function ServiceDetailsPage() {
         uid: serviceName.uid,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         var data = res.data;
         setReviews(data);
         var avg = 0,

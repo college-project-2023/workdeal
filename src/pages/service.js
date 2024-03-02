@@ -10,7 +10,7 @@ import { Dialog } from "@mui/material";
 function Servicepage() {
   var gettingdata=true;
   const filters = useRef({
-    location: "",
+    location: "surat",
     category: "",
     pricerange: "",
     rating: "",
@@ -31,11 +31,13 @@ function Servicepage() {
             price: filters.current.pricerange,
             rating: filters.current.rating,
           },
+          
         })
         .then((res) => {
           gettingdata=false;
           setServicedata(res.data);
           setLoadingOff();
+          console.log(res);
           console.log(res.data);
         });
     } catch (error) {
@@ -43,6 +45,7 @@ function Servicepage() {
       setLoadingOff();
     }
   };
+  console.log(filters.current.category);
 
   function onSendpage(send) {
     filters.current = send;
@@ -109,17 +112,17 @@ function Servicepage() {
                         <img
                           onClick={() =>
                             handleServiceClick({
-                              uid: item.uid,
-                              service: item.title,
-                              thumb: item.thumb,
-                              name: item.author_name,
-                              price: item.price,
-                              author_thumb: item.author_thumb,
-                              tag: item.tag,
+                              uid: item[13],
+                              service: item[10],
+                              thumb: item[11],
+                              name: item[2],
+                              price: item[7],
+                              author_thumb: item[3],
+                              tag: item[9],
                             })
                           }
                           src={
-                            "assets/images/cre-service/" + item.title + ".jpg"
+                            "assets/images/cre-service/" +  item[12] + ".jpg"
                           }
                           alt=""
                         />
@@ -132,47 +135,47 @@ function Servicepage() {
                         <a
                           onClick={() =>
                             handleServiceClick({
-                              uid: item.uid,
-                              service: item.title,
-                              thumb: item.thumb,
-                              name: item.author_name,
-                              price: item.price,
-                              author_thumb: item.author_thumb,
-                              tag: item.tag,
+                              uid: item[13],
+                              service: item[10],
+                              thumb: item[11],
+                              name: item[2],
+                              price: item[7],
+                              author_thumb: item[3],
+                              tag: item[10],
                             })
                           }
                         >
-                          {item.tag}
+                          {item[10]}
                         </a>
                       </Link>
                       <strong className="strong1">
                         <i
                           className={
-                            item.rating >= 1 ? "bi bi-star-fill" : "bi bi-star"
+                            item[8] >= 1 ? "bi bi-star-fill" : "bi bi-star"
                           }
                         />
                         <i
                           className={
-                            item.rating >= 2 ? "bi bi-star-fill" : "bi bi-star"
+                            item[8] >= 2 ? "bi bi-star-fill" : "bi bi-star"
                           }
                         />
                         <i
                           className={
-                            item.rating >= 3 ? "bi bi-star-fill" : "bi bi-star"
+                            item[8]>= 3 ? "bi bi-star-fill" : "bi bi-star"
                           }
                         />
                         <i
                           className={
-                            item.rating >= 4 ? "bi bi-star-fill" : "bi bi-star"
+                            item[8] >= 4 ? "bi bi-star-fill" : "bi bi-star"
                           }
                         />
                         <i
                           className={
-                            item.rating >= 5 ? "bi bi-star-fill" : "bi bi-star"
+                            item[8] >= 5 ? "bi bi-star-fill" : "bi bi-star"
                           }
                         />
                         <b className="b1">
-                          ({item.rating ? item.rating : "0"}/5)
+                          ({ item[8] ?  item[8] : "0"}/5)
                         </b>
                       </strong>
                     </div>
@@ -182,15 +185,15 @@ function Servicepage() {
                       <div className="author-thumb">
                         <img
                           src={
-                            item.author_thumb
-                              ? item.author_thumb
+                            item[3]
+                              ? item[3]
                               : "assets/images/acc.png"
                           }
                           alt=""
                         />
                       </div>
                       <div className="author-content">
-                        <span>{item.author_name}</span>
+                        <span>{item[2]}</span>
                       </div>
                     </div>
                     <div className="started">
@@ -198,13 +201,13 @@ function Servicepage() {
                         <a
                           onClick={() =>
                             handleServiceClick({
-                              uid: item.uid,
-                              service: item.title,
-                              thumb: item.thumb,
-                              name: item.author_name,
-                              price: item.price,
-                              author_thumb: item.author_thumb,
-                              tag: item.tag,
+                              uid: item[13],
+                              service: item[10],
+                              thumb: item[11],
+                              name: item[2],
+                              price: item[7],
+                              author_thumb: item[3],
+                              tag: item[10],
                             })
                           }
                         >
@@ -216,7 +219,7 @@ function Servicepage() {
                       </Link>
                       <span>
                         <small>RS</small>
-                        {item.price}
+                        {item[7]}
                       </span>
                     </div>
                   </div>

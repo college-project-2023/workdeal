@@ -1,18 +1,16 @@
+
+
+from textblob import TextBlob
 import sys
-import spacy
 
-nlp = spacy.load("en_core_web_sm")
+def calculate_sentiment_score(te):
+    blob = TextBlob(te)
+    sentiment_score = blob.sentiment.polarity
 
-text = sys.argv[1]
-
-def calculate_sentiment_score(text):
-    doc = nlp(text)
-    sentiment_polarity = sum([token.sentiment.polarity for token in doc]) / len(doc)
-    sentiment_score = (sentiment_polarity + 1) * 5
+    # Normalize sentiment score to be between 1 and 10
+    sentiment_score = (sentiment_score + 1) * 5
     sentiment_score = max(1, min(sentiment_score, 10))
 
     return sentiment_score
 
-score = calculate_sentiment_score(text)
 
-print(score)

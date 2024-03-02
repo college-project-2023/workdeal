@@ -88,7 +88,7 @@ function Accountpage() {
                         axios
                           .post("http://localhost:5000/set-avg-review-worker", {
                             uid: auth.currentUser.uid,
-                            rate: avg,
+                            rate: isNaN(avg) ? 0 : avg,
                           })
                           .then((res) => {
                             console.log(userdata)
@@ -145,6 +145,7 @@ function Accountpage() {
           .then((res) => {
             if (res.data == "success") {
               checkBox.checked = false;
+             
             }
           })
           .catch((error) => {

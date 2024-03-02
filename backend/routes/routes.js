@@ -18,13 +18,14 @@ const { spawn,signal } = require("child_process");
 const { exec } = require("node:child_process");
 const { stringify } = require("querystring");
 const { default: axios } = require("axios");
-const { kill } = require("process");
+const { kill, title } = require("process");
 
 var loggedin = false;
 
 app.get("/get-review-score", async (req, res) => {
   exec(
-    "python pymodel/sentiment.py " + req.query.text,
+    "python pymodel/sentiment.py " +
+    req.query.text,
     (error, stdout, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
@@ -231,44 +232,59 @@ app.post("/setworkeroffline", (req, res) => {
 app.get("/data", (req, res) => {
   try {
     const { tag, location, price, rating } = req.query;
-    console.log(price);
-    var filter = {};
-    if (tag != "") {
-      filter.tag = tag.toLowerCase();
-    } else {
-      filter.tag = 0;
-    }
-    if (location) {
-      filter.location = location;
-    } else {
-      filter.location = 0;
-    }
-    if (price) {
-      filter.price = price;
-    } else {
-      filter.price = 0;
-    }
-    if (rating) {
-      filter.rating = rating;
-    } else {
-      filter.rating = 0;
-    }
+console.log(price);
+
+// Create an empty filter object
+const filter = {};
+
+// Apply filtering based on user-selected values
+if (tag !== "") {
+  filter.tag = tag;
+} else {
+  filter.tag = 0; // or any default value suitable for your database schema
+}
+
+if (location) {
+  filter.location = location;
+} 
+else{
+  filter.location = 0;
+}
+
+if (price) {
+  filter.price = price;
+} else {
+  filter.price = 0;
+}
+
+if (rating) {
+  filter.rating = rating;
+} else {
+  filter.rating = 0;
+}
+
+// Now you can use this 'filter' object to filter your database
+// Example:
+// db.collection.find(filter)
+
     filter.enabled = true;
     console.log(filter)
-
-    execution_str = [
+    const execution_str = [
       "python",
       "pymodel/model.py",
       filter.tag,
       filter.price,
       filter.location,
       filter.rating,
+      
     ];
+    // console.log(execution_str)
     const command = spawn(execution_str[0], execution_str.slice(1));
-    
     let responseData = ''; 
+
     command.stdout.on("data", (data) => {
-      responseData = data.toString(); 
+      responseData += data.toString(); 
+      console.log(`stdout: ${data}`);
     });
 
     command.stderr.on("data", (data) => {
@@ -276,20 +292,27 @@ app.get("/data", (req, res) => {
     });
   
     command.on("close", (code) => {
-      command.kill(code)
       console.log(`child process exited with code ${code}`);
-      const csvData = responseData.trim();
-      const lines = csvData.split("\n");
-      const header = lines[0].split(",");
-      const finaldata = lines.slice(1).map((line) => {
-        const values = line.split(",");
-        const cleanedValues = values.map((value) => value.trim());
-        return header.reduce((obj, key, index) => {
-          obj[key.trim()] = cleanedValues[index];
-          return obj;
-        }, {});
-      });
-      res.json(finaldata)
+      if (code === 0) {
+        const csvData = responseData.trim();
+        
+        const lines = csvData.split("\n");
+        // const header = lines[0].split(",");
+        // console.log("header data");
+        // console.log(header);
+        const finaldata = lines.slice(1).map((line) => {
+          const values = line.split(",");
+          const cleanedValues = values.map((value) => value.trim());
+         
+          return cleanedValues;
+           
+          
+        });
+        res.json(finaldata);
+      } else {
+        console.error(`Error executing process`);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
     });
 
     command.on("error", (error) => {
@@ -302,6 +325,7 @@ app.get("/data", (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
+
 
 app.post("/create-user-worker", async (request, response) => {
   const signup = new userWorkerModel(request.body);

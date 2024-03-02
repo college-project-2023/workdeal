@@ -62,10 +62,11 @@ function Review(props) {
             <div className="stars">
               <form action="">
                 <input
-                  className="star star-5"
+                  className="star star-5 bi bi-star"
                   id="star-5"
-                  type="radio"
+                  // type="radio"
                   name="star"
+                  
                   onClick={() => {
                     setrating(5);
                   }}
@@ -83,7 +84,7 @@ function Review(props) {
                   }}
                 />
 
-                <label className="star star-4" for="star-4"></label>
+                <label className="star star-4" for="star-4"><i class="bi bi-star"></i></label>
 
                 <input
                   className="star star-3"
@@ -95,7 +96,7 @@ function Review(props) {
                   }}
                 />
 
-                <label className="star star-3" for="star-3"></label>
+                <label className="star star-3" for="star-3"><i class="bi bi-star"></i></label>
 
                 <input
                   className="star star-2"
@@ -107,7 +108,7 @@ function Review(props) {
                   }}
                 />
 
-                <label className="star star-2" for="star-2"></label>
+                <label className="star star-2" for="star-2"><i class="bi bi-star"></i></label>
 
                 <input
                   className="star star-1"
@@ -119,7 +120,7 @@ function Review(props) {
                   }}
                 />
 
-                <label className="star star-1" for="star-1"></label>
+                <label className="star star-1" for="star-1"><i class="bi bi-star"></i></label>
               </form>
             </div>
           </div>

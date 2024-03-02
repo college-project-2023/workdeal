@@ -160,12 +160,12 @@ function OrderClient() {
               done"
             </p>
           </center>
-          <div class="row">
+          <div class="row" >
             <div class="col-6">
-              <ToggleButton onClick={completeTheservice}>YES</ToggleButton>
+              <ToggleButton onClick={completeTheservice} style={{width:"60%" , borderColor:"green" , marginLeft:"40%" , marginBottom:"10%"}}>YES</ToggleButton>
             </div>
             <div class="col-6">
-              <ToggleButton onClick={close}>NO</ToggleButton>
+              <ToggleButton onClick={close} style={{width:"60%" , borderColor:"green" , marginTop:"0%", marginLeft:"0%"}}>NO</ToggleButton>
             </div>
           </div>
         </Dialog>

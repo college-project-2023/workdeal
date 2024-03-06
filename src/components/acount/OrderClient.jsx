@@ -9,6 +9,8 @@ import { connectStorageEmulator } from "firebase/storage";
 function OrderClient() {
   const [orders, setOrdersData] = useState([]);
   const [itemToComplete,setItemToComplete]=useState({})
+  const [payment, setPayment] = useState(false);
+  
 
   async function getOrders() {
     if (auth.currentUser) {
@@ -63,12 +65,30 @@ function OrderClient() {
         }
       });
   }
+  const [data , setData] = useState([]);
+  function isCompleted(id,uid,workid) {
+  //  console.log(workid);
+  //  console.log(uid)
+  
 
-  function isCompleted(id,uid) {
     setItemToComplete({id:id,uid:uid})
     setShowCompleted(true);
-  }
+    setPayment(true);
+    axios.get("http://localhost:5000/client", {
+      params: {
+        workId: workid,
+        clientId: uid
+      }
+    }).then((response) => {
+      setData(response.data);
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
 
+   
+  
+  }
+  console.log(data);
   async function completeTheservice() {
 
     await axios
@@ -107,7 +127,9 @@ function OrderClient() {
         console.log(err);
       });
   }
+ 
 
+  
   useEffect(() => {
     getOrders();
   }, []);
@@ -119,7 +141,7 @@ function OrderClient() {
 
   const [showCancel, setShowCancel] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
-
+  const completeThepayment= () => {}
   return (
     <div
       className="tab-pane fade"
@@ -148,6 +170,7 @@ function OrderClient() {
       {showCompleted && (
         <Dialog open={showCompleted} close={close}>
           <center>
+
             <DialogTitle>Completed?</DialogTitle>
             <p
               style={{
@@ -170,7 +193,13 @@ function OrderClient() {
           </div>
         </Dialog>
       )}
+       {payment && data.ptype=="online" && data.status=="online" &&
+        <Dialog open={payment} close={close}>
+         "please complete payment process"
+          <ToggleButton onClick={completeThepayment} >PAYMENT</ToggleButton>
+        </Dialog>
 
+       }
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>
@@ -219,7 +248,7 @@ function OrderClient() {
                               className="btn-current-task-cancel"
                               type="button"
                               onClick={() =>
-                                isCompleted(item._id,item.orderToUid)
+                                isCompleted(item._id,item.orderToUid,item.orderByUid)
                               }
                             >
                               completed?

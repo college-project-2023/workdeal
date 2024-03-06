@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require("fs");
+const paymentmodel = require("../models/payment");
 const servicesModel = require("../models/services");
 const userModel = require("../models/search");
 const userClientModel = require("../models/users/userdataclient");
@@ -653,6 +654,123 @@ app.get("/blog", async (req, res) => {
     .catch((error) => {
       res.send(error);
     });
+});
+
+
+app.post("/payment", async (req, res) => {
+  const { ptype, status, workId, clientId, price, description } = req.body;
+
+  try {
+    // Create an instance of the Payment model
+    const payment = new paymentmodel({
+      ptype: ptype,
+      status: status,
+      workId: workId,
+      clientId: clientId,
+      price:price,
+      description:description // Corrected the variable name to match the destructure
+    });
+
+    // Save the payment to the database
+    const savedPayment = await payment.save();
+
+    res.send(savedPayment);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.post("/update", async (req, res) => {
+  const { workId, clientId, ptype } = req.body;
+  // console.log(workId)
+  // console.log(clientId)
+
+  paymentmodel.findOneAndUpdate(
+    { workId: workId, clientId: clientId }, // Using both workId and clientId as conditions
+    {
+      $set: {
+        
+        ptype: ptype,
+        status: "done"
+      },
+    }
+  )
+    .then(() => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+app.post("/online", async (req, res) => {
+  const { workId, clientId, ptype } = req.body;
+  // console.log(workId)
+  // console.log(clientId)
+ 
+  paymentmodel.findOneAndUpdate(
+    { workId: workId, clientId: clientId , ptype:"pending.." }, // Using both workId and clientId as conditions
+    {
+      $set: {
+        
+        ptype: ptype,
+        status: "online"
+      },
+    }
+  )
+    .then(() => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+
+app.post("/price", async (req, res) => {
+  const { workId, clientId, description, price } = req.body;
+   console.log(workId)
+   console.log(clientId)
+   console.log(description)
+
+  paymentmodel.findOneAndUpdate(
+    { workId: workId, clientId: clientId , ptype:"online"}, // Using both workId and clientId as conditions
+    {
+      $set: {
+        
+        description: description,
+        price: price
+      },
+    }
+  )
+    .then(() => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+app.get("/client", async (req, res) => {
+  try {
+    console.log(req.query.workId)
+    console.log(req.query.clientId)
+    const data = await paymentmodel.find({
+      
+      clientId: req.query.clientId,
+      workId: req.query.workId,
+      status: "online",
+      ptype:"online"
+    });
+   
+    if (data) {
+      res.send(data);
+    } else {
+      res.send("0");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 module.exports = app;

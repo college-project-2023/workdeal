@@ -2,14 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { auth } from "../../firebase/firebase";
 import DialogLayout from "../common/DialogLayout";
+import { Dialog, DialogTitle,ToggleButton } from "@mui/material";
+import Reqform from "./Reqform";
+import { trusted } from "mongoose";
 
 function OrderWorker(props) {
   const [orders, setOrdersData] = useState([]);
 
   const [orderPending, setOrderPending] = useState(0);
   const [orderComplete, setOrderComplete] = useState(0);
-
+  const [paymentclick , setPaymentclick] = useState(false);
+  const [paymentMode, setPaymentMode] = useState("");
   const [currentTask, setCurrentTask] = useState();
+  const [paymentType, setPaymentType] = useState("payment");
+  const[req , setReq] = useState(false);
+
+ 
 
   function setOrderDataToDashboard() {
     let price = 0,
@@ -91,7 +99,70 @@ function OrderWorker(props) {
 
   const [showAccept, setShowAccept] = useState(false);
   const [showReject, setShowReject] = useState(false);
+  const handlePayment = async (item) => {
+    // console.log(item)
+    // console.log(item.orderByUid);
+    // console.log(item.orderToUid)
+    setPaymentMode("payment");
+    setPaymentclick(true);
 
+     await axios
+     .post('http://localhost:5000/payment/',{
+      ptype:"pending..",
+      status: "pending..",
+      workId: item.orderByUid,
+      clientId:item.orderToUid,
+      price: "0",
+      description:"pending"
+      
+    }).then(() => {}).catch(error => {
+      // Optional: Handle errors if the request fails
+      console.error('Error:', error);
+  });
+  };
+
+  const handlePaymentDone = async (item) => {
+    // Update the status of the order to "done"
+    // console.log(item.orderByUid);
+    // console.log(item.orderToUid);
+  
+    await axios.post('http://localhost:5000/update/',{
+        ptype: "offline",
+        workId: item.orderByUid,
+        clientId: item.orderToUid // Assuming this is clientId
+    }).then(() => {
+        setPaymentType("done");
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+};
+
+
+    // Perform any other necessary actions here
+
+    // Redirect or perform other actions as needed
+    // window.location.href = "/account";
+  
+
+
+   const handleonline = async (item) => {
+    await axios.post('http://localhost:5000/online/',{
+      ptype: "online",
+      workId: item.orderByUid,
+      clientId: item.orderToUid // Assuming this is clientId
+  }).then(() => {
+      setPaymentType("done");
+  }).catch(error => {
+      console.error('Error:', error);
+  });
+
+     setReq(true);
+     setPaymentType("online");
+   };
+
+  const closerequest = () => {
+    setReq(false);
+  }
   return (
     <div
       className="tab-pane fade"
@@ -113,6 +184,7 @@ function OrderWorker(props) {
           buttonText={"DONE"}
         />
       )}
+      
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>
@@ -167,12 +239,54 @@ function OrderWorker(props) {
                             </button>
                           </div>
                         ) : item.status == "working" ? (
+                          <div>
                           <button
                             className="btn-current-task-cancel"
                             type="button"
                           >
                             in progress
                           </button>
+                           <button className="btn-current-task" type="button" onClick={()=>handlePayment(item)}>
+                           {paymentType}
+                          </button>
+
+                          {paymentType == "payment" && (
+        <Dialog open={paymentclick} close={closerequest} style={{ width: "100%", height: "100%" }}>
+          <center>
+            <DialogTitle>select payment mode...</DialogTitle>
+
+            <ToggleButton
+              onClick={() => handlePaymentDone(item)}
+              style={{ width: "40%", borderColor: "green", marginLeft: "5%", marginBottom: "10%" }}
+            >
+              {" "}
+              offline{" "}
+            </ToggleButton>
+            <ToggleButton
+              onClick={() => handleonline(item)}
+              style={{ width: "40%", borderColor: "green", marginTop: "-10%", marginLeft: "4%" }}
+            >
+              {" "}
+              online{" "}
+            </ToggleButton>
+          </center>
+        </Dialog>
+        
+      )}
+      {paymentType === "online" && req &&
+         <Dialog open={req} onClose={closerequest}>
+         <DialogTitle>Please fill details for online payment req ... </DialogTitle>
+         <Reqform
+           
+           workId={item.orderByUid}
+           clientId={item.orderToUid}
+           price={item.amount}
+           workername={item.orderToName}
+           closeDialog={setReq}
+         />
+       </Dialog>
+      }
+                          </div>
                         ) : item.status == "completed" ? (
                           <button className="btn-current-task" type="button">
                             completed

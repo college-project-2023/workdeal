@@ -20,6 +20,7 @@
     "flask": "^0.2.10",
     "http-proxy-middleware": "^2.0.6",
     "mongoose": "^7.1.1",
-    "net": "^1.0.2"
+    "net": "^1.0.2",
+    "stripe": "^14.19.0"
   }
 }

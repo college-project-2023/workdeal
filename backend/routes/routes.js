@@ -5,6 +5,7 @@ const servicesModel = require("../models/services");
 const userModel = require("../models/search");
 const userClientModel = require("../models/users/userdataclient");
 const userWorkerModel = require("../models/users/userdataworker");
+const locationModel = require("../models/location");
 const OrderWorker = require("../models/orders/workers");
 const Review = require("../models/orders/review");
 const BlogData = require("../models/blog-data");
@@ -20,6 +21,7 @@ const { exec } = require("node:child_process");
 const { stringify } = require("querystring");
 const { default: axios } = require("axios");
 const { kill, title } = require("process");
+const stripe = require('stripe')('sk_test_51OrCeZSAHocqgcx771KeS0No8ILD5H3ba0KUqGP4PhbcXzNQEoP4f6UauapIwqbHGQLx6ONv78965sXps3TURez700KACnyUcb');
 
 var loggedin = false;
 
@@ -309,6 +311,8 @@ if (rating) {
            
           
         });
+        
+        
         res.json(finaldata);
       } else {
         console.error(`Error executing process`);
@@ -493,7 +497,7 @@ async function checkOrderplaced(req, res, next) {
       if (workers != null) {
         var go = false;
         for (var i = 0; i < workers.length; i++) {
-          if (workers[i].status != "completed") {
+          if (workers[i].status != "completed" && workers[i].status != "cancelled") {
             go = true;
             break;
           }
@@ -703,7 +707,7 @@ app.post("/update", async (req, res) => {
     });
 });
 app.post("/online", async (req, res) => {
-  const { workId, clientId, ptype } = req.body;
+  const { workId, clientId, status } = req.body;
   // console.log(workId)
   // console.log(clientId)
  
@@ -712,8 +716,8 @@ app.post("/online", async (req, res) => {
     {
       $set: {
         
-        ptype: ptype,
-        status: "online"
+        ptype: "online",
+        status: status
       },
     }
   )
@@ -725,7 +729,29 @@ app.post("/online", async (req, res) => {
     });
 });
 
-
+app.post("/done", async (req, res) => {
+  const { workId, clientId, status } = req.query;
+   console.log(workId)
+   console.log(clientId)
+   console.log(status)
+ 
+  paymentmodel.findOneAndUpdate(
+    { workId: workId, clientId: clientId , ptype:"online", status:"online" }, 
+    {
+      $set: {
+        
+       
+        status: status
+      },
+    }
+  )
+    .then(() => {
+      res.send("success");
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
 app.post("/price", async (req, res) => {
   const { workId, clientId, description, price } = req.body;
    console.log(workId)
@@ -733,7 +759,7 @@ app.post("/price", async (req, res) => {
    console.log(description)
 
   paymentmodel.findOneAndUpdate(
-    { workId: workId, clientId: clientId , ptype:"online"}, // Using both workId and clientId as conditions
+    { workId: workId, clientId: clientId , ptype:"online",price:"0"}, // Using both workId and clientId as conditions
     {
       $set: {
         
@@ -759,6 +785,30 @@ app.get("/client", async (req, res) => {
       clientId: req.query.clientId,
       workId: req.query.workId,
       status: "online",
+      ptype:"online",
+      
+    });
+   
+    if (data) {
+      res.send(data);
+    } else {
+      res.send("0");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app.get("/status", async (req, res) => {
+  try {
+    console.log(req.query.workId)
+    console.log(req.query.clientId)
+    const data = await paymentmodel.find({
+      
+      workId: req.query.workId,
+      
+      clientId: req.query.clientId,
+      status: "done",
       ptype:"online"
     });
    
@@ -770,6 +820,118 @@ app.get("/client", async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/bookstatus", async (req, res) => {
+  try {
+    const order = await OrderWorker.findOne({
+      // _id: req.body.id,
+      orderByUid: req.query.orderByUid
+      // Add other conditions if needed
+    });
+    
+    if (!order) {
+      return res.status(404).send("Order not found");
+    }
+
+    res.send(order);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// location tracking endpoints
+
+app.post("/location", async (req, res) => {
+  try {
+    const { latitude, longitude, clientid } = req.body;
+
+    const location = new locationModel({
+      latitude,
+      longitude,
+      clientid
+    });
+
+    await location.save();
+    res.send(location);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+app.get("/get-location",async (req, res) => {
+  try {
+    const location = await locationModel.find({
+      clientid: req.query.clientid
+    });
+    res.send(location);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+})
+  // console.log(workId)
+  // console.log(clientId)
+
+app.delete("/delete", async (req, res) => {
+  try{
+  const deletedUser = await locationModel.findOneAndDelete({ clientid:req.query.clientid });
+  if (!deletedUser) {
+    return res.status(404).json({ message: 'User not found' });
+}
+
+res.json({ message: 'User deleted successfully', deletedUser });
+} catch (error) {
+console.error(error);
+res.status(500).json({ message: 'Server Error' });
+}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// payment methods
+
+app.post('/create-checkout-session', async (req, res) => {
+  try {
+     const { price } = req.body; // Destructuring amount and currency from req.body
+  //   console.log(amount, currency);
+
+    const paymentIntent = await stripe.paymentIntents.create({
+       description: 'Software development services',
+shipping: {
+  name: 'Jenny Rosen',
+  address: {
+    line1: '510 Townsend St',
+    postal_code: '98140',
+    city: 'San Francisco',
+    state: 'CA',
+    country: 'US',
+  },
+},
+
+amount: price,
+currency: 'usd',
+    });
+    res.json({ client_secret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error('Error creating PaymentIntent:', error);
+    res.status(500).json({ error: 'Could not create PaymentIntent' });
   }
 });
 

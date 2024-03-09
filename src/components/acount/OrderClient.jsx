@@ -5,11 +5,23 @@ import { Dialog, DialogTitle,ToggleButton } from "@mui/material";
 import Review from "../review/review";
 import DialogLayout from "../common/DialogLayout";
 import { connectStorageEmulator } from "firebase/storage";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Payment from "./Payment";
+import { useRouter } from 'next/router';
+
 
 function OrderClient() {
+  const router = useRouter();
+  const { query } = router;
+  
+
+
+ const [status,setStatus] = useState();
   const [orders, setOrdersData] = useState([]);
   const [itemToComplete,setItemToComplete]=useState({})
   const [payment, setPayment] = useState(false);
+  const[Submit,setSubmit] = useState(false);
   
 
   async function getOrders() {
@@ -35,12 +47,12 @@ function OrderClient() {
         });
     }
   }
+  
   const [uid, setUid] = useState();
   const [clientUid, setClientUid] = useState();
   const [name, setName] = useState();
   const [workId, setWorkId] = useState();
   const [review_score, setReviewScore] = useState();
-
   function getCurrentComplete(id) {
     for (let i = 0; i < orders.length; i++) {
       if (orders[i]._id == id) {
@@ -52,8 +64,28 @@ function OrderClient() {
     }
     setOpenReview(true);
   }
+   console.log(query.longitude)
+ 
+console.log(auth.currentUser.uid)
+  useEffect(()=>{
+    if(query.latitude && query.longitude){
 
+    axios.post("http://localhost:5000/location", {
+     
+      longitude : query.longitude ,
+      latitude : query.latitude ,
+       clientid: auth.currentUser.uid
+      // workerid:,
+     
+    }).then((res)=>{
+      console.log(res.data);
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
+},[query.longitude,query.latitude])
   async function cancelTheService(id) {
+    setStatus("cancelled")
     await axios
       .post("http://localhost:5000/cancel-service", {
         _id: id,
@@ -66,31 +98,64 @@ function OrderClient() {
       });
   }
   const [data , setData] = useState([]);
-  function isCompleted(id,uid,workid) {
+  const [workname,setWorkname] = useState();
+  function isCompleted(id,uid,workid,name) {
   //  console.log(workid);
   //  console.log(uid)
   
-
+//  console.log(query)
     setItemToComplete({id:id,uid:uid})
+    setWorkname(name)
     setShowCompleted(true);
     setPayment(true);
-    axios.get("http://localhost:5000/client", {
-      params: {
-        workId: workid,
-        clientId: uid
+   
+      if (query && Object.keys(query).length > 0) {
+        // Query parameters are present
+        axios.post('http://localhost:5000/done/', {
+          params:{
+            workId: workid,
+          clientId: uid,
+          status: "done"
+          }
+        }).then(() => {
+          // Handle success if needed
+        }).catch(error => {
+          console.error('Error:', error);
+        });
+      } else {
+        // Query parameters are not present
+        axios.get("http://localhost:5000/client", {
+          params: {
+            workId: workid,
+            clientId: uid
+          }
+        }).then((response) => {
+          setData(response.data);
+        }).catch((error) => {
+          console.error('Error:', error);
+        });
       }
-    }).then((response) => {
-      setData(response.data);
-    }).catch((error) => {
-      console.error('Error:', error);
-    });
+    
 
    
   
   }
-  console.log(data);
+  //  console.log(data);
+   const ans = data.map((data) => {
+    return data.status;
+   })
+   const type = data.map((data) => {
+    return data.ptype;
+   })
+   const price = data.map((data) => {
+    return data.price;
+   })
+   const description = data.map((data) => {
+    return data.description;
+   })
+   
   async function completeTheservice() {
-
+ 
     await axios
       .post("http://localhost:5000/complete-service", {
         _id: itemToComplete.id,
@@ -141,7 +206,24 @@ function OrderClient() {
 
   const [showCancel, setShowCancel] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
-  const completeThepayment= () => {}
+  const handleSubmit = () => {
+    // Submit logic here, for example, you can make an API call to save the form data
+    // Show toast notification
+    toast.info(`Your payment request from ${workname} with price ${price} for ${description} has been submitted. Do you want to proceed with the payment?`, {
+      position: 'top-right',
+      autoClose: false, // Disable autoClose to keep the notification visible
+      onClose: () => {
+        // Handle user response
+        const proceed = window.confirm('Do you want to proceed with the payment?');
+        if (proceed) {
+          // Proceed with payment
+
+
+         setSubmit(true);
+      }
+    }
+    });
+  };
   return (
     <div
       className="tab-pane fade"
@@ -193,13 +275,20 @@ function OrderClient() {
           </div>
         </Dialog>
       )}
-       {payment && data.ptype=="online" && data.status=="online" &&
+       { type=="online" && ans=="online" &&
         <Dialog open={payment} close={close}>
          "please complete payment process"
-          <ToggleButton onClick={completeThepayment} >PAYMENT</ToggleButton>
+          <ToggleButton onClick={handleSubmit} >PAYMENT</ToggleButton>
         </Dialog>
 
        }
+      { Submit&&
+         <Dialog open={payment} close={close} style={{width:"100%"}}>
+          
+          <Payment price={price} description= {description} />
+        </Dialog>
+      }
+       
       <div className="all-order">
         <div className="order-head">
           <h3>All Order</h3>
@@ -215,6 +304,7 @@ function OrderClient() {
                 <th>Address</th>
                 <th>Status</th>
                 <th>Action</th>
+                <th>location</th>
               </tr>
             </thead>
             {/* every single data*/}
@@ -244,14 +334,14 @@ function OrderClient() {
                           </button>
                         ) : item.status == "working" ? (
                           <div>
-                            <button
+                            <button  
                               className="btn-current-task-cancel"
                               type="button"
                               onClick={() =>
-                                isCompleted(item._id,item.orderToUid,item.orderByUid)
+                                isCompleted(item._id,item.orderToUid,item.orderByUid,item.orderToName)
                               }
                             >
-                              completed?
+                             <a href="/account"> completed?</a>
                             </button>
                           </div>
                         ) : item.status == "completed" ? (
@@ -262,6 +352,7 @@ function OrderClient() {
                           <button
                             className="btn-current-task-cancel"
                             type="button"
+                        
                           >
                             cancelled
                           </button>

@@ -2,6 +2,9 @@ import Head from "next/head";
 import React from "react";
 import Footer2 from "../footer/Footer2";
 import Header2 from "../header/Header2";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Layout({ children }) {
   return (
@@ -23,6 +26,7 @@ function Layout({ children }) {
         />
       </Head>
       <Header2 />
+      <ToastContainer />
       {children}
       <Footer2 />
     </>

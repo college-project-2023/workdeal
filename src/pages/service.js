@@ -10,7 +10,7 @@ import { Dialog } from "@mui/material";
 function Servicepage() {
   var gettingdata=true;
   const filters = useRef({
-    location: "surat",
+    location: "",
     category: "",
     pricerange: "",
     rating: "",
@@ -100,6 +100,7 @@ function Servicepage() {
           <div className="row g-4">
             
             {serviceData.map((item,i) => (
+             
               <div
                 key={item._id}
                 style={{'overflow':'hidden'}}
@@ -201,6 +202,7 @@ function Servicepage() {
                         <a
                           onClick={() =>
                             handleServiceClick({
+                              
                               uid: item[13],
                               service: item[10],
                               thumb: item[11],

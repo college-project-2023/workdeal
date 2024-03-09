@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Dialog, DialogTitle } from "@mui/material";
 import { auth } from "../firebase/firebase";
+import { useRouter } from 'next/router';
+
 var LoginPage = undefined;
 var SignUpPage = undefined;
 var OrderNow = undefined;
@@ -41,8 +43,32 @@ function ServiceDetailsPage() {
   //     second
   //   }
   // }, [third])
-  
+  // const router = useRouter();
+  // const { query } = router;
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [error, setError] = useState(null);
+  function getlocation(){
 
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser");
+      return;
+    }
+
+    // Get the user's current position
+    const successHandler = (position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    };
+
+    const errorHandler = (error) => {
+      setError(error.message);
+    };
+
+    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
+
+    setShowOrderNow(true)
+  }
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
       if (user) {
@@ -60,6 +86,27 @@ function ServiceDetailsPage() {
       }
     });
   }, [serviceName, authentication]);
+
+  const [status , setStatus]=useState("");
+  
+  // useEffect(()=>{
+    
+  //   axios
+  //   .get("http://localhost:5000/bookstatus", {
+  //     params: {
+  //       orderByUid: auth.currentUser.uid,
+  //       // orderToUid: serviceName.uid
+  //     }
+  //   })
+  //   .then((res) => {
+  //     setStatus(res.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // })  
+  //  console.log(serviceName.uid)
+  // console.log(status)
 
   function checkOrderPlaced() {
     axios
@@ -174,6 +221,7 @@ function ServiceDetailsPage() {
               showdialog={setShowOrderNow}
               orderPlaced={setOrderPlaced}
               showOrder={setShowOrderPlaced}
+             
             />
           </Dialog>
         </div>
@@ -188,7 +236,9 @@ function ServiceDetailsPage() {
             },
           }}
         >
-          <OrderPlaced />
+          <OrderPlaced  latitude={latitude}
+              longitude={longitude}
+ />
         </Dialog>
       </div>
 
@@ -327,10 +377,10 @@ function ServiceDetailsPage() {
                       <Link legacyBehavior href="#">
                         <a
                           onClick={() => {
-                            orderPlaced ? "" : setShowOrderNow(true);
+                            orderPlaced ? "" : getlocation();
                           }}
                         >
-                          {orderPlaced ? "Service Booked" : "Book Now"}
+                          {orderPlaced===true  ? "Service Booked" : "Book Now"}
                         </a>
                       </Link>
                     </div>

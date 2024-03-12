@@ -7,6 +7,7 @@ function Testimonial1() {
     return {
       slidesPerView: 2,
       spaceBetween: 25,
+      autoplay: { delay: 3000 },
       loop: true,
       navigation: {
         nextEl: ".swiper-button-next-c",
@@ -28,7 +29,7 @@ function Testimonial1() {
         },
       },
     };
-  }, []);
+  }, [Autoplay]);
   return (
     <section className="testimonial">
       <div className="container">

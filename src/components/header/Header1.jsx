@@ -164,9 +164,9 @@ function Header1() {
           </div>
         </nav>
       </div>
-      <div className="header-right">
+      <div className="header-right mr-2">
         <div className="phone">
-          <div className="icon">
+          <div className="icon" >
             <img src="assets/images/icons/phone.svg" alt="" />
           </div>
           <div className="phn-info">
@@ -176,9 +176,9 @@ function Header1() {
         </div>
         <div className="wishlist">
           <Link legacyBehavior href="/account">
-            <a>
-              <i className="bi bi-suit-heart" />
-            </a>
+          {/* <img src="assets/images/circle-doublle-messages-svgrepo-com.svg" alt="" /> */}
+          <i class="bi bi-chat-heart" style={{color:"green" , fontSize:"30px"}}></i>
+
           </Link>
         </div>
         <div className="account-btn">

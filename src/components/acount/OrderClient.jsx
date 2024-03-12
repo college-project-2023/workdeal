@@ -100,8 +100,7 @@ console.log(auth.currentUser.uid)
   const [data , setData] = useState([]);
   const [workname,setWorkname] = useState();
   function isCompleted(id,uid,workid,name) {
-  //  console.log(workid);
-  //  console.log(uid)
+   
   
 //  console.log(query)
     setItemToComplete({id:id,uid:uid})
@@ -124,6 +123,10 @@ console.log(auth.currentUser.uid)
         });
       } else {
         // Query parameters are not present
+        console.log("workid")
+        console.log(workid);
+        console.log("clientid")
+         console.log(uid)
         axios.get("http://localhost:5000/client", {
           params: {
             workId: workid,

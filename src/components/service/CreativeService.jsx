@@ -30,6 +30,7 @@ function CreativeService() {
     return {
       slidesPerView: 6,
       spaceBetween: 25,
+      autoplay: { delay: 3000 }, // Autoplay configuration
       loop: true,
       navigation: {
         nextEl: ".swiper-button-next-c",
@@ -59,7 +60,7 @@ function CreativeService() {
         },
       },
     };
-  }, []);
+  }, [Autoplay]);
   return (
     <section id="category" className="creative-services sec-p-top">
       <div className="container">

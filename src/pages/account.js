@@ -419,13 +419,13 @@ function Accountpage() {
                       <div className="profile-logout">
                         <div>
                           <h4>Let's get to work?</h4>
-                          <label class="switch">
+                          <label className="switch">
                             <input
                               id="checkbox_worker_active"
                               type="checkbox"
                               onClick={handleWorkerActive}
                             />
-                            <span class="slider round"></span>
+                            <span className="slider round"></span>
                           </label>
                         </div>
                       </div>

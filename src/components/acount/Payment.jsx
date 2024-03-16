@@ -10,14 +10,19 @@ import {
 } from '@stripe/react-stripe-js';
 
 const CheckoutForm = (props) => {
+  
   const stripe = useStripe();
   const elements = useElements();
 
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      
+    }, 4000);
     if (elements == null) {
       return;
     }
@@ -49,6 +54,7 @@ console.log(clientSecret.client_secret);
       clientSecret:clientSecret.client_secret,
         confirmParams: {
           return_url: 'http://localhost:3000/sucess',
+          
         },
       });
 
@@ -66,10 +72,10 @@ console.log(clientSecret.client_secret);
 
   return (
     <form onSubmit={handleSubmit} style={{width:"500px",height:"400px"}}>
-       <h3 style={{justifyContent:"center", paddingLeft:"170px", paddingTop:"10px"}}>amount : ${props.price}</h3>
+       <h3 style={{justifyContent:"center", paddingLeft:"170px", paddingTop:"10px"}}>amount : Rs{props.price}</h3>
       <PaymentElement />
-      <button type="submit" disabled={!stripe || !elements} style={{width:"130px",height:"50px",backgroundColor:"green", marginTop:"30px", marginLeft:"170px", borderRadius:"30px"}}>
-        Pay
+      <button type="submit" disabled={!stripe || !elements || isLoading} style={{ width: "160px", height: "50px", backgroundColor: "green", marginTop: "30px", marginLeft: "170px", borderRadius: "30px", position: "relative" }}>
+        {isLoading ? <div style={{ position: "absolute", top: "50%", left: "50%",width:"160px", color:"white", transform: "translate(-50%, -50%)" }}><i class="fa fa-spinner fa-spin" style={{color:"white"}}></i>Loading...</div> : 'Pay'}
       </button>
       {/* Show error message to your customers */}
       {errorMessage && <div>{errorMessage}</div>}

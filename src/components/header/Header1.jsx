@@ -175,7 +175,7 @@ function Header1() {
           </div>
         </div>
         <div className="wishlist">
-          <Link legacyBehavior href="/account">
+          <Link legacyBehavior href="/chats">
           {/* <img src="assets/images/circle-doublle-messages-svgrepo-com.svg" alt="" /> */}
           <i class="bi bi-chat-heart" style={{color:"green" , fontSize:"30px"}}></i>
 

@@ -158,7 +158,7 @@ function Header2() {
           </div>
         </div>
         <div className="wishlist">
-          <Link legacyBehavior href="/account">
+          <Link legacyBehavior href="/chats">
             <a>
             <i class="bi bi-chat-heart" style={{color:"green" , fontSize:"30px"}}></i>
             </a>

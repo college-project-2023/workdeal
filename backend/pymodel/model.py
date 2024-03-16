@@ -18,7 +18,7 @@ location = sys.argv[3]
 rating = sys.argv[4]
 
 # 'location': location,
-query = { 'rating': rating, 'price': price, 'tag': category}  # Corrected parameter name to match Node.js query
+query = { 'rating': rating, 'price': price, 'category': category, 'location':location}  # Corrected parameter name to match Node.js query
 
 api_url = 'http://127.0.0.1:5002/data'  # Corrected API endpoint URL
 

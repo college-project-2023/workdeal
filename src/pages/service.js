@@ -18,6 +18,7 @@ function Servicepage() {
   const { serviceName, updateServiceName } = useContext(MyContext);
   const [serviceData, setServicedata] = useState([]);
   const previousFliter = useRef({});
+  const [category , setCategory] = useState("");
 
   const fetchData = async () => {
     setLoading(true);
@@ -60,6 +61,7 @@ function Servicepage() {
       previousFliter.current.location = filters.current.location;
       previousFliter.current.pricerange = filters.current.pricerange;
       previousFliter.current.rating = filters.current.rating;
+      setCategory(filters.current.category)
     }
   }
 
@@ -80,9 +82,9 @@ function Servicepage() {
   return (
     <Layout>
       <Dialog open={loading} onClose={setLoadingOff}>
-        <div class="container p-4">
+        <div className="container p-4">
           <center>
-            <div class="lds-ripple">
+            <div className="lds-ripple">
               <div></div>
               <div></div>
             </div>
@@ -100,12 +102,15 @@ function Servicepage() {
           <div className="row g-4">
             
             {serviceData.map((item,i) => (
-             
-              <div
+              
+           
+             <div
                 key={item._id}
                 style={{'overflow':'hidden'}}
                 className="col-md-6 col-lg-3 wow animate fadeInLeft"
               >
+                  
+                     
                 <div className="single-service layout-2">
                   <div className="thumb">
                     <Link legacyBehavior href="/service-details">
@@ -130,7 +135,7 @@ function Servicepage() {
                       </a>
                     </Link>
                     <div className="tag">
-                      <div class="col-12" >{i==0 &&<h5 class="col-8 recomend-tag ">Recomended</h5>}</div>
+                      <div className="col-12" >{i==0 &&<h5 className="col-8 recomend-tag ">Recomended</h5>}</div>
                         
                       <Link legacyBehavior href="/service-details">
                         <a
@@ -225,8 +230,14 @@ function Servicepage() {
                       </span>
                     </div>
                   </div>
-                </div>
               </div>
+
+              </div>
+            
+           
+           
+             
+           
             ))}
           </div>
         </div>

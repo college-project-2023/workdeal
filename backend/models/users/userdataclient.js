@@ -58,8 +58,11 @@ const UserClientSchema = new mongoose.Schema({
     required:true,
   }
 },{
-  collection:"users/client"
-});
+  collection:"users/client",
+   timestaps: true 
+}
+
+);
 
 const mydb = mongoose.connection.useDb('workdeal');
 const UserClient = mydb.model("UserClient", UserClientSchema);

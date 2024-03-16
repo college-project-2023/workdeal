@@ -3,6 +3,7 @@ const fs = require("fs");
 const paymentmodel = require("../models/payment");
 const servicesModel = require("../models/services");
 const userModel = require("../models/search");
+const ChatData = require("../models/ChatingModel");
 const userClientModel = require("../models/users/userdataclient");
 const userWorkerModel = require("../models/users/userdataworker");
 const locationModel = require("../models/location");
@@ -21,6 +22,7 @@ const { exec } = require("node:child_process");
 const { stringify } = require("querystring");
 const { default: axios } = require("axios");
 const { kill, title } = require("process");
+const { accessChat, fetchChats } = require("../Controller/chatControllers");
 const stripe = require('stripe')('sk_test_51OrCeZSAHocqgcx771KeS0No8ILD5H3ba0KUqGP4PhbcXzNQEoP4f6UauapIwqbHGQLx6ONv78965sXps3TURez700KACnyUcb');
 
 var loggedin = false;
@@ -233,18 +235,19 @@ app.post("/setworkeroffline", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
+  
   try {
     const { tag, location, price, rating } = req.query;
-console.log(price);
-
+// console.log(price);
+// console.log(tag, location, price, rating);
 // Create an empty filter object
 const filter = {};
 
 // Apply filtering based on user-selected values
-if (tag !== "") {
-  filter.tag = tag;
+if (tag) {
+  filter.catagory = tag;
 } else {
-  filter.tag = 0; // or any default value suitable for your database schema
+  filter.catagory = 0; // or any default value suitable for your database schema
 }
 
 if (location) {
@@ -265,7 +268,7 @@ if (rating) {
 } else {
   filter.rating = 0;
 }
-
+console.log(filter);
 // Now you can use this 'filter' object to filter your database
 // Example:
 // db.collection.find(filter)
@@ -275,7 +278,7 @@ if (rating) {
     const execution_str = [
       "python",
       "pymodel/model.py",
-      filter.tag,
+      filter.catagory,
       filter.price,
       filter.location,
       filter.rating,
@@ -284,12 +287,14 @@ if (rating) {
     // console.log(execution_str)
     const command = spawn(execution_str[0], execution_str.slice(1));
     let responseData = ''; 
-
+    
     command.stdout.on("data", (data) => {
       responseData += data.toString(); 
       console.log(`stdout: ${data}`);
     });
-
+    
+    console.log("Response Data: ");
+    console.log(responseData[10]);
     command.stderr.on("data", (data) => {
       console.error(`stderr: ${data}`);
     });
@@ -303,7 +308,9 @@ if (rating) {
         // const header = lines[0].split(",");
         // console.log("header data");
         // console.log(header);
+        console.log(lines);
         const finaldata = lines.slice(1).map((line) => {
+
           const values = line.split(",");
           const cleanedValues = values.map((value) => value.trim());
          
@@ -730,12 +737,12 @@ app.post("/online", async (req, res) => {
 });
 
 app.post("/done", async (req, res) => {
-  const { workId, clientId, status } = req.query;
+  const { workId, clientId, status } = req.body;
    console.log(workId)
    console.log(clientId)
    console.log(status)
- 
-  paymentmodel.findOneAndUpdate(
+   
+  const a = paymentmodel.findOneAndUpdate(
     { workId: workId, clientId: clientId , ptype:"online", status:"online" }, 
     {
       $set: {
@@ -746,7 +753,7 @@ app.post("/done", async (req, res) => {
     }
   )
     .then(() => {
-      res.send("success");
+      res.send(a);
     })
     .catch((error) => {
       res.send(error);
@@ -754,9 +761,9 @@ app.post("/done", async (req, res) => {
 });
 app.post("/price", async (req, res) => {
   const { workId, clientId, description, price } = req.body;
-   console.log(workId)
-   console.log(clientId)
-   console.log(description)
+  //  console.log(workId)
+  //  console.log(clientId)
+  //  console.log(description)
 
   paymentmodel.findOneAndUpdate(
     { workId: workId, clientId: clientId , ptype:"online",price:"0"}, // Using both workId and clientId as conditions
@@ -778,8 +785,8 @@ app.post("/price", async (req, res) => {
 
 app.get("/client", async (req, res) => {
   try {
-    console.log(req.query.workId)
-    console.log(req.query.clientId)
+    // console.log(req.query.workId)
+    // console.log(req.query.clientId)
     const data = await paymentmodel.find({
       
       clientId: req.query.clientId,
@@ -801,8 +808,8 @@ app.get("/client", async (req, res) => {
 });
 app.get("/status", async (req, res) => {
   try {
-    console.log(req.query.workId)
-    console.log(req.query.clientId)
+    // console.log(req.query.workId)
+    // console.log(req.query.clientId)
     const data = await paymentmodel.find({
       
       workId: req.query.workId,
@@ -934,5 +941,76 @@ currency: 'usd',
     res.status(500).json({ error: 'Could not create PaymentIntent' });
   }
 });
+
+
+
+
+
+
+
+
+//chat endpoint
+
+app.get('/allusers', async (req, res) => {
+  const searchQuery = req.query.search;
+ 
+  
+  const keyword = searchQuery
+    ? {
+        $or: [
+          { name: { $regex: searchQuery, $options: "i" } },
+          { email: { $regex: searchQuery, $options: "i" } }
+        ]
+      }
+    : {};
+
+  const users = await Promise.all([
+    userClientModel.find(keyword),
+    userWorkerModel.find(keyword)
+  ]);
+
+  // Merge the results from both collections
+  let mergedUsers = [].concat(...users);
+
+  // If the current user's ID is available, include it in the results
+  if (req.user_id) {
+    const currentUser = await userClientModel.findById(req.user_id);
+    if (currentUser) mergedUsers.push(currentUser);
+  }
+
+  res.send(mergedUsers);
+});
+
+app.post("/chat", async (req, res) => {
+  try {
+    const { senderid, receiverid, message } = req.body;
+
+    // Create a new chat instance
+    const chat = new ChatData({
+      participants: [senderid, receiverid],
+      messages: [{
+        sender: senderid,
+        recipient: receiverid,
+        message: message
+      }]
+    });
+
+    // Save the chat to the database
+    await chat.save();
+
+    res.status(201).json({ message: message });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to save chat" });
+  }
+});
+app.post("/access", accessChat, async (req, res) => {});
+
+app.get("/access" , fetchChats , async (req, res) => {});
+// router.route("/chat/group").post(protect, createGroupChat);
+// router.route("/chat/rename").put(protect, renameGroup);
+// router.route("/chat/groupremove").put(protect, removeFromGroup);
+// router.route("/chat/groupadd").put(protect, addToGroup);
+
 
 module.exports = app;

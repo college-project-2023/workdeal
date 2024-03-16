@@ -6,10 +6,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 function Layout({ children }) {
   return (
     <>
       <Head>
+        
         <title>Workdeal</title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge"></meta>
@@ -25,10 +27,14 @@ function Layout({ children }) {
           sizes="20x20"
         />
       </Head>
+      
       <Header2 />
       <ToastContainer />
       {children}
+     
       <Footer2 />
+      
+     
     </>
   );
 }

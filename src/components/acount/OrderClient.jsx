@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Payment from "./Payment";
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert';
 
 
 function OrderClient() {
@@ -110,6 +111,7 @@ console.log(auth.currentUser.uid)
    
       if (query && Object.keys(query).length > 0) {
         // Query parameters are present
+        console.log(workid, uid)
         axios.post('http://localhost:5000/done/', {
           params:{
             workId: workid,
@@ -212,21 +214,45 @@ console.log(auth.currentUser.uid)
   const handleSubmit = () => {
     // Submit logic here, for example, you can make an API call to save the form data
     // Show toast notification
-    toast.info(`Your payment request from ${workname} with price ${price} for ${description} has been submitted. Do you want to proceed with the payment?`, {
-      position: 'top-right',
-      autoClose: false, // Disable autoClose to keep the notification visible
-      onClose: () => {
-        // Handle user response
-        const proceed = window.confirm('Do you want to proceed with the payment?');
-        if (proceed) {
-          // Proceed with payment
-
-
-         setSubmit(true);
+    Swal({
+      title: 'Payment Confirmation',
+      text: `Your payment request from ${workname} with price ${price} for ${description} has been submitted. Do you want to proceed with the payment?`,
+      icon: 'warning',
+      showCancelButton: true,
+      showconfirmButton: true,
+      confirmButtonText: 'Yes, proceed with payment',
+      cancelButtonText: 'No, cancel',
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+    }).then((result) => {
+      if (!result.isConfirmed) {
+        // Proceed with payment
+        setSubmit(true);
+      } else {
+        // Handle cancellation
+        swal("cancle online request!", "please done your payment process....", {
+          icon : "error",
+          buttons: {
+            confirm: {
+              className : 'btn btn-danger'
+            }
+          },
+        }).then(() => {
+          window.location.href = '/account?status=cancle'
+        })
       }
-    }
     });
-  };
+    }
+    const closeno=()=>{
+      swal("!Feedback fosters growth, empowers improvement, builds trust, enhances communication, and ensures mutual understanding between workers and customers", {
+        buttons: false,
+        timer: 3000,
+      });
+      
+    }
+  
   return (
     <div
       className="tab-pane fade"
@@ -268,12 +294,12 @@ console.log(auth.currentUser.uid)
               done"
             </p>
           </center>
-          <div class="row" >
-            <div class="col-6">
+          <div className="row" >
+            <div className="col-6">
               <ToggleButton onClick={completeTheservice} style={{width:"60%" , borderColor:"green" , marginLeft:"40%" , marginBottom:"10%"}}>YES</ToggleButton>
             </div>
-            <div class="col-6">
-              <ToggleButton onClick={close} style={{width:"60%" , borderColor:"green" , marginTop:"0%", marginLeft:"0%"}}>NO</ToggleButton>
+            <div className="col-6">
+              <ToggleButton onClick={closeno} style={{width:"60%" , borderColor:"green" , marginTop:"0%", marginLeft:"0%"}}>NO</ToggleButton>
             </div>
           </div>
         </Dialog>
@@ -344,7 +370,7 @@ console.log(auth.currentUser.uid)
                                 isCompleted(item._id,item.orderToUid,item.orderByUid,item.orderToName)
                               }
                             >
-                             <a href="/account"> completed?</a>
+                            <a href="/account" > completed?</a> 
                             </button>
                           </div>
                         ) : item.status == "completed" ? (
